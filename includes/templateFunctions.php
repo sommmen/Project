@@ -15,10 +15,28 @@ class TemplateFunctions extends CmsBase{
     }
     function appOutput(){
     	$appname=(isset($_REQUEST['app']))?$_REQUEST['app']:'default'; 
-        require_once('applications/'.$appname.'/'.$appname.'.php');
-        $application = ucfirst($appname).'Application';
-        $app=new $application();
-        $app->run();
+    	
+    	$this->db->from('page');
+    	$this->db->where('ceo_friendly', $_GET['app']);
+    	$query = $this->db->get();
+    	
+		
+		if($this->db->num_rows() > 0){
+			$row = $this->db->row($query);
+			return $row->content;
+			
+		} else {
+			$applicationFile = 'applications/'.$appname.'/'.$appname.'.php';
+			if(file_exists($applicationFile)){
+		        require_once($applicationFile);
+		        $application = ucfirst($appname).'Application';
+		        $app=new $application();
+				$app->run();
+	        } else {
+		        $row = $this->db->singleResult("SELECT * FROM page WHERE ceo_friendly = '404'");
+				return $row->content;
+	        }
+	    }
     }
     
     function setTemplate($templateName){

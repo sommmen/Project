@@ -1,7 +1,7 @@
 <?php
 require_once('includes/cmsApplication.php');
 class TodolistApplication extends CmsApplication {
-	function addtodotask(){
+	function add(){
 		echo 'add todo';
 	}
 	
@@ -23,8 +23,8 @@ class TodolistApplication extends CmsApplication {
 	function display(){
 		$sql='INSERT into table_name VALUE(1,valb,valc)';
  
-		$db=$this->getDbo();
-		if($db->query($sql)){
+		
+		if($this->db->query($sql)){
 			echo'goe';
 		}else{
 			echo 'kut';
