@@ -20,12 +20,12 @@ require_once('../system/core.php');
     <meta name="robots" content="index, follow" />
 
 
-    <link rel="stylesheet" href="res/css/reset.css" />
-    <link rel="stylesheet" href="res/css/style.css" />
+    <link rel="stylesheet" href="/beheer/res/css/reset.css" />
+    <link rel="stylesheet" href="/beheer/res/css/style.css" />
 
-    <script src="res/js/modernizr.js"></script>
-    <script src="res/js/jquery.js"></script>
-    <script src="res/js/custom.jq.js"></script>
+    <script src="/beheer/res/js/modernizr.js"></script>
+    <script src="/beheer/res/js/jquery.js"></script>
+    <script src="/beheer/res/js/custom.jq.js"></script>
 </head>
 
 <body>
@@ -36,6 +36,10 @@ require_once('../system/core.php');
 </header>
 
 <section class="container">
+    <?php echo getMessage(); ?>
+</section>
+
+<section class="container">
 
     <?php
     if(logged_on()){
@@ -43,23 +47,39 @@ require_once('../system/core.php');
 
     <aside>
         <nav>
-            <ul><li><a href="#">Home</a></li>
-                <ul><li><a href="#">Home</a></li>
-                    <ul><li><a href="#">Home</a></li>
-                        <ul><li><a href="#">Home</a></li>
-                            <ul><li><a href="#">Home</a></li>
+            <ul>
+                <li><a href="/beheer/">Home</a></li>
+                <li><a href="/beheer/user/logout">Uitloggen</a></li>
+            </ul>
+
         </nav>
     </aside>
 
     <section class="content">
         <?php
-        echo 'welkom '. user_data('username');
+
+        if(@!urlSegment(1)){
+            $current_page = 'pages/dashboard/index';
+        }elseif(urlSegment(1) && !urlSegment(2)){
+            $current_page = 'pages/'.urlSegment(1).'/index';
+        }else{
+            $current_page = 'pages/'.urlSegment(1).'/'.urlSegment(2);
+        }
+
+        if(file_exists($current_page.'.php') && is_file($current_page.'.php')) {
+
+            require_once($current_page . '.php');
+
+        }else{
+            echo 404;
+        }
         ?>
+
     </section>
     <?php
     }else{
 
-        require_once('pages/login.php');
+        require_once('pages/user/login.php');
 
     } ?>
 </section>

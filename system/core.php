@@ -18,7 +18,7 @@ require_once('config.php');
         return $input;
     }
 
-    function urlSegment($int){
+    function urlSegment($int=''){
         $input = get('url');
         $input = explode('/', $input);
         $int--;
@@ -99,3 +99,15 @@ require_once('config.php');
 
         return $result->fetch_object()->$key;
     }
+
+function setMessage($message=''){
+    $_SESSION['message'] = $message;
+}
+
+function getMessage(){
+    if(isset($_SESSION['message'])){
+        $message = htmlspecialchars($_SESSION['message']);
+        unset($_SESSION['message']);
+        return '<div class="alert-message">'.$message.'</div>';
+    }
+}

@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
                 'role'  => $user->role,
                 'token' => $token
             );
-
+            setMessage('Welkom '.$user->username);
             redirect('/beheer/');
 
         }
