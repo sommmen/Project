@@ -63,5 +63,39 @@ require_once('config.php');
         }else{
             return $string;
         }
-        //echo $string;
 }
+
+
+    function redirect($to){
+        header('location: '.$to);
+    }
+
+    function logged_on(){
+        global $mysqli;
+        if(isset($_SESSION['user'])) {
+            $token = $_SESSION['user']['token'];
+            $username = $_SESSION['user']['name'];
+
+            $sql = "SELECT * FROM user WHERE username = '" . $username . "' AND token = '" . $token . "'";
+            $result = $mysqli->query($sql);
+            if ($result->num_rows != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
+
+    function user_data($key){
+        global $mysqli;
+        $token = $_SESSION['user']['token'];
+        $username = $_SESSION['user']['name'];
+
+        $sql = "SELECT * FROM user WHERE username = '" . $username . "' AND token = '" . $token . "'";
+        $result = $mysqli->query($sql);
+
+        return $result->fetch_object()->$key;
+    }
