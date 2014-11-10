@@ -107,7 +107,6 @@ if(!urlSegment(1)){
                     <h1><?php echo $pageTitle;?></h1>
                     <?php if($row->description){
                         echo '<h2>'.$row->description.'</h2>';
-                        echo 'Kevin is gay met Dion.';
                     }
                     ?>
                 </hgroup>
