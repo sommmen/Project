@@ -111,7 +111,7 @@ if(!urlSegment(1)){
                     ?>
                 </hgroup>
 
-                <?php echo $row->body; ?>
+                <?php echo (includeTags($row->body));?>
 
             <?php
             }else{

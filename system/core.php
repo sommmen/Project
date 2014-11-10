@@ -34,3 +34,24 @@ require_once('config.php');
             return false;
         }
     }
+    
+    function includeTags($string) {
+    preg_match('{{ [a-z]* }}', $string, $matches); //stopts alle matches in $matches
+    unset($matches[0]); //verwijderd $matches[0] want die bevat alle matches en die zijn niet nodig.
+    if (preg_match('{{ [a-z]* }}', $string) > 0) { //als er matches zijn dan:
+        for ($index = 0; $index < count($matches); $index++) { //kijkt of de huidige match in dit 'lijstje' voorkomt (sql?) zo ja, vervangt hij de $string.
+            switch ($matches[$index]) {
+                case "{{ footer }}":
+                    preg_replace($matches[$index], "require_once('system/footer.php');", $string);
+                    break;
+                case "{{ content }}":
+                    preg_replace($matches[$index], "require_once('system/content.php');", $string);
+                    break;
+                default:
+                    preg_replace($matches[$index], '<b style="color: red">Error, '.$matches[$index]." bestaat niet!", $string); //als er matches zijn die niet herkend worden, geef deze error weer.
+                    break;
+            }
+        }
+    }
+    return $string;
+}
