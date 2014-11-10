@@ -17,7 +17,6 @@ if(isset($_POST['submit'])){
 
             $_SESSION['user'] = array(
                 'name'  => $user->username,
-                'role'  => $user->role,
                 'token' => $token
             );
             setMessage('Welkom '.$user->username);

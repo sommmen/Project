@@ -48,7 +48,15 @@ require_once('../system/core.php');
     <aside>
         <nav>
             <ul>
-                <li><a href="/beheer/">Home</a></li>
+                <li><a href="/beheer/">Dashboard</a></li>
+                <?php if(user_data('role') == 3){ ?>
+                    <li><a href="/beheer/page">Pagina's</a></li>
+                    <li><a href="/beheer/projects">Projecten</a></li>
+                    <li><a href="/beheer/customers">Klanten</a></li>
+                    <li><a href="/beheer/settings">Instellingen</a></li>
+                <?php }elseif(user_data('role') == 2){ ?>
+                    <li><a href="/beheer/project">Project</a></li>
+                <?php } ?>
                 <li><a href="/beheer/user/logout">Uitloggen</a></li>
             </ul>
 
@@ -60,7 +68,7 @@ require_once('../system/core.php');
 
         if(@!urlSegment(1)){
             $current_page = 'pages/dashboard/index';
-        }elseif(urlSegment(1) && !urlSegment(2)){
+        }elseif(urlSegment(1) && @!urlSegment(2)){
             $current_page = 'pages/'.urlSegment(1).'/index';
         }else{
             $current_page = 'pages/'.urlSegment(1).'/'.urlSegment(2);

@@ -111,3 +111,8 @@ function getMessage(){
         return '<div class="alert-message">'.$message.'</div>';
     }
 }
+
+function minRole($int=null){
+    if(user_data('role') < $int)
+        redirect('/beheer/');
+}
