@@ -1,6 +1,13 @@
 
 
-<table><th>Titel</th><th>link</th><th>aangemaakt</th><th>laatst bewerkt</th><th>zichtbaar</th><th></th>
+<table>
+    <tr>
+        <th>Titel</th>
+        <th>link</th>
+        <th>Laatst bewerkt</th>
+        <th>zichtbaar</th>
+        <th>Acties</th>
+    </tr>
 <?php
 $query = "SELECT * FROM page";
 $result = $mysqli->query($query);
@@ -10,9 +17,21 @@ $result = $mysqli->query($query);
         } else {
             $published = "nee";
         }
-        //TODO dit even netjes weergeven, zoals het in een normaal html bestand ook moet.
-        //Je kan de html gwn zonder php maken, en dan elke keer <?php echo $page->var; doen, is overzichtelijker voor iedereen.
-    print("<tr><td>$page->title</td><td>$page->slug</td><td>$page->created</td><td>$page->last_modified</td><td>$published</td><td><a href=\"/beheer/page/edit/$page->id\">Edit</a>\<a href=\"/beheer/page/delete/$page->id\" onClick = \"return confirm('weet je het zeker? verwijderen is definitief')\">Delete</a></td></tr>");
+        //TODO als er geen pagina's zijn, dan moet er een melding worden gegeven dat er geen pagina's zijn.
+        ?>
+    <tr>
+        <td><?php echo $page->title;?></td>
+        <td><?php echo $page->slug;?></td>
+        <td><?php echo $page->last_modified;?></td>
+        <td><?php echo $published;?></td>
+        <td>
+            <a href="/beheer/page/edit/<?php echo $page->id;?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
+            <a href="/beheer/page/delete/<?php echo $page->id;?>" onClick="return confirm('Weet je zeker dat je deze pagina wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="edit"/></a>
+        </td>
+    </tr>
+    <?php
+    // dit is kut, en voor de rest moeilijk te begrijpen.
+    //print("<tr><td>$page->title</td><td>$page->slug</td><td>$page->created</td><td>$page->last_modified</td><td>$published</td><td><a href=\"/beheer/page/edit/$page->id\">Edit</a>\<a href=\"/beheer/page/delete/$page->id\" onClick = \"return confirm('weet je het zeker? verwijderen is definitief')\">Delete</a></td></tr>");
 }
 ?>
 </table>
