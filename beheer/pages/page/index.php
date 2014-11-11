@@ -1,0 +1,29 @@
+
+
+<table><th>Titel</th><th>link</th><th>aangemaakt</th><th>laatst bewerkt</th><th>zichtbaar</th><th></th>
+<?php
+$query = "SELECT * FROM page";
+$result = $mysqli->query($query);
+    while ($page = $result->fetch_object()) {
+        if($page->published == 1){
+            $published = "ja";
+        } else {
+            $published = "nee";
+        }
+    print("<tr><td>$page->title</td><td>$page->slug</td><td>$page->created</td><td>$page->last_modified</td><td>$published</td><td><a href=\"/beheer/page/edit/$page->id\">Edit</a>\<a href=\"/beheer/page/delete/$page->id\">Delete</a></td></tr>");
+}
+?>
+</table>
+<br>
+<h1>Nieuwe pagina</h1>
+<form action="index.php" method="post">
+    <label>Titel</label>
+    <input type="text" name="titel">
+    <input type="submit" name="submit" value="versturen">
+</form>
+
+<?php
+    if(isset($_POST[submit])){
+        
+    }
+?>
