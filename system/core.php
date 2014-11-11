@@ -116,3 +116,7 @@ function minRole($int=null){
     if(user_data('role') < $int)
         redirect('/beheer/');
 }
+
+function set_value($post, $default=''){
+    return $_POST[$post] ? post($post) : $default;
+}
