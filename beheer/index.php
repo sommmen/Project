@@ -22,9 +22,11 @@ require_once('../system/core.php');
 
     <link rel="stylesheet" href="/beheer/res/css/reset.css" />
     <link rel="stylesheet" href="/beheer/res/css/style.css" />
+    <link rel="stylesheet" href="/beheer/res/css/dropzone.css" />
 
     <script src="/beheer/res/js/modernizr.js"></script>
     <script src="/beheer/res/js/jquery.js"></script>
+    <script src="/beheer/res/js/dropzone.js"></script>
     <script src="/beheer/res/js/custom.jq.js"></script>
 </head>
 
@@ -51,6 +53,7 @@ require_once('../system/core.php');
                 <li><a href="/beheer/">Dashboard</a></li>
                 <?php if(user_data('role') == 3){ ?>
                     <li><a href="/beheer/page">Pagina's</a></li>
+                    <li><a href="/beheer/portfolio">Portfolio</a></li>
                     <li><a href="/beheer/projects">Projecten</a></li>
                     <li><a href="/beheer/customers">Klanten</a></li>
                     <li><a href="/beheer/settings">Instellingen</a></li>

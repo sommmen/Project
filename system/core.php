@@ -118,5 +118,5 @@ function minRole($int=null){
 }
 
 function set_value($post, $default=''){
-    return $_POST[$post] ? post($post) : $default;
+    return @$_POST[$post] ? post($post) : $default;
 }

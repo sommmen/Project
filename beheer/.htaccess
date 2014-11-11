@@ -4,7 +4,7 @@ php_value error_reporting 9999
 RewriteEngine On
 RewriteBase /beheer/
 
-RewriteCond $1 !^(index\.php|slice|robots\.txt)
+RewriteCond $1 !^(index\.php|ajax\.php|robots\.txt)
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
