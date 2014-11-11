@@ -10,7 +10,7 @@ $result = $mysqli->query($query);
         } else {
             $published = "nee";
         }
-    print("<tr><td>$page->title</td><td>$page->slug</td><td>$page->created</td><td>$page->last_modified</td><td>$published</td><td><a href=\"/beheer/page/edit/$page->id\">Edit</a>\<a href=\"/beheer/page/delete/$page->id\">Delete</a></td></tr>");
+    print("<tr><td>$page->title</td><td>$page->slug</td><td>$page->created</td><td>$page->last_modified</td><td>$published</td><td><a href=\"/beheer/page/edit/$page->id\">Edit</a>\<a href=\"/beheer/page/delete/$page->id\" onClick = \"return confirm('weet je het zeker? verwijderen is definitief')\">Delete</a></td></tr>");
 }
 ?>
 </table>
