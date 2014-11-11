@@ -16,14 +16,22 @@ $result = $mysqli->query($query);
 </table>
 <br>
 <h1>Nieuwe pagina</h1>
-<form action="index.php" method="post">
+<form action="" method="post">
     <label>Titel</label>
     <input type="text" name="titel">
     <input type="submit" name="submit" value="versturen">
 </form>
 
 <?php
-    if(isset($_POST[submit])){
-        
+    if(isset($_POST["submit"])){
+        if(!empty($_POST["titel"])){
+        $titel = post(titel);
+        $slug = urlencode(strtolower($titel));
+        $query = "INSERT INTO page (title, slug, published, in_nav) VALUES (\"$titel\",\"$slug\", 0, 0)";
+        if (!$mysqli->query($query)){
+             echo $mysqli->error;
+        }
+        } else {
+            echo "vul een titel in.";
+        }
     }
-?>
