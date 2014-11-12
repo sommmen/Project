@@ -64,6 +64,7 @@ if(isset($_POST['submit'])){
             echo $mysqli->error;
         }else {
             $project_id = $mysqli->insert_id;
+            setMessage('Het project is succesvol toegevoegd.');
             redirect('/beheer/projects/addPhotos/'.$project_id);
         }
 
