@@ -60,6 +60,7 @@ require_once('../system/core.php');
                 <?php }elseif(user_data('role') == 2){ ?>
                     <li><a href="/beheer/project">Project</a></li>
                 <?php } ?>
+                <li><a href="/"><?php echo getProp('site_name');?></a></li>
                 <li><a href="/beheer/user/logout">Uitloggen</a></li>
             </ul>
 

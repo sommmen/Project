@@ -43,6 +43,15 @@ if(!urlSegment(1)){
 
 <body>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
 <section id="top_image">
     <header>
         <section class="logo">
@@ -66,7 +75,6 @@ if(!urlSegment(1)){
 
                     echo '<li '.$active.'><a href="/'.$row->slug.'">'.$row->title.'</a></li>';
                 }
-
                 ?>
 
             </ul>
@@ -136,19 +144,20 @@ if(!urlSegment(1)){
                     <ul>
                         <li><a href="#">Privacy policy</a></li>
                         <li><a href="#">Disclaimer</a></li>
-                        <li><a href="#">Klanten</a></li>
+                        <li><a href="/beheer/">Klanten</a></li>
                     </ul>
                 </section>
 
                 <section class="col-4">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About me</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Costs</a></li>
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">Sound</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <?php
+                        $menuSQL = "SELECT * FROM page WHERE in_nav != 0";
+                        $result = $mysqli->query($menuSQL);
+                        while($row = $result->fetch_object()){
+
+                            echo '<li><a href="/'.$row->slug.'">'.$row->title.'</a></li>';
+                        }
+                        ?>
                     </ul>
                 </section>
 
@@ -160,18 +169,11 @@ if(!urlSegment(1)){
                 </section>
 
                 <section class="col-4">
-                    <div id="fb-root"></div>
-                    <script>(function(d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                         js = d.createElement(s); js.id = id;
-                         js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.0";
-                         fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
+
                     <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                     <br>
                     <a class="twitter-follow-button"
-                       accesskey=""href="https://twitter.com/twitterdev"
+                       accesskey=""href="https://twitter.com/formaestroke"
                        data-show-count="true"
                        data-lang="en">
                     Follow @twitterdev

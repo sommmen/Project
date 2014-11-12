@@ -1,0 +1,89 @@
+<?php
+function contact_form(){
+
+    if(isset($_POST["submit"])){
+        if(empty($_POST["name"]) ||
+            empty($_POST["email"]) ||
+            empty($_POST["subject"]) ||
+            empty($_POST["msg"])){
+            $error = 'U dient alle verplichte velden in te vullen.';
+        }else{
+            $to=getProp('admin_mail');
+            $subject = post('subject');
+            $headers =  "From: ".post('name')." <".post('email').">\r\n".
+                        "MIME-Version: 1.0" . "\r\n" .
+                        "Content-type: text/html; charset=UTF-8" . "\r\n";
+            $message = '
+            <p>
+            er is een mail gestuurd via de website.
+            </p>
+            <p>
+            <table border="1">
+            <tr>
+                <td>naam:</td><td>'.post('name').'</td>
+            </tr>
+            <tr>
+                <td>E-mail:</td><td>'.post('email').'</td>
+            </tr>
+            <tr>
+                <td>Telefoon:</td><td>'.post('tel').'</td>
+            </tr>
+            <tr>
+                <td>Adres:</td><td>'.post('address').'</td>
+            </tr>
+            <tr>
+                <td>Woonplaats:</td><td>'.post('woonplaats').'</td>
+            </tr>
+            <tr>
+                <td>Postcode:</td><td>'.post('postcode').'</td>
+            </tr>
+            </table>
+            </p>
+            <p>
+            '.post('msg').'
+            </p>
+            ';
+
+            mail($to, $subject, $message, $headers);
+            $success = '<section class="success">Uw bericht is verstuurd, er wordt zo spoedig mogelijk contact met u opgenomen.</section>';
+        }
+
+        $error = '<section class="error">'.$error.'</section>';
+
+    }
+    if(!$success) {
+        $form = $error.'
+    <form action="" method="post">
+        <label for="name">naam: <span>*</span></label>
+        <input type="text" name="name" id="name" value="' . set_value('name') . '"/>
+
+        <label for="email">E-mail: <span>*</span></label>
+        <input type="text" name="email" id="email" value="' . set_value('email') . '"/>
+
+        <label for="tel">Telefoon: </label>
+        <input type="text" name="tel" id="tel" value="' . set_value('tel') . '"/>
+
+        <label for="address">Adres: </label>
+        <input type="text" name="address" id="address" value="' . set_value('address') . '"/>
+
+        <label for="woonplaats">Woonplaats: </label>
+        <input type="text" name="woonplaats" id="woonplaats" value="' . set_value('woonplaats') . '"/>
+
+        <label for="postcode">Postcode: </label>
+        <input type="text" name="postcode" id="postcode" value="' . set_value('postcode') . '"/>
+
+        <label for="subject">Onderwerp: <span>*</span></label>
+        <input type="text" name="subject" id="subject" value="' . set_value('subject') . '"/>
+
+        <label for="msg">Bericht: <span>*</span></label>
+        <textarea name="msg" id="msg">' . set_value('msg') . '</textarea>
+        <br>
+        <br>
+        <input type="submit" name="submit" value="verzenden"/>
+    </form>
+    ';
+    }else{
+        $form = $success;
+    }
+    return $form;
+}

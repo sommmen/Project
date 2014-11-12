@@ -7,7 +7,7 @@
         <th>Acties</th>
     </tr>
 <?php
-$query = "SELECT * FROM project";
+$query = "SELECT * FROM project JOIN user ON user.id = project.uid";
 $result = $mysqli->query($query);
     while ($project = $result->fetch_object()) {
         //TODO de klantnaam laten weergeven dmv een join in de query?
@@ -15,7 +15,7 @@ $result = $mysqli->query($query);
         ?>
     <tr>
         <td><?php echo $project->title;?></td>
-        <td><?php echo $project->uid;?></td>
+        <td><a href="/beheer/customer/profile/<?php echo $project->id;?>"><?php echo $project->name.' '.$project->surname;?></a></td>
         <td><?php echo $project->created;?></td>
         <td>
             <a href="/beheer/project/edit/<?php echo $page->id;?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
