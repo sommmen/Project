@@ -18,17 +18,18 @@ function portfolio_albums(){
     global $mysqli;
 
     $portfolio = '<ul>';
-
-
-    $portfolio .= '
-    <li>
-        <figure>
-            <img src="#" alt="name"/>
-            <figcaption>Album naam</figcaption>
-        </figure>
-    </li>
-    ';
-
+    $result = ("SELECT * FROM portfolio");
+    
+    while($item = $result->fetch_object()){
+        $portfolio .= '
+        <li>
+            <figure>
+                <img src="#" alt="name"/>
+                <figcaption>'.$result["name"].'</figcaption>
+            </figure>
+        </li>
+        ';
+    }
     $portfolio .= '</ul>';
 
     return $portfolio;

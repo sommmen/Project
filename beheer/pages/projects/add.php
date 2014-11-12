@@ -1,4 +1,6 @@
 <?php
+minRole(3);
+
 if(isset($_POST['submit'])){
 
     if(empty($_POST['title'])){
@@ -16,13 +18,65 @@ if(isset($_POST['submit'])){
         }
     }
 
+    if(!isset($error)){
+        if($_POST['user_id'] == 0){
+            $username = post('name').'-'.post('surname');
+            $password = sha1(random_password());
+            $query = "INSERT INTO user (username,
+                                        password,
+                                        name,
+                                        surname,
+                                        address,
+                                        zipcode,
+                                        city,
+                                        email,
+                                        telephone,
+                                        role)
+                VALUES ('".$username."',
+                        '".$password."',
+                        '".post('name')."',
+                        '".post('surname')."',
+                        '".post('address')."',
+                        '".post('zipcode')."',
+                        '".post('city')."',
+                        '".post('email')."',
+                        '".post('telephone')."',
+                        '2')";
+
+            if($mysqli->query($query)) {
+                $user_id = $mysqli->insert_id;
+            }else{
+                $mysqli->error;
+            }
+
+        } else {
+            $user_id = post('user_id');
+        }
+
+        $query = "INSERT INTO project (title,
+                                       uid,
+                                       max)
+            VALUES ('".post('title')."',
+                    '".$user_id."',
+                    '".post('max')."')";
+
+        if(!$mysqli->query($query)){
+            echo $mysqli->error;
+        }else {
+            $project_id = $mysqli->insert_id;
+            redirect('/beheer/projects/addPhotos/'.$project_id);
+        }
+
+
+    }
+
 }
 
 echo @$error;
 
 ?>
-
-    <form action="" method="post" class="dropzone" id="my-awesome-dropzone">
+    <a href="/beheer/projects" class="button red">Terug naar overzicht</a>
+    <form action="" method="post">
 
         <input type="hidden" name="user_id" id="user_id" value="<?php echo set_value('user_id', '0');?>">
 

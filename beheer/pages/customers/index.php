@@ -1,11 +1,10 @@
-
-
+<?php
+minRole(3);
+?>
+<a href="/beheer/customers/add" class="button blue">Klant toevoegen</a>
 <table>
     <tr>
         <th>Naam</th>
-        <th>Adres</th>
-        <th>Postcode</th>
-        <th>Woonplaats</th>
         <th>Email</th>
         <th>Acties</th>
     </tr>
@@ -20,9 +19,6 @@ $result = $mysqli->query($query);
     while ($row = $result->fetch_object()) {
          echo '<tr>';
          echo '<td>'. $row->name.' '. $row->surname.'</td>';
-         echo '<td>'. $row->address.' </td>';
-         echo '<td>'. $row->zipcode.' </td>';
-         echo '<td>'. $row->city.' </td>';
          echo '<td>'. $row->email.' </td>';
          echo '<td> <a href="/beheer/customers/edit/'. $row->id .'"><img alt="edit" src="/beheer/res/img/pencil90.png"></a> | ';
          echo '<a href="/beheer/customers/delete/'. $row->id .'"><img alt="edit" src="/beheer/res/img/black393.png"></a></td>';

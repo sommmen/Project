@@ -1,3 +1,7 @@
+<?php
+minRole(3);
+?>
+<a href="/beheer/page/add" class="button blue">Pagina toevoegen</a>
 <table>
     <tr>
         <th>Titel</th>
@@ -7,7 +11,7 @@
         <th>Acties</th>
     </tr>
     <?php
-    $query = "SELECT * FROM page";
+    $query = "SELECT * FROM page ORDER BY id";
     $result = $mysqli->query($query);
     while ($page = $result->fetch_object()) {
         if ($page->published == 1) {
