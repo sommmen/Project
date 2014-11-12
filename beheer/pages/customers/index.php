@@ -18,12 +18,12 @@ $result = $mysqli->query($query);
          echo '<tr>';
          echo '<td>'. $row->name.' </td>'; 
          echo '<td>'. $row->surname.' </td>';
-         echo '<td>'. $row->adress.' </td>';
+         echo '<td>'. $row->address.' </td>';
          echo '<td>'. $row->zipcode.' </td>';
          echo '<td>'. $row->city.' </td>';
          echo '<td>'. $row->email.' </td>';
-         echo '<td> <a href="kbs.klanten.kevin889.nl/beheer/customers/edit/'. $row->uid .'">Edit</a></td>';
-         echo '<td> <a href="kbs.klanten.kevin889.nl/beheer/customers/delete/'. $row->uid .'">Edit</a></td>';
+         echo '<td> <a href="kbs.klanten.kevin889.nl/beheer/customers/edit/'. $row->id .'">Edit</a></td>';
+         echo '<td> <a href="kbs.klanten.kevin889.nl/beheer/customers/delete/'. $row->id .'">Delete</a></td>';
          echo '</tr>';
     }
 ?>
