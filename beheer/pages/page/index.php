@@ -7,7 +7,7 @@
         <th>Acties</th>
     </tr>
     <?php
-    $query = "SELECT * FROM page";
+    $query = "SELECT * FROM page ORDER BY id";
     $result = $mysqli->query($query);
     while ($page = $result->fetch_object()) {
         if ($page->published == 1) {
