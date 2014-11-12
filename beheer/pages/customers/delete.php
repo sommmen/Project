@@ -1,6 +1,6 @@
 <?php
     
-    minRol(3);
+    minRole(3);
     /**
      * @param Het klant ID
      * @return Geeft het project van de klant terug
@@ -10,7 +10,7 @@
     function getProject($id){
         global $mysqli;
         $result = $mysqli->query('SELECT title FROM project WHERE uid = '. $id. '');
-        if(!$result || $mysqli->numRows() < 1) return 404;
+        if(!$result || $result->num_rows < 1) return 40334;
         return $result;        
     }
     
@@ -31,7 +31,7 @@
     function getName($id){
         global $mysqli;
         if(isKlantId($id)){
-            return $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id. '');
+            return $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id. '')->fetch_object()->name;
         }
     }
     /**
@@ -41,7 +41,7 @@
     function isKlantId($id){
         global $mysqli;
         $result = $mysqli->query('SELECT id FROM user WHERE id = '. $id);
-        if(!$result || $mysqli->numRows() < 1) return false;
+        if(!$result || $result->num_rows < 1) return false;
         return true; 
     }
     /**
@@ -60,7 +60,7 @@
      */ 
     function removeUser($id, $clearData){
         global $mysqli;
-        if(!isKlantId($id)) return 404;
+        if(!isKlantId($id)) return 43334;
         $mysqli->query('DELETE FROM user WHERE id = '. $id);
         if($clearData){
             $mysqli->query('DELETE FROM photo WHERE pid = '. getProjectById($id));
