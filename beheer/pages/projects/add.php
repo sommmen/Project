@@ -22,7 +22,7 @@ echo @$error;
 
 ?>
 
-    <form action="" method="post">
+    <form action="" method="post" class="dropzone" id="my-awesome-dropzone">
 
         <input type="hidden" name="user_id" id="user_id" value="<?php echo set_value('user_id', '0');?>">
 
@@ -93,12 +93,8 @@ echo @$error;
         <input type="number" name="max" id="max" min="0" value="<?php echo set_value('max',0);?>">
 
         <br/><br/>
+        <div class="dropzone-previews"></div>
+        <br/><br/>
         <input type="submit" name="submit" value="Aanmaken"/>
     </form>
-
-
-<form action="upload.php" class="dropzone">
-
-</form>
-
 
