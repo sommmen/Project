@@ -1,6 +1,6 @@
 <?php
     
-    minRol(3);
+    minRole(3);
     /**
      * @param Het klant ID
      * @return Geeft het project van de klant terug
@@ -10,7 +10,7 @@
     function getProject($id){
         global $mysqli;
         $result = $mysqli->query('SELECT title FROM project WHERE uid = '. $id. '');
-        if(!$result || $mysqli->numRows() < 1) return 404;
+        if(!$result || $result->num_rows < 1) return 40334;
         return $result;        
     }
     
@@ -31,7 +31,7 @@
     function getName($id){
         global $mysqli;
         if(isKlantId($id)){
-            return $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id. '');
+            return $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id. '')->fetch_object()->name;
         }
     }
     /**
@@ -41,7 +41,7 @@
     function isKlantId($id){
         global $mysqli;
         $result = $mysqli->query('SELECT id FROM user WHERE id = '. $id);
-        if(!$result || $mysqli->numRows() < 1) return false;
+        if(!$result || $result->num_rows < 1) return false;
         return true; 
     }
     /**
@@ -58,11 +58,15 @@
      *  @param Het klant ID
      *  @return void
      */ 
-    function removeUser($id){
+    function removeUser($id, $clearData){
         global $mysqli;
-        $result = $mysqli->query('DELETE FROM user WHERE id = '. $id. '');
-        if(!$result || !isKlantId($id)) return 404;
-        return;    
+        if(!isKlantId($id)) return 43334;
+        $mysqli->query('DELETE FROM user WHERE id = '. $id);
+        if($clearData){
+            $mysqli->query('DELETE FROM photo WHERE pid = '. getProjectById($id));
+            $mysqli->query('DELETE FROM project WHERE uid = '.$id);
+        }
+        return; 
     }
     
     /**
@@ -79,9 +83,11 @@
     
     if(isset($_POST['delete_req'])){
         if(isset($_POST['saveData'])){
-            saveData(getProjectById($id));   
+            saveData(getProjectById($id)); 
+            removeUser($id, false);  
+        }else{
+            removeUser($id, true);
         }
-        removeUser($id);
     }
     
 ?>

@@ -1,4 +1,5 @@
 <?php
+minRole(3);
 
 $id = urlSegment(3);
 $query = "DELETE FROM pages WHERE id = $id";

@@ -1,0 +1,2 @@
+<?php
+minRole(3);

@@ -17,7 +17,22 @@ Als je iets met mysql wilt doen in een widget, moet je altijd "global $mysqli;" 
 function portfolio_albums(){
     global $mysqli;
 
-    return '<p>ja de widget = geladen (portfolio albums)</p>';
+    $portfolio = '<ul>';
+    $result = ("SELECT * FROM portfolio");
+    
+    while($item = $result->fetch_object()){
+        $portfolio .= '
+        <li>
+            <figure>
+                <img src="#" alt="name"/>
+                <figcaption>'.$result["name"].'</figcaption>
+            </figure>
+        </li>
+        ';
+    }
+    $portfolio .= '</ul>';
+
+    return $portfolio;
 
 }
 
