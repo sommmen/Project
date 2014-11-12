@@ -58,11 +58,15 @@
      *  @param Het klant ID
      *  @return void
      */ 
-    function removeUser($id){
+    function removeUser($id, $clearData){
         global $mysqli;
-        $result = $mysqli->query('DELETE FROM user WHERE id = '. $id. '');
-        if(!$result || !isKlantId($id)) return 404;
-        return;    
+        if(!isKlantId($id)) return 404;
+        $mysqli->query('DELETE FROM user WHERE id = '. $id);
+        if($clearData){
+            $mysqli->query('DELETE FROM photo WHERE pid = '. getProjectById($id));
+            $mysqli->query('DELETE FROM project WHERE uid = '.$id);
+        }
+        return; 
     }
     
     /**
@@ -79,9 +83,11 @@
     
     if(isset($_POST['delete_req'])){
         if(isset($_POST['saveData'])){
-            saveData(getProjectById($id));   
+            saveData(getProjectById($id)); 
+            removeUser($id, false);  
+        }else{
+            removeUser($id, true);
         }
-        removeUser($id);
     }
     
 ?>
