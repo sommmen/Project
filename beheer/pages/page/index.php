@@ -1,3 +1,7 @@
+<?php
+minRole(3);
+?>
+<a href="/beheer/page/add" class="button blue">Pagina toevoegen</a>
 <table>
     <tr>
         <th>Titel</th>

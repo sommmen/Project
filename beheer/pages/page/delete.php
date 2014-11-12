@@ -1,4 +1,5 @@
 <?php
+minRole(3);
 
 $id = get(); //nuja hoe je dan die /page/id pakt
 $query = "DELETE FROM pages WHERE id = $id";

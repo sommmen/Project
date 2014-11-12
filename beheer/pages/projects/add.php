@@ -64,7 +64,7 @@ if(isset($_POST['submit'])){
             echo $mysqli->error;
         }else {
             $project_id = $mysqli->insert_id;
-            redirect('/beheer/projects/view/'.$project_id);
+            redirect('/beheer/projects/addPhotos/'.$project_id);
         }
 
 
@@ -75,8 +75,8 @@ if(isset($_POST['submit'])){
 echo @$error;
 
 ?>
-
-    <form action="" method="post" class="dropzone" id="my-awesome-dropzone">
+    <a href="/beheer/projects" class="button red">Terug naar overzicht</a>
+    <form action="" method="post">
 
         <input type="hidden" name="user_id" id="user_id" value="<?php echo set_value('user_id', '0');?>">
 

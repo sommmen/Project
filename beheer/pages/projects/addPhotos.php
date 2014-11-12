@@ -24,9 +24,11 @@ if($result->num_rows == 0){
 $project = $result->fetch_object();
 
 ?>
+<a href="/beheer/projects/view/<?php echo $project->id;?>" class="button">Terug naar project</a>
+
+
 <h1>Foto's toevoegen aan project: <?php echo $project->title;?></h1>
+
 <form action="/beheer/projects/addPhotos/<?php echo urlSegment(3);?>" class="dropzone">
 </form>
-
-<a href="/beheer/projects/view/<?php echo $project->id;?>" class="button">Terug</a>
 

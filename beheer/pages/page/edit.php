@@ -1,4 +1,6 @@
 <?php
+minRole(3);
+
 $id = urlSegment(3);
 
 $query = "SELECT * FROM page WHERE id = $id LIMIT 1";

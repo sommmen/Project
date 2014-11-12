@@ -1,3 +1,6 @@
+<?php
+minRole(3);
+?>
 <script type="text/javascript">
     function getSlug(Text)
     {
@@ -14,7 +17,7 @@
     }
 </script>
 
-
+<a href="/beheer/page" class="button">Terug naar overzicht</a>
 <h1>Nieuwe pagina</h1>
 <form action="" method="post">
     <label>Titel</label>
