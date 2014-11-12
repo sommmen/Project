@@ -7,7 +7,7 @@
         <th>Acties</th>
     </tr>
 <?php
-$query = "SELECT * FROM project JOIN user ON user.id = project.uid";
+$query = "SELECT * FROM project JOIN user ON user.id = project.uid ORDER BY created DESC";
 $result = $mysqli->query($query);
     while ($project = $result->fetch_object()) {
         //TODO de klantnaam laten weergeven dmv een join in de query?

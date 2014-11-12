@@ -7,7 +7,7 @@ if(isset($_POST)){
         $attribute = post('attr');
         $value = post('val');
         if($value) {
-            $query = "SELECT * FROM user WHERE $attribute LIKE '%" . $value . "%'";
+            $query = "SELECT * FROM user WHERE $attribute LIKE '%" . $value . "%' AND role = 2";
             if ($result = $mysqli->query($query)) {
 
                 while ($user = $result->fetch_object()) {

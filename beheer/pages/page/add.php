@@ -39,14 +39,16 @@ if (isset($_POST["submit"])) {
         $titel = post('titel');
         $description = post('description');
         $body = post('body');
-        $slug = urlencode(strtolower($slug));
+        $slug = urlencode(strtolower(post('slug')));
 
         $query = "SELECT * FROM page WHERE slug = \"$slug\"";
-        $result = $mysqli->query();
-        if (!$mysqli->query($query)) {
+        $result = $mysqli->query($query);
+        if ($mysqli->query($query)->num_rows == 0) {
             $query = "INSERT INTO page (title, slug, published, in_nav, description, body) VALUES (\"$titel\",\"$slug\", 0, 0, \"$description\", \"$body\")";
             if (!$mysqli->query($query)) {
                 echo $mysqli->error;
+            }else{
+                redirect('/beheer/page');
             }
         } else {
             echo "vul een titel in.";
