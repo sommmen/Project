@@ -24,8 +24,8 @@ $result = $mysqli->query($query);
          echo '<td>'. $row->zipcode.' </td>';
          echo '<td>'. $row->city.' </td>';
          echo '<td>'. $row->email.' </td>';
-         echo '<td> <a href="kbs.klanten.kevin889.nl/beheer/customers/edit/'. $row->id .'"><img alt="edit" src="/beheer/res/img/pencil90.png"></a> | ';
-         echo '<a href="kbs.klanten.kevin889.nl/beheer/customers/delete/'. $row->id .'"><img alt="edit" src="/beheer/res/img/black393.png"></a></td>';
+         echo '<td> <a href="/beheer/customers/edit/'. $row->id .'"><img alt="edit" src="/beheer/res/img/pencil90.png"></a> | ';
+         echo '<a href="/beheer/customers/delete/'. $row->id .'"><img alt="edit" src="/beheer/res/img/black393.png"></a></td>';
          echo '</tr>';
     }
 ?>
