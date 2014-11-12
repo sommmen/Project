@@ -6,11 +6,10 @@
      * @return Geeft het project van de klant terug
      */
     $id = urlSegment(3);
-    $result = ""; 
     function getProject($id){
         global $mysqli;
-        $result = $mysqli->query('SELECT title FROM project WHERE uid = '. $id. '');
-        if(!$result || $mysqli->numRows() < 1) return 404;
+        $result = $mysqli->query('SELECT title FROM project WHERE uid = '. $id)->fetch_object()->title;
+        if(!$result || $result->num_rows() < 1) return 404;
         return $result;        
     }
     
@@ -21,17 +20,27 @@
     function getProjectById($id){
         global $mysqli;
         if(isKlantId($id)){
-            return $mysqli->query('SELECT id FROM project WHERE uid = '. $id);
+            return $mysqli->query('SELECT id FROM project WHERE uid = '. $id)->fetch_object()->id;
         }
     }
     /**
      *  @param Het klant ID
-     *  @return Naam en achternaam van de klant
+     *  @return Naam van de klant
      */ 
     function getName($id){
         global $mysqli;
         if(isKlantId($id)){
-            return $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id. '');
+            $result =  $mysqli->query('SELECT name FROM user WHERE id = '. $id)->fetch_object()->name;
+        }
+    }
+    /**
+     *  @param Het klant ID
+     *  @return Achternaam van de klant
+     */ 
+    function getSurName($id){
+        global $mysqli;
+        if(isKlantId($id)){
+            $result =  $mysqli->query('SELECT surname FROM user WHERE id = '. $id)->fetch_object()->surname;
         }
     }
     /**
@@ -40,8 +49,8 @@
      */ 
     function isKlantId($id){
         global $mysqli;
-        $result = $mysqli->query('SELECT id FROM user WHERE id = '. $id);
-        if(!$result || $mysqli->numRows() < 1) return false;
+        $result = $mysqli->query('SELECT id FROM user WHERE id = '. $id)->fetch_object()->id;
+        if(!$result || $result->num_rows() < 1) return false;
         return true; 
     }
     /**
@@ -50,7 +59,7 @@
      */
     function isProjectId($projectId){
         global $mysqli;
-        $result = $mysqli->query('SELECT id FROM project WHERE id = '. $projectId);
+        $result = $mysqli->query('SELECT id FROM project WHERE id = '. $projectId)->fetch_object()->id;
         if(!$result || $mysqli->numRows() < 1) return false;
         return true;
     }
@@ -93,10 +102,9 @@
 ?>
 
 <form method="POST" action="index.php">
-    Klant: <?php echo getName($id); ?><br />
+    Klant: <?php echo getName($id).' '; echo getSurName($id);  ?><br />
     Project: <?php echo getProject($id);?> <br />
     Ik wil deze data Archiveren <input type='checkbox' name='saveData'/><br />
     <input type="submit" name="delete_req" value="Verwijder"/><br />
-    <?php echo $result;?>
     
 </form>
