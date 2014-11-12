@@ -1,5 +1,8 @@
 <?php
-minRole(3);
+//TODO
+//testen
+//als je in_nav veranderd dat hij dan ook alles dynamisch doorvoert, eg. dat er niet dezelfde in_nav komt
+//kijken in welk formaat 'tijd' in de tabelstaat.
 
 $id = urlSegment(3);
 
@@ -24,7 +27,11 @@ if (isset(post('submit'))) {
     $body = post('body');
     $published = post('published');
     $in_nav = post('in_nav');
-    $time = $query = "UPDATE pagina SET title = $title,description = $description, slug = $slug, body = $body, published = $published, in_nav = $in_nav WHERE id = $id";
+    
+    date_default_timezone_set($config['timezone']);
+    $time = date("Y-m-d");  
+    
+    $query = "UPDATE pagina SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
     $mysqli->query($query);
 }
 ?>
@@ -44,8 +51,8 @@ if (isset(post('submit'))) {
     <select name="in_nav">
 
         <?php
-        $amount_in_nav = $mysqli->query("SELECT COUNT(*) FROM page WHERE in_nav > 0");
-        $checked = $mysqli->query("SELECT in_nav FROM page WHERE id = $id");
+        $amount_in_nav = $mysqli->query("SELECT COUNT(*) FROM page WHERE in_nav > 0"); //hoeveel pagina's zijn er in de navigatiebalk?
+        $checked = $mysqli->query("SELECT in_nav FROM page WHERE id = $id"); //huidig order
 
         for ($index = 0; $index <= $amoun_in_nav; $index++) {
             if($index == 0){
