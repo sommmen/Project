@@ -160,8 +160,32 @@ if(!urlSegment(1)){
                 </section>
 
                 <section class="col-4">
-                    twitter en fb ofzo?
-
+                    <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                         js = d.createElement(s); js.id = id;
+                         js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.0";
+                         fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <br>
+                    <a class="twitter-follow-button"
+                       accesskey=""href="https://twitter.com/twitterdev"
+                       data-show-count="true"
+                       data-lang="en">
+                    Follow @twitterdev
+                    </a>
+                    <script type="text/javascript">
+                    window.twttr = (function (d, s, id) {
+                         var t, js, fjs = d.getElementsByTagName(s)[0];
+                         if (d.getElementById(id)) return;
+                         js = d.createElement(s); js.id = id;
+                         js.src= "https://platform.twitter.com/widgets.js";
+                         fjs.parentNode.insertBefore(js, fjs);
+                         return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
+                    }(document, "script", "twitter-wjs"));
+                    </script>
 
 
                 </section>
