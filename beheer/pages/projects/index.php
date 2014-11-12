@@ -1,3 +1,7 @@
+<?php
+minRole(3);
+?>
+
 <a href="/beheer/projects/add">Project toevoegen</a>
 <table>
     <tr class="head">
@@ -7,19 +11,20 @@
         <th>Acties</th>
     </tr>
 <?php
-$query = "SELECT * FROM project JOIN user ON user.id = project.uid ORDER BY created DESC";
+$query = "SELECT *, project.id as project_id FROM project JOIN user ON user.id = project.uid ORDER BY created DESC";
 $result = $mysqli->query($query);
     while ($project = $result->fetch_object()) {
         //TODO de klantnaam laten weergeven dmv een join in de query?
         //TODO als er geen pagina's zijn, dan moet er een melding worden gegeven dat er geen pagina's zijn.
         ?>
     <tr>
-        <td><?php echo $project->title;?></td>
+        <td><a href="/beheer/projects/view/<?php print_r($project->project_id);?>"><?php echo $project->title;?></a></td>
         <td><a href="/beheer/customer/profile/<?php echo $project->id;?>"><?php echo $project->name.' '.$project->surname;?></a></td>
         <td><?php echo $project->created;?></td>
         <td>
-            <a href="/beheer/project/edit/<?php echo $page->id;?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
-            <a href="/beheer/project/delete/<?php echo $page->id;?>" onClick="return confirm('Weet je zeker dat je dit project wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="edit"/></a>
+            <a href="/beheer/projects/edit/<?php echo $project->id;?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
+            <a href="/beheer/projects/delete/<?php echo $project->id;?>" onClick="return confirm('Weet je zeker dat je dit project wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
+            <a href="/beheer/projects/addPhotos/<?php echo $project->id;?>"><img src="/beheer/res/img/plus24.png" alt="add"/></a>
         </td>
     </tr>
     <?php

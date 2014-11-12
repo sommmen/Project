@@ -1,4 +1,6 @@
 <?php
+minRole(3);
+
 if(isset($_POST['submit'])){
 
     if(empty($_POST['title'])){
@@ -14,6 +16,58 @@ if(isset($_POST['submit'])){
         }elseif(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
             $error = "U dient een geldig email adres op te geven.";
         }
+    }
+
+    if(!isset($error)){
+        if($_POST['user_id'] == 0){
+            $username = post('name').'-'.post('surname');
+            $password = sha1(random_password());
+            $query = "INSERT INTO user (username,
+                                        password,
+                                        name,
+                                        surname,
+                                        address,
+                                        zipcode,
+                                        city,
+                                        email,
+                                        telephone,
+                                        role)
+                VALUES ('".$username."',
+                        '".$password."',
+                        '".post('name')."',
+                        '".post('surname')."',
+                        '".post('address')."',
+                        '".post('zipcode')."',
+                        '".post('city')."',
+                        '".post('email')."',
+                        '".post('telephone')."',
+                        '2')";
+
+            if($mysqli->query($query)) {
+                $user_id = $mysqli->insert_id;
+            }else{
+                $mysqli->error;
+            }
+
+        } else {
+            $user_id = post('user_id');
+        }
+
+        $query = "INSERT INTO project (title,
+                                       uid,
+                                       max)
+            VALUES ('".post('title')."',
+                    '".$user_id."',
+                    '".post('max')."')";
+
+        if(!$mysqli->query($query)){
+            echo $mysqli->error;
+        }else {
+            $project_id = $mysqli->insert_id;
+            redirect('/beheer/projects/view/'.$project_id);
+        }
+
+
     }
 
 }
