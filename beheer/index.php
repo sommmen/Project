@@ -22,10 +22,12 @@ require_once('../system/core.php');
 
     <link rel="stylesheet" href="/beheer/res/css/reset.css" />
     <link rel="stylesheet" href="/beheer/res/css/style.css" />
+    <link rel="stylesheet" href="/beheer/res/css/lightbox.css" />
     <link rel="stylesheet" href="/beheer/res/css/dropzone.css" />
 
     <script src="/beheer/res/js/modernizr.js"></script>
     <script src="/beheer/res/js/jquery.js"></script>
+    <script src="/beheer/res/js/lightbox.min.js"></script>
     <script src="/beheer/res/js/dropzone.js"></script>
     <script src="/beheer/res/js/custom.jq.js"></script>
 </head>
