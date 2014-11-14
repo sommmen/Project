@@ -16,6 +16,7 @@ function setSpanZero(){
 //als je in_nav veranderd dat hij dan ook alles dynamisch doorvoert, eg. dat er niet dezelfde in_nav komt
 //kijken in welk formaat 'tijd' in de tabel staat.
 //javascriptje voor de doelmap dynamisch kopieren/werkend maken
+//wysiwyg editor.
 
 $id = urlSegment(3);
 
