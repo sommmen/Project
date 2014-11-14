@@ -1,21 +1,7 @@
 <?php
 minRole(3);
 ?>
-<script type="text/javascript">
-    function getSlug(Text)
-    {
-        return Text
-                .toLowerCase()
-                .replace(/ /g, '-')
-                .replace(/[^\w-]+/g, '')
-                ;
-    }
-
-    function updateValue() {
-        var title = document.getElementById("title").value;
-        document.getElementById("slug").value = getSlug(title);
-    }
-</script>
+<script type="text/javascript" src="javascript/slug.js"></script>
 
 <a href="/beheer/page" class="button">Terug naar overzicht</a>
 <h1>Nieuwe pagina</h1>
