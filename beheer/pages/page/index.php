@@ -1,5 +1,4 @@
-<?php
-minRole(3);
+<?php minRole(3);
 ?>
 <a href="/beheer/page/add" class="button blue">Pagina toevoegen</a>
 <table>
@@ -10,23 +9,29 @@ minRole(3);
         <th>zichtbaar</th>
         <th>Menu volgorde</th>
         <th>Acties</th>
-        
+
     </tr>
     <?php
     $query = "SELECT * FROM page ORDER BY id";
     $result = $mysqli->query($query);
+    if ($result->num_rows <= 0) {
+        ?>
+        <h1>er zijn nog geen pagina's aangemaakt.</h1>
+        <p>zodra er nieuwe pagina's zijn gemaakt kunt u ze hier zien.</p>
+        <a href="/beheer/page/add">voeg een nieuwe pagina toe!</a>
+    <?php
+    }
     while ($page = $result->fetch_object()) {
         if ($page->published == 1) {
             $published = "ja";
         } else {
             $published = "nee";
         }
-    if($page->in_nav == 0){
-        $in_nav = 'niet getoond';
-    } else {
-        $in_nav = $page->in_nav;
-    }
-        //TODO als er geen pagina's zijn, dan moet er een melding worden gegeven dat er geen pagina's zijn.
+        if ($page->in_nav == 0) {
+            $in_nav = 'niet getoond';
+        } else {
+            $in_nav = $page->in_nav;
+        }
         ?>
         <tr>
             <td><?php echo $page->title; ?></td>
