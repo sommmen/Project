@@ -2,6 +2,14 @@
 minRole(3);
 ?>
 <script type="text/javascript" src="javascript/slug.js"></script>
+<script type="text/javascript">
+function setSpanZero(){
+    if(document.getElementById('in_nav').value === 0){
+    document.getElementById('onZero').textContent = "niet tonen.";
+    }
+    setSpanZero();
+}
+</script>
 
 <a href="/beheer/page" class="button">Terug naar overzicht</a>
 <h1>Nieuwe pagina</h1>
@@ -14,7 +22,10 @@ minRole(3);
     <input type="text" name="slug" value="" id="slug">
     <label>Tekst</label>
     <textarea rows="4" cols="50" name="body"></textarea>
-
+    <label>publiceren</label>
+    <input type="checkbox" name="publish" value="1">
+    <label>navigatievolgorde</label>
+    <input id="in_nav" type="number" name="in_nav" value="0"><span id="onZero"></span>
     <input type="submit" name="submit" value="versturen">
 </form>
 
@@ -29,6 +40,12 @@ if (isset($_POST["submit"])) {
         $description = post('description');
         $body = post('body');
         $slug = urlencode(strtolower(post('slug')));
+        if(post('publish') == 1){
+            $published = 1;
+        } else{
+            $published = 0;
+        }
+        $in_nav = post('in_nav');
 
         $query = "SELECT * FROM page WHERE slug = \"$slug\"";
         $result = $mysqli->query($query);
@@ -36,14 +53,14 @@ if (isset($_POST["submit"])) {
             if($mysqli->query("SELECT COUNT(*) FROM page WHERE title = '$titel' AND description = '$description' AND body = '$body' AND slug = '$slug' ") > 0){
                 redirect('/beheer/page');
             }
-            $query = "INSERT INTO page (title, slug, published, in_nav, description, body) VALUES (\"$titel\",\"$slug\", 0, 0, \"$description\", \"$body\")";
+            $query = "INSERT INTO page (title, slug, published, in_nav, description, body) VALUES (\"$titel\",\"$slug\", \"$published\", \"$in_nav\", \"$description\", \"$body\")";
             if (!$mysqli->query($query)) {
                 echo $mysqli->error;
             }else{
                 redirect('/beheer/page');
             }
-        } else {
+        } 
+    }else {
             echo "vul een titel in.";
         }
-    }
 }
