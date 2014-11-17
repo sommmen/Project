@@ -15,7 +15,7 @@
         global $mysqli;
         $result = $mysqli->query('SELECT id, title, created FROM project WHERE uid = '. $id);
         if(!$result || $result->num_rows < 1) return 404;
-        while($row = $mysqli->fetch_array($result)){
+        while($row = $result->fetch_array()){
             echo '<tr>';
             echo '<td>'. $row['title'] .'</td>';
             echo '<td>'. $row['created'] .'</td>';
