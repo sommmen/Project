@@ -1,6 +1,6 @@
 <?php
 minRole(3);
-//TODO verwijderen van leeg project is niet mogelijk.
+
 function removeDirectory($directory)
 {
     foreach(glob("{$directory}/*") as $file)
@@ -29,8 +29,6 @@ if(isset($_POST['submit'])) {
     if (!isset($_POST['option'])) {
         echo '<div class="alert-error">U dient een optie te selecteren.</div>';
     } elseif ($_POST['option'] == 1) {
-
-        if (is_dir($targerPath)) {
             removeDirectory($targerPath);
 
             if (!$mysqli->query("DELETE FROM photo WHERE pid = '" . $project->id . "'")) {
@@ -41,9 +39,6 @@ if(isset($_POST['submit'])) {
             }
             setMessage('Project + foto\'s succesvol verwijderd.');
             redirect('/beheer/projects');
-        }else {
-            redirect('/beheer/projects');
-        }
         } elseif ($_POST['option'] == 2) {
             $result = $mysqli->query("SELECT * FROM portfolio WHERE id = '" . post('portfolio') . "'");
             if ($result->num_rows > 0) {
