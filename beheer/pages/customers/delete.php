@@ -7,7 +7,7 @@
         global $mysqli;
         $result = $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id);
         if(!$result || $result->num_rows < 1) return 404;
-        while($row = $mysqli->fetch_array($result)){
+        while($row = $result->fetch_array()){
             return $row['name'].' '.$row['surname'];
         }
     }
@@ -17,21 +17,29 @@
         if(!$result || $result->num_rows < 1) return 404;
         while($row = $result->fetch_array()){
             echo '<tr>';
+            echo '<td><input type="checkbox" name="ckBoxValue[]" value="'.$row['id'].'"/> </td>';
             echo '<td>'. $row['title'] .'</td>';
             echo '<td>'. $row['created'] .'</td>';
-            echo '<td> <input type="checkbox" name="ckBoxValue[]" value="'.$row['id'].'"/> </td>';
             echo '</tr>';
         }
     }
     function archiveProject($projectID){
         global $mysqli;
-        $mysqli->query('UPDATE project SET id = 0 WHERE id = '. $projectID);
+        $mysqli->query('UPDATE project SET uid = 0 WHERE id = '. $projectID);
     }
     
     function deleteUser($id){
         global $mysqli;
-        $mysqli->query('DELETE FROM user WHERE id = '.$id);
-        
+        if(!$mysqli->query('DELETE FROM user WHERE id = '.$id)){
+            echo $mysqli->error;
+        }
+    }
+    function deleteProject($id){
+        global $mysqli;
+        $result = $mysqli->query('DELETE FROM project WHERE uid = '.$id. ' AND id != 0');
+        if(!$result){
+            echo 404;
+        }
     }
     
     if(isset($_POST['deleteSubmit'])){
@@ -39,18 +47,23 @@
             archiveProject($checkBox);
         }
         deleteUser($id);
+        deleteProject($id);
+        redirect('/beheer/customers');
     }
 ?>
 
-<form method="POST" action="index.php">
+<a href="/beheer/customers" class="button">Terug naar overzicht</a>
+
+<form method="POST" action="">
     <h1>Verwijdering <?php echo getKlant($id);?></h1>
     <br />
-    Projecten gerelateerd met deze klant:
+
+    <h2>Welke projecten wilt u bewaren?</h2>
     <table>
-    <h3>Welke projecten wilt u archiveren?</h3>
-    <tr><thead>Project Naam</thead><thead>Aanmaakdatum</thead></tr>
+    <tr><th width="50">Bewaar</th><th>Project Naam</th><th>Aanmaakdatum</th></tr>
     <?php showProjectList($id);?>
     </table>
-    <img src="/beheer/res/img/deletebin.png"/><input type="submit" value="Verwijder" name="deleteSubmit"/>
+    <br/>
+    <input type="submit" value="Verwijder" name="deleteSubmit"/>
     
 </form>
