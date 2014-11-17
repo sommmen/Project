@@ -46,7 +46,7 @@ if(isset($_POST['submit'])){
             if($mysqli->query($query)) {
                 $user_id = $mysqli->insert_id;
             }else{
-                $mysqli->error;
+                $error = 'De gebruiker kan niet worden toegevoegd.';
             }
 
         } else {
@@ -73,7 +73,9 @@ if(isset($_POST['submit'])){
 
 }
 
-echo @$error;
+if(isset($error)) {
+    echo '<div class="alert-error">' . @$error . '</div>';
+}
 
 ?>
     <a href="/beheer/projects" class="button red">Terug naar overzicht</a>
