@@ -66,7 +66,10 @@ require_once('config.php');
 }
 
 
-    function redirect($to){
+    function redirect($to, $base=true){
+        if($base==true){
+            $to = getProp('base_url').$to;
+        }
         header('location: '.$to);
     }
 
