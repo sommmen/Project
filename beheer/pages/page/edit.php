@@ -7,6 +7,7 @@ function setSpanZero(){
     if(document.getElementById('in_nav').value === 0){
     document.getElementById('onZero').textContent = "niet tonen.";
     }
+    setSpanZero();
 }
 </script>
 
@@ -15,10 +16,11 @@ function setSpanZero(){
 //testen
 //als je in_nav veranderd dat hij dan ook alles dynamisch doorvoert, eg. dat er niet dezelfde in_nav komt
 //kijken in welk formaat 'tijd' in de tabel staat.
-//javascriptje voor de doelmap dynamisch kopieren/werkend maken
 //wysiwyg editor.
 
-$id = urlSegment(3);
+if(!is_numeric($id = urlSegment(3))){
+    echo "een fout met de url.";
+}
 
 $query = "SELECT * FROM page WHERE id = $id LIMIT 1";
 $result = $mysqli->query($query);
