@@ -3,18 +3,7 @@
 minRole(3);
 ?>
 <script type="text/javascript" src="javascript/slug.js"></script>
-<script type="text/javascript">
-    function showIn_nav() {
-        if (document.getElementById('in_nav-checkbox').checked === true) {
-            document.getElementById('in_nav-number').style.display = "initial";
-            document.getElemntById('in_nav-text').innerHTML = "navigatievolgorde";
-        } else {
-            document.getElemntById('in_nav-text').innerHTML = "in navigatie?";
-            document.getElementById('in_nav-number').style.display = "none";
-            document.getElementById('in_nav-number').value = "0";
-        }
-    }
-</script>
+
 
 <a href="/beheer/page" class="button">Terug naar overzicht</a>
 <h1>Nieuwe pagina</h1>
@@ -31,7 +20,7 @@ minRole(3);
     <input type="checkbox" name="publish" value="1">
     <label id="in_nav-text">in navigatie?</label>
     <input id="in_nav-checkbox" type="checkbox" name="in_nav-checkbox" value="0" onchange="showIn_nav()">
-    <input id="in_nav-number" type="number" name="in_nav-number" value="0" style="display: none;">
+    <input id="in_nav-number" type="number" name="in_nav-number" value="0">
     <br>
     <input type="submit" name="submit" value="versturen">
 </form>

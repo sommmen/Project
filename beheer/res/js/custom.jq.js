@@ -68,7 +68,13 @@ $(document).ready(function(){
 
     }
 
-
+    $("#in_nav-checkbox").click(function(){
+        if($(this).is(":checked")){
+            $("#in_nav-number").show();
+        }else{
+            $("#in_nav-number").hide();
+        }
+    });
 
 
 });
