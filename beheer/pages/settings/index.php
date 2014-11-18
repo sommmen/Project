@@ -15,8 +15,8 @@ minRole(3);
         <td><?php echo $setting->key;?></td>
         <td><?php echo $setting->value;?></a></td>
         <td>
-                <a href="/beheer/settings/edit/<?php echo $portfolio->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
-                <a href="/beheer/settings/delete/<?php echo $portfolio->id; ?>"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
+                <a href="/beheer/settings/edit/<?php echo $setting->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
+                <a href="/beheer/settings/delete/<?php echo $setting->id; ?>"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
                 
             </td>
     </tr> 
