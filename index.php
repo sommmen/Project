@@ -55,7 +55,7 @@ if(!urlSegment(1)){
 <section id="top_image">
     <header>
         <section class="logo">
-            <a href="#"><img src="/res/img/logo.png" alt="Michael Verbeek - Fotografie / Geluidstechniek"/></a>
+            <a href="<?php echo getProp('base_url');?>"><img src="/res/img/logo.png" alt="Michael Verbeek - Fotografie / Geluidstechniek"/></a>
         </section>
 
         <button id="mobileMenu"></button>
@@ -63,7 +63,7 @@ if(!urlSegment(1)){
         <nav>
             <ul>
                 <?php
-                $menuSQL = "SELECT * FROM page WHERE in_nav != 0";
+                $menuSQL = "SELECT * FROM page WHERE in_nav != 0 AND published = 1 ORDER BY in_nav";
                 $result = $mysqli->query($menuSQL);
                 while($row = $result->fetch_object()){
 
@@ -98,7 +98,7 @@ if(!urlSegment(1)){
                 $current_page = urlSegment(1);
             }
 
-            $pageSQL = "SELECT * FROM page WHERE slug = '".urlSegment(1)."' OR id = '".$current_page."'";
+            $pageSQL = "SELECT * FROM page WHERE (slug = '".urlSegment(1)."' OR id = '".$current_page."') AND published = 1";
             $result = $mysqli->query($pageSQL);
             if($result->num_rows != 0) {
                 $row = $result->fetch_object();
@@ -125,9 +125,6 @@ if(!urlSegment(1)){
             }else{
                 echo 404;
             }
-
-
-
             ?>
         </section>
 

@@ -36,15 +36,17 @@ if (isset($_POST["submit"])) { //dit geeft errors.
     $title = post('titel');
     $description = post('description');
     $slug = post('slug');
-    $body = post('body');
+    $body = addslashes($_POST['body']);
     $published = post('published');
     $in_nav = post('in_nav');
 
     date_default_timezone_set($config['timezone']);
     $time = date("Y-m-d");
 
-    $query = "UPDATE pagina SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
-    $mysqli->query($query);
+    $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
+    if(!$mysqli->query($query)){
+        echo $mysqli->error;
+    }
 }
 
 
