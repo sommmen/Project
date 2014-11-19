@@ -2,7 +2,6 @@
     minRole(3);
     $id = urlSegment(3);
     
-    global $mysqli;
     $name = "";
     $surname = "";
     $address = "";
@@ -27,10 +26,15 @@
     $value_telnr = set_value('telephone', $telephone);
     
     if(isset($_POST['form_submit'])){
-       $result = $mysqli->query('UPDATE user SET (name = "'.post('name').'", surname = "'.post('surname').'", address = "'.post('address').'" 
-       , zipcode = "'.post('zipcode').'", city = "'.post('city').'", telephone = "'.post('telephone').'") WHERE id = '.$id);
-       if($result->error){ die (404);}
-       redirect('/beheer/customers');
+        foreach($_POST as $arrayName => $value){
+            if(empty($value)){
+                $value = set_value($arrayName, $name);
+            }else{
+                $mysqli->query('UPDATE user SET '.$arrayName.' = "'.$value.'" WHERE id = '.$id);
+                if($mysqli->error) die (404);
+            }
+        }
+       redirect('/beheer/customers/edit.php/'.$id);
     }
 ?>
 

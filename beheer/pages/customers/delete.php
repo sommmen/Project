@@ -14,13 +14,17 @@
     function showProjectList($id){
         global $mysqli;
         $result = $mysqli->query('SELECT id, title, created FROM project WHERE uid = '. $id);
-        if(!$result || $result->num_rows < 1) return 404;
-        while($row = $result->fetch_array()){
-            echo '<tr>';
-            echo '<td><input type="checkbox" name="ckBoxValue[]" value="'.$row['id'].'"/> </td>';
-            echo '<td>'. $row['title'] .'</td>';
-            echo '<td>'. $row['created'] .'</td>';
-            echo '</tr>';
+        if(!$result) return 404;
+        if($result->num_rows < 1){
+            echo '<label style="color: red;">Deze klant is niet gebonden aan een project.</label>';
+        }else{
+            while($row = $result->fetch_array()){
+                echo '<tr>';
+                echo '<td><input type="checkbox" name="ckBoxValue[]" value="'.$row['id'].'"/> </td>';
+                echo '<td>'. $row['title'] .'</td>';
+                echo '<td>'. $row['created'] .'</td>';
+                echo '</tr>';
+            }
         }
     }
     function archiveProject($projectID){
