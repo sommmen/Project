@@ -13,6 +13,9 @@ if(isset($_POST['submit'])) {
             } else {
                 redirect('/beheer/portfolio/addPhoto/'.$mysqli->insert_id);
             }
+        }else{
+            $error= "deze naam bestaat al";
+            
         }
     }
 }
