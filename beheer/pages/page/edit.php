@@ -4,12 +4,12 @@ minRole(3);
 <script type="text/javascript" src="/Project/beheer/res/javascript/wysiwyg-editor.js"></script>
 <script type="text/javascript" src="javascript/slug.js"></script>
 <script type="text/javascript">
-function setSpanZero(){
-    if(document.getElementById('in_nav').value === 0){
-    document.getElementById('onZero').textContent = "niet tonen.";
+    function setSpanZero() {
+        if (document.getElementById('in_nav').value === 0) {
+            document.getElementById('onZero').textContent = "niet tonen.";
+        }
+        setSpanZero();
     }
-    setSpanZero();
-}
 </script>
 
 <?php
@@ -17,7 +17,7 @@ function setSpanZero(){
 //kijken in welk formaat 'tijd' in de tabel staat.
 //wysiwyg editor.
 
-if(!is_numeric($id = urlSegment(3))){
+if (!is_numeric($id = urlSegment(3))) {
     echo "een fout met de url.";
 }
 
@@ -44,12 +44,24 @@ if (isset($_POST["submit"])) { //dit geeft errors.
     $time = date("Y-m-d");
 
     $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
-    if(!$mysqli->query($query)){
+    if (!$mysqli->query($query)) {
         echo $mysqli->error;
     }
+    foreach ($_POST as $key => $value) {
+        if (empty($value) && ($key == $title || $slug || $body)) {
+            $error_velden .= $value . " ";
+        }
+    }
+    if (!empty($error_velden)) {
+        $error = $error_velden . "zijn verplicht! gelieve deze in te vullen.";
+    }
+    if ($mysqli->query("SELECT * FROM page WHERE slug = '$slug'")->num_rows > 0) {
+        $error = "deze doelmap bestaat al!";
+    }
 }
-
-
+if (isset($error)) {
+    echo '<div class="alert-error">' . @$error . '</div>';
+}
 ?>
 <form action="" method="POST">
     <label>Titel</label>
