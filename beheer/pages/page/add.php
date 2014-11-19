@@ -3,7 +3,7 @@
 minRole(3);
 ?>
 <script type="text/javascript" src="javascript/slug.js"></script>
-
+<script type="text/javascript" src="/Project/beheer/res/javascript/wysiwyg-editor.js"></script>
 
 <a href="/beheer/page" class="button">Terug naar overzicht</a>
 <h1>Nieuwe pagina</h1>
