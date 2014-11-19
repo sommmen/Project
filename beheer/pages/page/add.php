@@ -9,18 +9,18 @@ minRole(3);
 <h1>Nieuwe pagina</h1>
 <form action="" method="post">
     <label>Titel</label>
-    <input type="text" name="titel" onkeyup="updateValue()" id="title">
+    <input type="text" name="titel" onkeyup="updateValue()" id="title" value="<?php echo set_value("title"); ?>">
     <label>Onderschrift</label>
-    <input type="text" name="description">
+    <input type="text" name="description" value="<?php echo set_value("description"); ?>">
     <label>Doelmap</label>
-    <input type="text" name="slug" value="" id="slug">
+    <input type="text" name="slug" value="<?php echo set_value("slug"); ?>" id="slug">
     <label>Tekst</label>
-    <textarea rows="4" cols="50" name="body"></textarea>
+    <textarea rows="4" cols="50" name="body" ><?php echo set_value("body"); ?></textarea>
     <label>publiceren</label>
     <input type="checkbox" name="publish" value="1">
     <label id="in_nav-text">in navigatie?</label>
     <input id="in_nav-checkbox" type="checkbox" name="in_nav-checkbox" value="0" onchange="showIn_nav()">
-    <input id="in_nav-number" type="number" name="in_nav-number" value="0">
+    <input id="in_nav-number" type="number" name="in_nav-number" value="<?php echo set_value("in_nav-number",0); ?>">
     <br>
     <input type="submit" name="submit" value="versturen">
 </form>
