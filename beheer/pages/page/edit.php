@@ -23,6 +23,9 @@ if (!is_numeric($id = urlSegment(3))) {
 
 $query = "SELECT * FROM page WHERE id = $id LIMIT 1";
 $result = $mysqli->query($query);
+if (!$result) {
+    echo $mysqli->error;
+}
 $radio_published = ["", ""];
 $page = $result->fetch_object();
 
@@ -42,23 +45,19 @@ if (isset($_POST["submit"])) { //dit geeft errors.
 
     date_default_timezone_set($config['timezone']);
     $time = date("Y-m-d");
-
-    $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
-    if (!$mysqli->query($query)) {
-        echo $mysqli->error;
-    }
-    foreach ($_POST as $key => $value) {
-        if (empty($value) && ($key == $title || $slug || $body)) {
-            $error_velden .= $value . " ";
+    if (empty($title)) {
+        $error = "vul een titel in";
+    } elseif (empty($body)) {
+        $error = "vul tekst in";
+    } else {
+        $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
+        if (!$mysqli->query($query)) {
+            echo $mysqli->error;
         }
     }
-    if (!empty($error_velden)) {
-        $error = $error_velden . "zijn verplicht! gelieve deze in te vullen.";
-    }
-    if ($mysqli->query("SELECT * FROM page WHERE slug = '$slug'")->num_rows > 0) {
-        $error = "deze doelmap bestaat al!";
-    }
 }
+
+
 if (isset($error)) {
     echo '<div class="alert-error">' . @$error . '</div>';
 }
