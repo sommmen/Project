@@ -1,6 +1,7 @@
 <?php
 minRole(3);
 ?>
+<script type="text/javascript" src="/Project/beheer/res/javascript/wysiwyg-editor.js"></script>
 <script type="text/javascript" src="javascript/slug.js"></script>
 <script type="text/javascript">
 function setSpanZero(){
@@ -13,8 +14,6 @@ function setSpanZero(){
 
 <?php
 //TODO
-//testen
-//als je in_nav veranderd dat hij dan ook alles dynamisch doorvoert, eg. dat er niet dezelfde in_nav komt
 //kijken in welk formaat 'tijd' in de tabel staat.
 //wysiwyg editor.
 
@@ -58,7 +57,7 @@ if (isset($_POST["submit"])) { //dit geeft errors.
     <label>Doelmap</label>
     <input id="slug" type="text" name="slug" value="<?php echo set_value("slug", $page->slug); ?>">
     <label>Text</label>
-    <textarea name="body"><?php echo set_value("body", $page->body); ?></textarea>
+    <textarea name="body" style="width: 100%;"><?php echo set_value("body", $page->body); ?></textarea>
     <label>Gepubliceerd</label>
     <input type="radio" name="published" value="1" <?php echo $radio_published[0] ?>>Ja<br>
     <input type="radio" name="published" value="0" <?php echo $radio_published[1] ?>>Nee
