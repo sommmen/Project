@@ -5,6 +5,7 @@
     $name = "";
     $surname = "";
     $address = "";
+    $email = "";
     $zipcode = "";
     $city = "";
     $telephone = "";
@@ -15,9 +16,11 @@
         $address = $row['address'];
         $zipcode = $row['zipcode'];
         $city = $row['city'];
+        $email = $row['email'];
         $telephone = $row['telephone'];
     }
-    
+
+    $value_email = set_value('email', $email);
     $value_naam = set_value('name', $name);
     $value_achternaam = set_value('surname', $surname);
     $value_adres = set_value('address', $address);
@@ -27,14 +30,15 @@
     
     if(isset($_POST['form_submit'])){
         foreach($_POST as $arrayName => $value){
+            if($arrayName == "form_submit") continue;
             if(empty($value)){
                 $value = set_value($arrayName, $name);
             }else{
                 $mysqli->query('UPDATE user SET '.$arrayName.' = "'.$value.'" WHERE id = '.$id);
-                if($mysqli->error) die (404);
+                if($mysqli->error) die ($mysqli->error);
             }
         }
-       redirect('/beheer/customers/edit.php/'.$id);
+        redirect('/beheer/customers');
     }
 ?>
 
@@ -47,6 +51,7 @@
     <label>Postcode:</label><input type="text" name="zipcode" value="<?php echo $value_postcode;?>"/><br />
     <label>Woonplaats:</label><input type="text" name="city" value="<?php echo $value_woonplaats;?>"/><br />
     <label>Telefoonnummer:</label><input type="text" name="telephone" value="<?php echo $value_telnr;?>"/><br />
+    <label>Email:</label><input type="text" name="email" value="<?php echo $value_email;?>"/> <br />
     <input type="submit" name="form_submit" value="Wijzig"/>     
 </form>
 
