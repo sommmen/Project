@@ -30,6 +30,7 @@
        $result = $mysqli->query('UPDATE user SET (name = "'.post('name').'", surname = "'.post('surname').'", address = "'.post('address').'" 
        , zipcode = "'.post('zipcode').'", city = "'.post('city').'", telephone = "'.post('telephone').'") WHERE id = '.$id);
        if($result->error){ die (404);}
+       redirect('/beheer/customers');
     }
 ?>
 

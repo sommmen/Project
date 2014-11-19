@@ -2,6 +2,7 @@
 minRole(3);
 
 ?>
+
 <h1>Instellingen</h1>
 <table>
     <th>sleutel</th>
@@ -16,7 +17,6 @@ minRole(3);
         <td><?php echo $setting->value;?></a></td>
         <td>
                 <a href="/beheer/settings/edit/<?php echo $setting->key; ?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
-                <a href="/beheer/settings/delete/<?php echo $setting->key; ?>"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
                 
             </td>
     </tr> 
