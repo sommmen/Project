@@ -51,21 +51,32 @@ if (isset($_POST["submit"])) { //dit geeft errors.
 
 
 ?>
+<a href="/beheer/page" class="button">Terug naar overzicht</a>
+<h1>Pagina bewerken</h1>
+
+
 <form action="" method="POST">
-    <label>Titel</label>
-    <input onkeyup="updateValue()" type="text" name="titel" value="<?php echo set_value("titel", $page->title); ?>">
-    <label>Description</label>
-    <input type="text" name="description" value="<?php echo set_value("description", $page->description); ?>">
-    <label>Doelmap</label>
-    <input id="slug" type="text" name="slug" value="<?php echo set_value("slug", $page->slug); ?>">
+    <section class="row">
+        <section class="half">
+            <label>Titel</label>
+            <input onkeyup="updateValue()" type="text" name="titel" value="<?php echo set_value("titel", $page->title); ?>">
+            <label>Description</label>
+            <input type="text" name="description" value="<?php echo set_value("description", $page->description); ?>">
+            <label>Doelmap</label>
+            <input id="slug" type="text" name="slug" value="<?php echo set_value("slug", $page->slug); ?>">
+        </section>
+        <section class="half">
+            <label>Gepubliceerd</label>
+            <input type="radio" name="published" value="1" <?php echo $radio_published[0] ?>>Ja<br>
+            <input type="radio" name="published" value="0" <?php echo $radio_published[1] ?>>Nee
+            <label>Navigatiebalk</label>
+            <input id="in_nav" type="number" name="in_nav" value="<?php echo set_value("in_nav", $page->in_nav); ?>" onKeyUp="setSpanZero()"><span id="onZero"></span>
+        </section>
+    </section>
     <label>Text</label>
     <textarea name="body" style="width: 100%;"><?php echo set_value("body", $page->body); ?></textarea>
-    <label>Gepubliceerd</label>
-    <input type="radio" name="published" value="1" <?php echo $radio_published[0] ?>>Ja<br>
-    <input type="radio" name="published" value="0" <?php echo $radio_published[1] ?>>Nee
-    <label>Navigatiebalk</label>
-    <input id="in_nav" type="number" name="in_nav" value="<?php echo set_value("in_nav", $page->in_nav); ?>" onKeyUp="setSpanZero()"><span id="onZero"></span>
+
     <br>
-    <input type="submit" name="submit" value="Edit">
+    <input type="submit" name="submit" value="Bijwerken">
 </form>
 

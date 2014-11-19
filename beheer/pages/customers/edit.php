@@ -41,10 +41,10 @@
         redirect('/beheer/customers');
     }
 ?>
-
+<a href="/beheer/customers" class="button">Terug naar overzicht</a>
+<h1>Wijzigen van <?php echo $name. ' '. $surname;?></h1>
 
 <form method="POST">
-    <h1>Wijzigen van <?php echo $name. ' '. $surname;?></h1>
     <label>Naam:</label> <input type="text" name="name" value="<?php echo $value_naam;?>"/><br />
     <label>Achternaam:</label> <input type="text" name="surname" value="<?php echo $value_achternaam;?>"/><br />
     <label>Adres:</label> <input type="text" name="address" value="<?php echo $value_adres;?>"/><br />

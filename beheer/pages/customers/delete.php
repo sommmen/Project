@@ -18,6 +18,8 @@
         if($result->num_rows < 1){
             echo '<label style="color: red;">Deze klant is niet gebonden aan een project.</label>';
         }else{
+            echo '<h2>Welke projecten wilt u bewaren?</h2>';
+            echo '<tr><th width="50">Bewaar</th><th>Project Naam</th><th>Aanmaakdatum</th></tr>';
             while($row = $result->fetch_array()){
                 echo '<tr>';
                 echo '<td><input type="checkbox" name="ckBoxValue[]" value="'.$row['id'].'"/> </td>';
@@ -61,10 +63,7 @@
 <form method="POST" action="">
     <h1>Verwijdering <?php echo getKlant($id);?></h1>
     <br />
-
-    <h2>Welke projecten wilt u bewaren?</h2>
     <table>
-    <tr><th width="50">Bewaar</th><th>Project Naam</th><th>Aanmaakdatum</th></tr>
     <?php showProjectList($id);?>
     </table>
     <br/>
