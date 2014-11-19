@@ -4,12 +4,12 @@ minRole(3);
 <script type="text/javascript" src="/Project/beheer/res/javascript/wysiwyg-editor.js"></script>
 <script type="text/javascript" src="javascript/slug.js"></script>
 <script type="text/javascript">
-function setSpanZero(){
-    if(document.getElementById('in_nav').value === 0){
-    document.getElementById('onZero').textContent = "niet tonen.";
+    function setSpanZero() {
+        if (document.getElementById('in_nav').value === 0) {
+            document.getElementById('onZero').textContent = "niet tonen.";
+        }
+        setSpanZero();
     }
-    setSpanZero();
-}
 </script>
 
 <?php
@@ -17,12 +17,15 @@ function setSpanZero(){
 //kijken in welk formaat 'tijd' in de tabel staat.
 //wysiwyg editor.
 
-if(!is_numeric($id = urlSegment(3))){
+if (!is_numeric($id = urlSegment(3))) {
     echo "een fout met de url.";
 }
 
 $query = "SELECT * FROM page WHERE id = $id LIMIT 1";
 $result = $mysqli->query($query);
+if (!$result) {
+    echo $mysqli->error;
+}
 $radio_published = ["", ""];
 $page = $result->fetch_object();
 
@@ -42,14 +45,22 @@ if (isset($_POST["submit"])) { //dit geeft errors.
 
     date_default_timezone_set($config['timezone']);
     $time = date("Y-m-d");
-
-    $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
-    if(!$mysqli->query($query)){
-        echo $mysqli->error;
+    if (empty($title)) {
+        $error = "vul een titel in";
+    } elseif (empty($body)) {
+        $error = "vul tekst in";
+    } else {
+        $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
+        if (!$mysqli->query($query)) {
+            echo $mysqli->error;
+        }
     }
 }
 
 
+if (isset($error)) {
+    echo '<div class="alert-error">' . @$error . '</div>';
+}
 ?>
 <a href="/beheer/page" class="button">Terug naar overzicht</a>
 <h1>Pagina bewerken</h1>
