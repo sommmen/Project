@@ -1,6 +1,6 @@
 <?php
 
 function meme_center(){
-    $hi = 'hi';
+    $hi = 'oh, you touch my tralala';
     return $hi;
 }
