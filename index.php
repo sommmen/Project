@@ -123,7 +123,7 @@ if(!urlSegment(1)){
 
             <?php
             }else{
-                echo 404;
+                echo "<h1>Pagina niet gevonden</h1>";
             }
             ?>
         </section>

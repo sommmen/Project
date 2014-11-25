@@ -41,7 +41,7 @@ if (isset($_POST["submit"])) { //dit geeft errors.
     $slug = post('slug');
     $body = addslashes($_POST['body']);
     $published = post('published');
-    $in_nav = post('in_nav');
+
 
     date_default_timezone_set($config['timezone']);
     $time = date("Y-m-d");
@@ -50,9 +50,21 @@ if (isset($_POST["submit"])) { //dit geeft errors.
     } elseif (empty($body)) {
         $error = "vul tekst in";
     } else {
+
+        if(!isset($_POST['in_nav-checkbox'])){
+            $in_nav = 0;
+        }else{
+            $in_nav = post('in_nav-number');
+        }
+
+        echo $in_nav;
+
         $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
         if (!$mysqli->query($query)) {
-            echo $mysqli->error;
+            $error = $mysqli->error;
+        }else{
+            setMessage("Pagina succesvol bijgewerkt.");
+            redirect('/beheer/page');
         }
     }
 }
@@ -73,7 +85,7 @@ if (isset($error)) {
             <input onkeyup="updateValue()" type="text" name="titel" value="<?php echo set_value("titel", $page->title); ?>">
             <label>Description</label>
             <input type="text" name="description" value="<?php echo set_value("description", $page->description); ?>">
-            <label>Doelmap</label>
+            <label>Link</label>
             <input id="slug" type="text" name="slug" value="<?php echo set_value("slug", $page->slug); ?>">
         </section>
         <section class="half">
@@ -81,7 +93,8 @@ if (isset($error)) {
             <input type="radio" name="published" value="1" <?php echo $radio_published[0] ?>>Ja<br>
             <input type="radio" name="published" value="0" <?php echo $radio_published[1] ?>>Nee
             <label>Navigatiebalk</label>
-            <input id="in_nav" type="number" name="in_nav" value="<?php echo set_value("in_nav", $page->in_nav); ?>" onKeyUp="setSpanZero()"><span id="onZero"></span>
+            <input id="in_nav-checkbox" type="checkbox" name="in_nav-checkbox" value="0" onchange="showIn_nav()" <?php if((!isset($_POST['in_nav-checkbox']) && $page->in_nav != 0) || isset($_POST['in_nav-checkbox'])) { echo'checked';} ?>>
+            <input id="in_nav-number" type="number" name="in_nav-number" value="<?php echo set_value("in_nav", $page->in_nav); ?>" <?php if($page->in_nav != 0 || isset($_POST['in_nav-checkbox'])){ echo 'style="display:inline;"'; }?>>
         </section>
     </section>
     <label>Text</label>

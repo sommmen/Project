@@ -59,9 +59,9 @@
 ?>
 
 <a href="/beheer/customers" class="button">Terug naar overzicht</a>
+<h1>Verwijdering <?php echo getKlant($id);?></h1>
 
 <form method="POST" action="">
-    <h1>Verwijdering <?php echo getKlant($id);?></h1>
     <br />
     <table>
     <?php showProjectList($id);?>

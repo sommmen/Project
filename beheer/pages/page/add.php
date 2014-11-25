@@ -62,7 +62,7 @@ if(isset($error)) {
             <input type="text" name="titel" onkeyup="updateValue()" id="title" value="<?php echo set_value("titel"); ?>">
             <label>Onderschrift</label>
             <input type="text" name="description" value="<?php echo set_value("description"); ?>">
-            <label>Doelmap</label>
+            <label>Link</label>
             <input type="text" name="slug" value="<?php echo set_value("slug"); ?>" id="slug">
         </section>
         <section class="half">
