@@ -1,1 +1,1 @@
-DASHBOARD
+<h1>Welkom <?php echo user_data('name').' '.user_data('surname');?></h1>

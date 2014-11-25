@@ -1,10 +1,12 @@
 <?php minRole(3);
 ?>
 <a href="/beheer/page/add" class="button blue">Pagina toevoegen</a>
+<h1>Pagina overzicht</h1>
+
 <table>
     <tr>
         <th>Titel</th>
-        <th>link</th>
+        <th>Link</th>
         <th>Laatst bewerkt</th>
         <th>zichtbaar</th>
         <th>Menu volgorde</th>
