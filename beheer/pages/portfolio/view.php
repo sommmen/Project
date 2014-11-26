@@ -27,7 +27,7 @@ if($result->num_rows > 0) {
             </a>
             <figcaption>
                 <?php echo $photo->name; ?>
-                <a href="/beheer/portfolios/deletePhoto/<?php echo $photo->id;?>" onClick="return confirm('Weet je zeker dat je deze afbeelding wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="delete"/></a>
+                <a href="/beheer/portfolio/deletePhoto/<?php echo $photo->id;?>" onClick="return confirm('Weet je zeker dat je deze afbeelding wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="delete"/></a>
             </figcaption>
         </figure>
     <?php
