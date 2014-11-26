@@ -1,10 +1,12 @@
+
 <?php
+minRole(2);
 /**
  * @var $id Project ID, niet user ID
  */
 $id = urlSegment(3);
 
-$query = $mysqli->query('SELECT * FROM project WHERE id = ' . $id);
+$query = $mysqli->query('SELECT * FROM photo WHERE pid = ' . $id);
 if ($query->num_rows == 0) {
     echo "<div class='alert-error'> Op dit moment zijn er nog geen foto's toegevoegd, gelieve op een ander
     moment terug te komen.</div>";
@@ -17,7 +19,6 @@ if (isset($_POST['btnSubmit'])) {
 
     }
 }
-
 
 
 ?>

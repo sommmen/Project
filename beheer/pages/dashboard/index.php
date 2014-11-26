@@ -9,8 +9,9 @@ function showProjects($uid){
     if($mysqli->error) return 404;
     if($query ->num_rows == 0){
         echo "<div class='alert-error'> U bent op dit moment nog niet gekoppeld aan een project</div>";
+        return;
     }
-    echo '<tr><thead>Project Naam</thead><thead>Aanmaakdatum</thead><thead>Items</thead></tr>';
+    echo '<tr><th>Project Naam</th><th>Aanmaakdatum</th><th>Items</th></tr>';
     while($row = $query->fetch_array()){
         echo '<tr>';
         echo '<td>'.$row['title'].'</td>';
