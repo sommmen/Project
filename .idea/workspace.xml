@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f3edcb3-fbd8-4f45-9ded-bfe979c3a3ee" name="Default" comment="fixes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/widgets/portfolio/albums.php" afterPath="$PROJECT_DIR$/widgets/portfolio/albums.php" />
+    <list default="true" id="8f3edcb3-fbd8-4f45-9ded-bfe979c3a3ee" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/beheer/pages/portfolio/deletePhoto.php" afterPath="$PROJECT_DIR$/beheer/pages/portfolio/deletePhoto.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/beheer/pages/customers/index.php" afterPath="$PROJECT_DIR$/beheer/pages/customers/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/widgets/portfolio/items.php" afterPath="$PROJECT_DIR$/widgets/portfolio/items.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Project.iws" />
@@ -74,15 +70,15 @@
       <file leaf-file-name="deletePhoto.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/beheer/pages/portfolio/deletePhoto.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15400411" vertical-offset="0" max-vertical-offset="487">
-              <caret line="5" column="142" selection-start-line="5" selection-start-column="142" selection-end-line="5" selection-end-column="142" />
+            <state vertical-scroll-proportion="0.30800822" vertical-offset="0" max-vertical-offset="487">
+              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
               <folding>
-                <marker date="1417006737000" expanded="true" signature="31:150" placeholder="SELECT *, ph..photo..." />
-                <marker date="1417006737000" expanded="true" signature="164:265" placeholder="SELECT *, ph..photo..." />
-                <marker date="1417006737000" expanded="true" signature="164:269" placeholder="SELECT *, ph..photo..." />
-                <marker date="1417006737000" expanded="true" signature="164:287" placeholder="SELECT *, ph..photo..." />
-                <marker date="1417006737000" expanded="true" signature="164:294" placeholder="SELECT *, ph..photo..." />
-                <marker date="1417006737000" expanded="true" signature="653:704" placeholder="DELETE FROM ..." />
+                <marker date="1417007013000" expanded="true" signature="31:150" placeholder="SELECT *, ph..photo..." />
+                <marker date="1417007013000" expanded="true" signature="164:270" placeholder="SELECT *, ph..photo..." />
+                <marker date="1417007013000" expanded="true" signature="164:274" placeholder="SELECT *, ph..photo..." />
+                <marker date="1417007013000" expanded="true" signature="164:292" placeholder="SELECT *, ph..photo..." />
+                <marker date="1417007013000" expanded="true" signature="164:300" placeholder="SELECT *, ph..photo..." />
+                <marker date="1417007013000" expanded="true" signature="680:731" placeholder="DELETE FROM ..." />
               </folding>
             </state>
           </provider>
@@ -415,7 +411,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417000621425</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixes">
+      <created>1417006749622</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1417006749622</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -432,7 +434,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26037195" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329602" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -771,15 +773,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/beheer/pages/portfolio/deletePhoto.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15400411" vertical-offset="0" max-vertical-offset="487">
-          <caret line="5" column="142" selection-start-line="5" selection-start-column="142" selection-end-line="5" selection-end-column="142" />
+        <state vertical-scroll-proportion="0.30800822" vertical-offset="0" max-vertical-offset="487">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <marker date="1417006737000" expanded="true" signature="31:150" placeholder="SELECT *, ph..photo..." />
-            <marker date="1417006737000" expanded="true" signature="164:265" placeholder="SELECT *, ph..photo..." />
-            <marker date="1417006737000" expanded="true" signature="164:269" placeholder="SELECT *, ph..photo..." />
-            <marker date="1417006737000" expanded="true" signature="164:287" placeholder="SELECT *, ph..photo..." />
-            <marker date="1417006737000" expanded="true" signature="164:294" placeholder="SELECT *, ph..photo..." />
-            <marker date="1417006737000" expanded="true" signature="653:704" placeholder="DELETE FROM ..." />
+            <marker date="1417007013000" expanded="true" signature="31:150" placeholder="SELECT *, ph..photo..." />
+            <marker date="1417007013000" expanded="true" signature="164:270" placeholder="SELECT *, ph..photo..." />
+            <marker date="1417007013000" expanded="true" signature="164:274" placeholder="SELECT *, ph..photo..." />
+            <marker date="1417007013000" expanded="true" signature="164:292" placeholder="SELECT *, ph..photo..." />
+            <marker date="1417007013000" expanded="true" signature="164:300" placeholder="SELECT *, ph..photo..." />
+            <marker date="1417007013000" expanded="true" signature="680:731" placeholder="DELETE FROM ..." />
           </folding>
         </state>
       </provider>
