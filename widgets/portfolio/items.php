@@ -2,14 +2,15 @@
 
 function portfolio_items(){
     
-    return urlSegment(2);
+    $id = urlSegment(2);
     
     global $mysqli;
 
-    $result = $mysqli->query("SELECT * FROM photo WHERE pid = '".$id."'");
-    
-    if($result){
+    $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album = '".$id."'");
+
+    if($result && $result->num_rows > 0){
         while($item = $result->fetch_object()){
+
             $portfolio .= '
             <figure>
                 <img src="/thumb.php?photo='.$item->id.'&type=portfolio" alt="'.$item->name.'"/>

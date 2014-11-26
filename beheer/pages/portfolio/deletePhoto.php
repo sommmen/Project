@@ -1,7 +1,10 @@
 <?php
 minRole(3);
 
-$query = "SELECT *, ph.id as photo_id FROM photo ph JOIN portfolio pr ON ph.pid = pr.id WHERE ph.id = '".urlSegment(3)."' LIMIT 1";
+//$query = "SELECT *, ph.id as photo_id FROM photo ph JOIN portfolio pr ON ph.pid = pr.id WHERE ph.id = '".urlSegment(3)."' LIMIT 1";
+
+$query = "SELECT *, ph.id as photo_id FROM photo ph JOIN portfolio po ON ph.portfolio_album = po.id WHERE ph.id = '".urlSegment(3)."' LIMIT1";
+
 $result = $mysqli->query($query);
 if($result->num_rows == 0){
     redirect('/beheer/projects');

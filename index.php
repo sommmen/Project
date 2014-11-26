@@ -141,7 +141,7 @@ if(!urlSegment(1)){
                     <ul>
                         <li><a href="#">Privacy policy</a></li>
                         <li><a href="#">Disclaimer</a></li>
-                        <li><a href="/beheer/">Klanten</a></li>
+                        <li><a href="/beheer/">Klanten login</a></li>
                     </ul>
                 </section>
 

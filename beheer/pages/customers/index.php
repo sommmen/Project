@@ -1,7 +1,6 @@
 <?php
 minRole(3);
 ?>
-<a href="/beheer/customers/add" class="button blue">Klant toevoegen</a>
 <h1>Klanten overzicht</h1>
 <table>
     <tr>
