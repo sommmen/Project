@@ -36,7 +36,7 @@
         }
         ?>
         <tr>
-            <td><?php echo $page->title; ?></td>
+            <td><a href="/beheer/page/edit/<?php echo $page->id; ?>"><?php echo $page->title; ?></a></td>
             <td><?php echo $page->slug; ?></td>
             <td><?php echo $page->last_modified; ?></td>
             <td><?php echo $published; ?></td>
