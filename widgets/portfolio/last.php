@@ -12,7 +12,7 @@ function portfolio_items(){
     
     global $mysqli;
     
-    $result = $mysqli->query("SELECT * FROM photo LIMIT 3");
+    $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album IS NOT NULL LIMIT 3");
     
     if($result && $result->num_rows > 0){
         while($item = $result->fetch_object()){
