@@ -18,13 +18,16 @@ minRole(3);
 //wysiwyg editor.
 
 if (!is_numeric($id = urlSegment(3))) {
-    echo "een fout met de url.";
+    redirect('/beheer/page');
 }
 
 $query = "SELECT * FROM page WHERE id = $id LIMIT 1";
 $result = $mysqli->query($query);
-if (!$result) {
-    echo $mysqli->error;
+
+
+
+if ($result->num_rows == 0){
+    redirect('/beheer/page');
 }
 $radio_published = ["", ""];
 $page = $result->fetch_object();
