@@ -76,6 +76,9 @@ $(document).ready(function(){
         }
     });
 
+    $(".selector").click(function(){
+        $(this).parent().parent("figure").toggleClass("selected");
+    });
 
 });
 //lol

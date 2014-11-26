@@ -16,12 +16,13 @@ function showProjects($uid){
         echo '<tr>';
         echo '<td>'.$row['title'].'</td>';
         echo '<td>'.$row['created'].'</td>';
-        echo "<td> <a href='beheer/customers/projectsView/". $row['id']."'>Foto's</a></td>";
+        echo "<td> <a href='/beheer/customers/projectsView/". $row['id']."'>Foto's</a></td>";
         echo '</tr>';
     }
 }
 ?>
 <table>
+
     <?php showProjects($id)?>
 </table>
 

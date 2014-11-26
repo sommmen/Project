@@ -12,7 +12,7 @@ if(isset($_GET['photo']) && isset($_GET['type'])){
         $photo = $result->fetch_object();
 
         if(get('type') == 'project') {
-            minRole(3);
+            minRole(2);
 
             $query = "SELECT * FROM project WHERE id = '" . $photo->pid . "'";
             if (!$result = $mysqli->query($query)) {
