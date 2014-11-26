@@ -89,7 +89,6 @@ require_once('config.php');
         } else {
             return false;
         }
-
     }
 
     function user_data($key){
