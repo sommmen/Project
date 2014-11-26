@@ -22,14 +22,14 @@ function portfolio_albums(){
     while($item = $result->fetch_object()){
         $portfolio .= '
         <figure>
-            <a href="#">
+            <a href="/portfolio-items/'.urlsegment(3).'">
                 <img src="/thumb.php?photo='.$item->prev_photo.'&type=portfolio" alt="'.$item->name.'"/>
                 <figcaption>'.$item->name.'</figcaption>
             </a>
         </figure>
         ';
     }
-
+    //* hi *//
     return $portfolio;
 
 }
