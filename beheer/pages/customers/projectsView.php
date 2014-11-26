@@ -1,10 +1,13 @@
+
 <?php
+minRole(2);
 /**
  * @var $id Project ID, niet user ID
  */
 $id = urlSegment(3);
 
-$query = $mysqli->query('SELECT * FROM project WHERE id = ' . $id);
+$query = $mysqli->query('SELECT * FROM photo WHERE pid = ' . $id);
+echo @$mysqli->error;
 if ($query->num_rows == 0) {
     echo "<div class='alert-error'> Op dit moment zijn er nog geen foto's toegevoegd, gelieve op een ander
     moment terug te komen.</div>";
@@ -14,20 +17,18 @@ if ($query->num_rows == 0) {
 if (isset($_POST['btnSubmit'])) {
     foreach ($_POST as $photoId => $value) {
         if ($photoId == "btnSubmit") continue;
-
+            print_r($_POST);
     }
 }
-
 
 
 ?>
 <a href="/beheer/dashboard" class="button">Terug naar overzicht</a>
 
-<h1><?php echo $project->title; ?></h1>
+<h1>Project</h1>
 
-<section class="row">
     <form method="POST">
-        <input type="submit" value="Verstuur Selectie" name="btnSubmit">
+        <section class="row">
         <?php
         while ($row = $query->fetch_object()) {
             ?>
@@ -40,11 +41,12 @@ if (isset($_POST['btnSubmit'])) {
                 </a>
                 <figcaption>
                     <?php echo $row->name; ?>
-                    <input type="checkbox" name="<?php $row->id ?>">
+                    <input type="checkbox" name="<?php echo $row->id; ?>" class="selector" <?php if($row->selected == true){ echo 'checked';} ?>>
                 </figcaption>
             </figure>
         <?php
         }
         ?>
+        </section>
+        <input type="submit" value="Verstuur Selectie" name="btnSubmit">
     </form>
-</section>

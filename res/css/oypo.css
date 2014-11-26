@@ -9,16 +9,26 @@ td {vertical-align:top}
 h1{
     background: none;
 }
+
 #PixxerTop {
 	/*
 	Gebruik onderstaande definitie om je (eigen) logo te plaatsen.
 	De hoogte indien nodig aanpassen aan de hoogte van het gebruikte beeldbestand.
 	*/
-	/*
+
 	margin-left: 25px;
 	height: 80px;
-	background: url(http://www.oypo.nl/img/logo_oypo_vierkant_80.png) no-repeat;
-	*/
+	background: image(img_logo) no-repeat;
+
+}
+
+a {
+    color: #ff554e;
+}
+
+.button {
+    background: #ff554e;
+    color: #ffffff;
 }
 
 #PixxerLanguageSwitch {margin-right: 10px; float: right}
@@ -26,9 +36,10 @@ h1{
 #PixxerBoxFolderInfo1 {padding-left:30px; padding-bottom:0px; background:#f0f0f0}
 #PixxerBoxFolderInfo2 {padding:8px 4px 20px 30px; background:#f0f0f0}
 #PixxerBoxFolderKort {4px 4px 0px 30px; background:#f0f0f0}
+#PixxerFoldersKop {color: #ffffff; background: #ff554e}
 
 #PixxerBoxParentPath {padding:4px 0px 2px 22px; color:#ff554e}
-#PixxerBoxParentPath a {color:#eee}
+#PixxerBoxParentPath a {color:black}
 #PixxerBoxPhoto {width: 530px}
 #PixxerBoxOptions {width: 180px}
 #PixxerBoxSelectionKop {width:170px; background:#bbb; border:1px solid #bbb; color:#222; text-align:center}
@@ -197,7 +208,8 @@ h1{
 .tblPixxerInfo, .PixxerTitle {padding-right:4px;text-align:right}
 
 .PixxerSubmapBlok {margin:10px 0 0 80px; background:#f0f0f0; border:1px solid #888}
-.PixxerSubmapKop {padding:2px 2px 2px 10px; background: #d0d0d0; font-size:12px; font-weight:bold}
+.PixxerSubmapKop {padding:2px 2px 2px 10px; background: #ff554e; font-size:12px; font-weight:bold; color: #ffffff}
+.PixxerSubmapKop a {color: #ffffff}
 .PixxerSubmapContents {float:left;color:#555}
 
 }
