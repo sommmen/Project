@@ -18,7 +18,7 @@ minRole(3);
             <td>
                 <a href="/beheer/portfolio/edit/<?php echo $portfolio->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
                 <a href="/beheer/portfolio/delete/<?php echo $portfolio->id; ?>"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
-                <a href="/beheer/portfolio/addPhoto/<?php echo $portfolio->id;?>"><img src="/beheer/res/img/plus24.png" alt="add"/></a>
+                <a href="/beheer/portfolio/addPhotos/<?php echo $portfolio->id;?>"><img src="/beheer/res/img/plus24.png" alt="add"/></a>
             </td>
         </tr>
     <?php
