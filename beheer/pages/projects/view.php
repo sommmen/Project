@@ -12,6 +12,7 @@ $query = "SELECT * FROM photo WHERE pid = '".$project->id."'";
 $result = $mysqli->query($query);
 ?>
 <a href="/beheer/projects" class="button">Terug naar overzicht</a>
+<a href="/beheer/customers/profile/<?php echo $project->uid;?>" class="button blue">Klant informatie</a>
 <a href="/beheer/projects/addPhotos/<?php echo $project->id;?>" class="button blue">Foto's toevoegen</a>
 
 <h1><?php echo $project->title;?></h1>

@@ -24,7 +24,7 @@ if($result->num_rows > 0){
         ?>
     <tr>
         <td><a href="/beheer/projects/view/<?php print_r($project->project_id);?>"><?php echo $project->title;?></a></td>
-        <td><a href="/beheer/customer/profile/<?php echo $project->id;?>"><?php echo $project->name.' '.$project->surname;?></a></td>
+        <td><a href="/beheer/customers/profile/<?php echo $project->id;?>"><?php echo $project->name.' '.$project->surname;?></a></td>
         <td><?php echo $project->created;?></td>
         <td>
             <a href="/beheer/projects/delete/<?php echo $project->project_id;?>"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
