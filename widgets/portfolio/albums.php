@@ -23,7 +23,7 @@ function portfolio_albums(){
         $portfolio .= '
         <figure>
             <a href="/portfolio-fotos/'.$item->id.'">
-                <img src="/thumb.php?photo='.$item->prev_photo.'&type=portfolio" alt="'.$item->name.'"/>
+                <img id="thumb" src="/thumb.php?photo='.$item->prev_photo.'&type=portfolio" alt="'.$item->name.'"/>
                 <figcaption>'.$item->name.'</figcaption>
             </a>
         </figure>
