@@ -139,7 +139,7 @@ if(!urlSegment(1)){
                     &copy; Copyright 2014<br/>
                     <br/>
                     <ul>
-                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="/privacy-policy">Privacy policy</a></li>
                         <li><a href="#">Disclaimer</a></li>
                         <li><a href="/beheer/">Klanten login</a></li>
                     </ul>
