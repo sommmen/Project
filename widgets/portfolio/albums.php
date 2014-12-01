@@ -17,7 +17,7 @@ Als je iets met mysql wilt doen in een widget, moet je altijd "global $mysqli;" 
 function portfolio_albums(){
     global $mysqli;
 
-    $result = $mysqli->query("SELECT * FROM portfolio");
+    $result = $mysqli->query("SELECT * FROM portfolio ORDER BY id DESC");
     
     while($item = $result->fetch_object()){
         $portfolio .= '

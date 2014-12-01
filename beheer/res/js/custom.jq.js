@@ -76,12 +76,21 @@ $(document).ready(function(){
         }
     });
 
+    var Photocount = 0;
+
     $(".selector").click(function(){
         $(this).parent().parent("figure").toggleClass("selected");
+        if($(this).is(":checked")){
+            Photocount++;
+        }else{
+            Photocount--;
+        }
+
+        alert(Photocount);
     });
 
 });
-//lol
+
 function getSlug(Text)
 {
     return Text

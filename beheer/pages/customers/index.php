@@ -14,7 +14,7 @@ minRole(3);
  *  Weergeeft een tabel met users en desbetreffende gegevens
  * 
  */
-$query = "SELECT * FROM user";
+$query = "SELECT * FROM user ORDER BY name";
 $result = $mysqli->query($query);
     while ($row = $result->fetch_object()) {
          echo '<tr>';

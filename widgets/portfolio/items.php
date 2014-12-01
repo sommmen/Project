@@ -6,7 +6,7 @@ function portfolio_items(){
     
     global $mysqli;
 
-    $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album = '".$id."'");
+    $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album = '".$id."' ORDER BY id DESC");
 
     if($result && $result->num_rows > 0){
         while($item = $result->fetch_object()){

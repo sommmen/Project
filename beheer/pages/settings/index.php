@@ -9,7 +9,7 @@ minRole(3);
     <th>waarde</th>
     <th>acties</th>
 <?php
-    $result = $mysqli->query("SELECT * FROM setting");
+    $result = $mysqli->query("SELECT * FROM setting ORDER BY `key`");
     while($setting = $result->fetch_object()){
  ?>   
     <tr>

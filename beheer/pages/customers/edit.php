@@ -51,7 +51,7 @@
     <label>Postcode:</label><input type="text" name="zipcode" value="<?php echo $value_postcode;?>"/><br />
     <label>Woonplaats:</label><input type="text" name="city" value="<?php echo $value_woonplaats;?>"/><br />
     <label>Telefoonnummer:</label><input type="text" name="telephone" value="<?php echo $value_telnr;?>"/><br />
-    <label>Email:</label><input type="text" name="email" value="<?php echo $value_email;?>"/> <br />
+    <label>Email:</label><input type="text" name="email" value="<?php echo $value_email;?>"/> <br /><br/>
     <input type="submit" name="form_submit" value="Wijzig"/>     
 </form>
 

@@ -6,19 +6,19 @@
  * and open the template in the editor.
  */
 
-function portfolio_items(){
+function portfolio_last(){
     
     
     
     global $mysqli;
     
-    $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album IS NOT NULL LIMIT 3");
+    $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album IS NOT NULL ORDER BY id DESC LIMIT 3");
     
     if($result && $result->num_rows > 0){
         while($item = $result->fetch_object()){
             $portfolio .= '
             <figure>    
-                <img src="/thumb.php?photo='.$item->id.'&type=portfolio" alt="'.$item->name.'"/>
+                <a href="/portfolio-fotos/'.$item->portfolio_album.'"><img src="/thumb.php?photo='.$item->id.'&type=portfolio" alt="'.$item->name.'"/></a>
             </figure>
             ';
         }
