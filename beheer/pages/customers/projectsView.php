@@ -25,7 +25,7 @@ if (isset($_POST['btnSubmit'])) {
 ?>
 <a href="/beheer/dashboard" class="button">Terug naar overzicht</a>
 
-<h1>Project</h1>
+<h1>Project <span id="currentPhotos">0</span>/<span id="maxPhotos">0</span></h1>
 
     <form method="POST">
         <section class="row">

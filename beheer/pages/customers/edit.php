@@ -10,6 +10,10 @@
     $city = "";
     $telephone = "";
     $result = $mysqli->query('SELECT * FROM user WHERE id = '.$id);
+
+    if($result->num_rows == 0)
+        redirect('/beheer/customers');
+
     while($row = $result->fetch_array()){
         $name = $row['name'];
         $surname = $row['surname'];
