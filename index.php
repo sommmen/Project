@@ -140,7 +140,7 @@ if(!urlSegment(1)){
                     <br/>
                     <ul>
                         <li><a href="/privacy-policy">Privacy policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="/disclaimer">Disclaimer</a></li>
                         <li><a href="/beheer/">Klanten login</a></li>
                     </ul>
                 </section>
