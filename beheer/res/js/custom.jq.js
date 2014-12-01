@@ -76,7 +76,9 @@ $(document).ready(function(){
         }
     });
 
-    var Photocount = 0;
+    var Photocount = parseInt($("#currentSelectedPhotos").text());
+    var Photomax = parseInt($("#maxSelectedPhotos").text());
+    var modal = false;
 
     $(".selector").click(function(){
         $(this).parent().parent("figure").toggleClass("selected");
@@ -85,8 +87,13 @@ $(document).ready(function(){
         }else{
             Photocount--;
         }
+        $("#currentSelectedPhotos").text(Photocount);
 
-        alert(Photocount);
+        if(Photocount > Photomax && modal == false && Photomax != 0){
+            modal = true;
+            alert("U heeft meer foto's geselecteerd dan afgesproken, Dit is natuurlijk geen probleem! Wij nemen contact met u op over verdere afhandeling.");
+        }
+
     });
 
 });
@@ -96,8 +103,7 @@ function getSlug(Text)
     return Text
         .toLowerCase()
         .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '')
-        ;
+        .replace(/[^\w-]+/g, '');
 }
 
 function updateValue() {
