@@ -61,7 +61,7 @@
             Het ziet er naar uit dat uw email adres is veranderd via de website.<br>
             Vanwege veiligheidsmaatregelen hebben wij een nieuw wachtwoord voor u klaargezet.<br><br>
             <strong>Nieuw wachtwoord: </strong>'.$password.' <br>
-            Mocht u nog enige vragen hebben, dan horen wij het graag. Excuses voor het ongemak!<br>
+            Mocht u nog enige vragen hebben, dan horen wij het graag. Excuses voor het ongemak!<br><br>
             Mvg,<br>
             Michael Verbeek - Fotografie/Geluidstechniek<br><br>
             <i>Is deze mail niet voor u bedoelt? Gelieve ons te contacteren op <a href="'.getProp('base_url').'">onze website</a>, excuses.</i>'
