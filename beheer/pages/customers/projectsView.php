@@ -7,7 +7,14 @@ minRole(2);
 $id = urlSegment(3);
 
 $query = $mysqli->query('SELECT * FROM photo WHERE pid = ' . $id);
-echo @$mysqli->error;
+$selected = $mysqli->query('SELECT * FROM photo WHERE pid = ' . $id. ' AND selected = 1');
+$selectedNum = $selected->num_rows;
+$project = $mysqli->query("SELECT * FROM project WHERE id = '".$id."' AND uid = '".user_data('id')."'");
+
+if($project->num_rows == 0){
+    redirect('/beheer/');
+}
+$project = $project->fetch_object();
 if ($query->num_rows == 0) {
     echo "<div class='alert-error'> Op dit moment zijn er nog geen foto's toegevoegd, gelieve op een ander
     moment terug te komen.</div>";
@@ -19,7 +26,7 @@ if (isset($_POST['btnSubmit'])) {
     $info = "";
     foreach ($_POST as $photoId => $value) {
         if ($photoId == "btnSubmit") continue;
-            $info .= addInfo($photoId);
+        $info .= addInfo($photoId);
         $mysqli->query('UPDATE photo SET selected = 1 WHERE id = '.$photoId);
     }
     sendMail($info, $id);
@@ -31,7 +38,7 @@ if (isset($_POST['btnSubmit'])) {
 function resetData($projectID){
     global $mysqli;
     $mysqli->query('UPDATE photo SET selected = null WHERE pid = '.$projectID);
-    if($mysqli->error) return 404;
+    if($mysqli->error) return 403334;
 }
 
 function sendMail($info, $id){
@@ -52,9 +59,9 @@ function sendMail($info, $id){
 function addInfo($photoId){
     global $mysqli;
     $result = $mysqli->query('SELECT * FROM photo WHERE id = '.$photoId);
-    if($mysqli->error) return 404;
+    if($mysqli->error) return 499904;
     if($row = $result->fetch_object()){
-      return '- <strong>'. $row->name.'</strong>  - (<i>'. $row->file_name.')</i> <br>';
+        return '- <strong>'. $row->name.'</strong>  - (<i>'. $row->file_name.')</i> <br>';
     }
 }
 
@@ -62,10 +69,10 @@ function addInfo($photoId){
 ?>
 <a href="/beheer/dashboard" class="button">Terug naar overzicht</a>
 
-<h1>Project</h1>
+<h1>Project <span id="currentSelectedPhotos"><?php echo $selectedNum; ?></span> / <span id="maxSelectedPhotos"><?php echo $project->max;?></span></h1>
 
-    <form method="POST">
-        <section class="row">
+<form method="POST">
+    <section class="row">
         <?php
         while ($row = $query->fetch_object()) {
             ?>
@@ -84,6 +91,6 @@ function addInfo($photoId){
         <?php
         }
         ?>
-        </section>
-        <input type="submit" value="Verstuur Selectie" name="btnSubmit">
-    </form>
+    </section>
+    <input type="submit" value="Verstuur Selectie" name="btnSubmit">
+</form>
