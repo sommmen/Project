@@ -15,9 +15,46 @@ if ($query->num_rows == 0) {
 }
 
 if (isset($_POST['btnSubmit'])) {
+    resetData($id);
+    $info = "";
     foreach ($_POST as $photoId => $value) {
         if ($photoId == "btnSubmit") continue;
-            print_r($_POST);
+            $info .= addInfo($photoId);
+        $mysqli->query('UPDATE photo SET selected = 1 WHERE id = '.$photoId);
+    }
+    sendMail($info, $id);
+    setMessage('De foto\'s zijn succesvol verstuurd! U krijgt zo spoedig mogelijk bericht!');
+    redirect('/beheer/customers/projectsView/'.$id);
+
+}
+
+function resetData($projectID){
+    global $mysqli;
+    $mysqli->query('UPDATE photo SET selected = null WHERE pid = '.$projectID);
+    if($mysqli->error) return 404;
+}
+
+function sendMail($info, $id){
+    $subject = 'Michael Verbeek - Er is een nieuw verzoek van '.user_data('name').' '.user_data('surname');
+    $to = getProp('admin_mail');
+    $header  = 'MIME-Version: 1.0' . "\r\n";
+    $header .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $header .= 'From: '.user_data('name').' '.user_data('surname').'<'.user_data('email').'>';
+    mail($to, $subject,
+        'Hallo michael, '.user_data('name').' '.user_data('surname').' heeft een keuze kunnen maken. <br>
+        De volgende foto\'s zijn uitgekozen: <br>'. $info.
+        '<br> Gelieve de heer/mevrouw '.user_data('name').' '.user_data('surname').' terug te mailen.<br><br>
+        Klik <a href="'.getProp('base_url').'/beheer/projects/view/'.$id.'">hier</a> om het project te bezoeken.',
+        $header);
+}
+
+
+function addInfo($photoId){
+    global $mysqli;
+    $result = $mysqli->query('SELECT * FROM photo WHERE id = '.$photoId);
+    if($mysqli->error) return 404;
+    if($row = $result->fetch_object()){
+      return '- <strong>'. $row->name.'</strong>  - (<i>'. $row->file_name.')</i> <br>';
     }
 }
 
@@ -25,7 +62,7 @@ if (isset($_POST['btnSubmit'])) {
 ?>
 <a href="/beheer/dashboard" class="button">Terug naar overzicht</a>
 
-<h1>Project <span id="currentPhotos">0</span>/<span id="maxPhotos">0</span></h1>
+<h1>Project</h1>
 
     <form method="POST">
         <section class="row">
