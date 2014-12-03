@@ -39,16 +39,17 @@
                 $value = set_value($arrayName, $name);
             }else{
                 $mysqli->query('UPDATE user SET '.$arrayName.' = "'.$value.'" WHERE id = '.$id);
-                if($arrayName == "email"){
-                    newEmail($id, $value);
+                if($arrayName == "email" && $email != $value){
+                    newEmail($id, $value, $name.' '.$surname);
                 }
                 if($mysqli->error) die ($mysqli->error);
             }
         }
+        setMessage('U heeft de gegevens met succes geweizigd!');
         redirect('/beheer/customers');
     }
 
-    function newEmail($id, $to){
+    function newEmail($id, $to, $naam){
         global $mysqli;
         $password = random_password();
         $subject = 'Michael Verbeek - Wijziging Email';
@@ -56,7 +57,7 @@
         $header .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $header .= 'From: Michael Verbeek <'.getProp('admin_mail').'>';
         mail($to, $subject,
-            'Geachte Heer/Mevrouw '.user_data('name').' '.user_data('surname').' ,<br>
+            'Geachte Heer/Mevrouw '.$naam.' ,<br>
             Het ziet er naar uit dat uw email adres is veranderd via de website.<br>
             Vanwege veiligheidsmaatregelen hebben wij een nieuw wachtwoord voor u klaargezet.<br><br>
             <strong>Nieuw wachtwoord: </strong>'.$password.' <br>
