@@ -1,6 +1,6 @@
 <?php
     minRole(2);
-    $id = userdata('id');
+    $id = user_data('id');
     
     $name = "";
     $surname = "";
@@ -41,7 +41,7 @@
                 if($mysqli->error) die ($mysqli->error);
             }
         }
-        redirect('/beheer/customer/editProfile');
+        redirect('/beheer/customers/editProfile');
     }
 ?>
 
