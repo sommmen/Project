@@ -86,6 +86,7 @@ require_once('../system/core.php');
                     <li><a href="/beheer/settings">Instellingen</a></li>
                 <?php }elseif(user_data('role') == 2){ ?>
                     <li><a href="/beheer/project">Project</a></li>
+                    <li><a href="/beheer/customers/editProfile">Gegevens</a></li>
                 <?php } ?>
                 <li><a href="/beheer/user/logout">Uitloggen</a></li>
             </ul>
