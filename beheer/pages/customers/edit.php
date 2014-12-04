@@ -60,7 +60,7 @@
             'Geachte Heer/Mevrouw '.$naam.' ,<br>
             Het ziet er naar uit dat uw email adres is veranderd via de website.<br>
             Vanwege veiligheidsmaatregelen hebben wij een nieuw wachtwoord voor u klaargezet.<br><br>
-            <strong>Nieuw wachtwoord: </strong>'.$password.' <br>
+            <strong>Nieuw wachtwoord: </strong>'.$password.'<br>
             Mocht u nog enige vragen hebben, dan horen wij het graag. Excuses voor het ongemak!<br><br>
             Mvg,<br>
             Michael Verbeek - Fotografie/Geluidstechniek<br><br>
