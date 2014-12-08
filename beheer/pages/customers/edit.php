@@ -39,10 +39,36 @@
                 $value = set_value($arrayName, $name);
             }else{
                 $mysqli->query('UPDATE user SET '.$arrayName.' = "'.$value.'" WHERE id = '.$id);
+                if($arrayName == "email" && $email != $value){
+                    newEmail($id, $value, $name.' '.$surname);
+                }
                 if($mysqli->error) die ($mysqli->error);
             }
         }
+        setMessage('U heeft de gegevens met succes geweizigd!');
         redirect('/beheer/customers');
+    }
+
+    function newEmail($id, $to, $naam){
+        global $mysqli;
+        $password = random_password();
+        $subject = 'Michael Verbeek - Wijziging Email';
+        $header  = 'MIME-Version: 1.0' . "\r\n";
+        $header .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $header .= 'From: Michael Verbeek <'.getProp('admin_mail').'>';
+        mail($to, $subject,
+            'Geachte Heer/Mevrouw '.$naam.' ,<br>
+            Het ziet er naar uit dat uw email adres is veranderd via de website.<br>
+            Vanwege veiligheidsmaatregelen hebben wij een nieuw wachtwoord voor u klaargezet.<br><br>
+            <strong>Nieuw wachtwoord: </strong>'.$password.'<br>
+            Mocht u nog enige vragen hebben, dan horen wij het graag. Excuses voor het ongemak!<br><br>
+            Mvg,<br>
+            Michael Verbeek - Fotografie/Geluidstechniek<br><br>
+            <i>Is deze mail niet voor u bedoelt? Gelieve ons te contacteren op <a href="'.getProp('base_url').'">onze website</a>, excuses.</i>'
+            , $header);
+        $mysqli->query('UPDATE user SET password = "'.sha1($password).'" WHERE id = '.$id);
+        if($mysqli->error) return 404;
+
     }
 ?>
 <a href="/beheer/customers" class="button">Terug naar overzicht</a>
