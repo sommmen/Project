@@ -91,7 +91,7 @@ if (isset($error)) {
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="<?php set_value("email"); ?>">
             <label for="captcha"><?php echo $som; ?></label>
-            <input type="number" name="captcha" id="captcha" value="<?php set_value("captcha"); ?>">
+            <input type="number" name="captcha" id="captcha">
             <input type="submit" name="send" value="versturen">
         </form>
     </section>
