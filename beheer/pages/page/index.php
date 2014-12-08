@@ -1,4 +1,5 @@
 <?php minRole(3);
+
 ?>
 <a href="/beheer/page/add" class="button blue">Pagina toevoegen</a>
 <h1>Pagina overzicht</h1>
@@ -24,23 +25,14 @@
     <?php
     }
     while ($page = $result->fetch_object()) {
-        if ($page->published == 1) {
-            $published = "ja";
-        } else {
-            $published = "nee";
-        }
-        if ($page->in_nav == 0) {
-            $in_nav = 'niet getoond';
-        } else {
-            $in_nav = $page->in_nav;
-        }
+        
         ?>
         <tr>
             <td><a href="/beheer/page/edit/<?php echo $page->id; ?>"><?php echo $page->title; ?></a></td>
             <td><?php echo $page->slug; ?></td>
             <td><?php echo $page->last_modified; ?></td>
-            <td><?php echo $published; ?></td>
-            <td><?php echo $in_nav; ?></td>
+            <td><?php echo $page->published==1 ? "ja" : "nee" ?></td>
+            <td><?php echo $page->in_nav  ?: "niet getoond" ; ?></td>
             <td>
                 <a href="/beheer/page/edit/<?php echo $page->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
                 <a href="/beheer/page/delete/<?php echo $page->id; ?>" onClick="return confirm('Weet je zeker dat je deze pagina wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="edit"/></a>
