@@ -56,11 +56,21 @@ require_once('../system/core.php');
     </script>
 
 </head>
-
+<?php
+$role = user_data('role');
+if ($role == 2){
+    $hi = ' klant';
+}else if($role == 3){
+    $hi = ' beheer';
+}else{
+    $hi = ' login';
+}
+// $hi = $role == 3 ?' beheer': ' klant';
+?>
 <body>
 <header>
     <section class="container">
-        <a href="/"><?php echo getProp('site_name');?> beheer</a>
+        <a href="/"><?php echo getProp('site_name').$hi;?></a>
     </section>
 </header>
 
