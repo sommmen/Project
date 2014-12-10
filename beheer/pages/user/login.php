@@ -24,24 +24,6 @@ if (isset($_POST['submit'])) {
     }
 }
 
-if (isset($_POST['send'])) {
-    if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)) {
-        if (($num1 + $num2) == $_POST['captcha']) {
-            if($mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'")->fetch_object()->num_rows != false){
-                $newpass = random_password();
-                $mysqli->query("UPDATE user SET password = '$newpass' WHERE email = '".post('email')."'");
-                mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
-            } else {
-                setMessage("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='contact'>Micheal verbeek</a>"); //contact form linken!
-            }
-        } else {
-            setMessage("Gelieve de captcha correct in te vullen.");
-        }
-    } else {
-        setMessage("Gelieve een email in te voeren.");
-    }
-}
-
 function toLetters($input) { //verplaatsen naar core?
     $letters = ["nul", "één", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "tien"];
     foreach ($letters as $key => $value) {
@@ -54,7 +36,25 @@ function toLetters($input) { //verplaatsen naar core?
 $num1 = rand(1, 10);
 $num2 = rand(1, 10);
 
-$som = toLetters($num1) . " + " . toLetters($num2) . " = ";
+$som = toLetters($num1) . " plus " . toLetters($num2) . " is: ";
+
+if (isset($_POST['send'])) {
+    if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)) {
+        if (($num1 + $num2) == $_POST['captcha']) {
+            if($mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'")->fetch_object()->num_rows != false){
+                $newpass = random_password();
+                $mysqli->query("UPDATE user SET password = '$newpass' WHERE email = '".sha1(post('email')."'"));
+                mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
+            } else {
+                setMessage("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='contact'>Micheal verbeek</a>"); //contact form linken!
+            }
+        } else {
+            setMessage("Gelieve de captcha correct in te vullen.");
+        }
+    } else {
+        setMessage("Gelieve een email in te voeren.");
+    }
+}
 ?>
 
 <section class="modal">
