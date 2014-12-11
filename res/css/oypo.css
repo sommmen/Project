@@ -35,7 +35,7 @@ a {
 #PixxerBottom {position: absolute; bottom: 0}
 #PixxerBoxFolderInfo1 {padding-left:30px; padding-bottom:0px; background:#f0f0f0}
 #PixxerBoxFolderInfo2 {padding:8px 4px 20px 30px; background:#f0f0f0}
-#PixxerBoxFolderKort {4px 4px 0px 30px; background:#f0f0f0}
+#PixxerBoxFolderKort {padding:4px 4px 0px 30px; background:#f0f0f0}
 #PixxerFoldersKop {color: #ffffff; background: #ff554e}
 
 #PixxerBoxParentPath {padding:4px 0px 2px 22px; color:#ff554e}
