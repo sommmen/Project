@@ -59,11 +59,11 @@ require_once('../system/core.php');
 <?php
 $role = user_data('role');
 if ($role == 2){
-    $hi = ' klant';
+    $hi = ' - klanten paneel';
 }else if($role == 3){
-    $hi = ' beheer';
+    $hi = ' - Beheer';
 }else{
-    $hi = ' login';
+    $hi = ' - Inloggen';
 }
 // $hi = $role == 3 ?' beheer': ' klant';
 ?>
@@ -95,8 +95,7 @@ if ($role == 2){
                     <li><a href="/beheer/customers">Klanten</a></li>
                     <li><a href="/beheer/settings">Instellingen</a></li>
                 <?php }elseif(user_data('role') == 2){ ?>
-                    <li><a href="/beheer/project">Project</a></li>
-                    <li><a href="/beheer/customers/editProfile">Gegevens</a></li>
+                    <li><a href="/beheer/customers/editProfile">Mijn gegevens</a></li>
                 <?php } ?>
                 <li><a href="/beheer/user/logout">Uitloggen</a></li>
             </ul>

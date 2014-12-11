@@ -21,7 +21,8 @@ if(isset($_POST['submit'])){
     if(!isset($error)){
         if($_POST['user_id'] == 0){
             $username = post('name').'-'.post('surname');
-            $password = sha1(random_password());
+            $random_password = random_password();
+            $password = sha1($random_password);
             $query = "INSERT INTO user (username,
                                         password,
                                         name,
@@ -72,11 +73,11 @@ if(isset($_POST['submit'])){
                 $name = post('name').' '.post('surname');
                 $email_content = 'Beste '.$name.',<br>'
                         . '<br>'
-                        . 'U bent nieuw toegevoegd aan het klanten systeem van Michael Verbeek.'
+                        . 'U bent nieuw toegevoegd aan het klanten systeem van Michael Verbeek.<br/>'
                         . 'U kunt met uw gebruikersnaam en wachtwoord inloggen op de site van Michael Verbeek.<br>'
                         . '<br>'
                         . 'gebruikersnaam: '.$username.'<br>'
-                        . 'wachtwoord: '.$password.'<br>'
+                        . 'wachtwoord: '.$random_password.'<br>'
                         . '<br>'
                         . 'U kunt inloggen op de volgende link: <a href="'.getProp('base_url').'/beheer">'.getProp('base_url').'/beheer</a><br>'
                         . '<br>'
@@ -95,7 +96,7 @@ if(isset($_POST['submit'])){
                 $name = $user->name.' '.$user->surname;
                 $email_content = 'Beste '.$name.',<br>'
                         . '<br>'
-                        . 'Michael Verbeek heeft een nieuw project voor U aangemaakt.'
+                        . 'Michael Verbeek heeft een nieuw project voor U aangemaakt.<br/>'
                         . 'U kunt op de volgende link inloggen om het project te kunnen bekijken: <a href="'.getProp('base_url').'/beheer">'.getProp('base_url').'/beheer</a><br>'
                         . '<br>'
                         . 'Met vrienelijke groet,<br>'
@@ -104,11 +105,11 @@ if(isset($_POST['submit'])){
             }
             
             $subject = 'nieuw project aangemaakt';
-            $headers =  "From: ".post('name')." <".post('email').">\r\n".
+            $headers =  "From: Michael Verbeek <".getProp('admin_mail').">\r\n".
                         "MIME-Version: 1.0" . "\r\n" .
                         "Content-type: text/html; charset=UTF-8" . "\r\n";
 
-            mail($to, $subject, $$email_content, $headers);
+            mail($to, $subject, $email_content, $headers);
             $success = '<section class="success">Uw bericht is verstuurd, er wordt zo spoedig mogelijk contact met u opgenomen.</section>';
             
             

@@ -187,8 +187,8 @@ if(!urlSegment(1)){
     cookieControl({
         t: {
             title: '<p>Deze website gebruikt cookies om statistieken bij te houden.</p>',
-            intro: '<p>Als u doorgaat met het gebruiken van deze website accepteert u deze cookies automatisch.</p>',
-            full:'<p>U zult deze cookie melder maar één keer te zien krijgen.</p><p>Door het gebruiken van deze website accepteert u onze <a href="http://kbs.klanten.kevin889.nl/privacy-policy">Privacy Policy</a>.</p>'
+            intro: '<p>De cookies worden gebruikt om statistieken van de website bij te houden</p>',
+            full:'<p>Deze cookies worden gebruikt om de statistieken van de website bij te houden.</p><p>By using our site you accept the terms of our <a href="http://kbs.klanten.kevin889.nl/privacy-policy">Privacy Policy</a>.</p>'
         },
         position:CookieControl.POS_LEFT,
         style:CookieControl.STYLE_TRIANGLE,

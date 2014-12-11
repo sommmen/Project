@@ -93,13 +93,18 @@ require_once('config.php');
 
     function user_data($key){
         global $mysqli;
-        $token = $_SESSION['user']['token'];
-        $username = $_SESSION['user']['name'];
+        @$token = $_SESSION['user']['token'];
+        @$username = $_SESSION['user']['name'];
 
-        $sql = "SELECT * FROM user WHERE username = '" . $username . "' AND token = '" . $token . "'";
-        $result = $mysqli->query($sql);
+        if(!isset($token) && !isset($username)){
+            return false;
+        } else {
 
-        return $result->fetch_object()->$key;
+            $sql = "SELECT * FROM user WHERE username = '" . $username . "' AND token = '" . $token . "'";
+            $result = $mysqli->query($sql);
+
+            return $result->fetch_object()->$key;
+        }
     }
 
 function setMessage($message=''){
