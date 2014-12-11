@@ -40,8 +40,10 @@ $som = toLetters($num1) . " plus " . toLetters($num2) . " is: ";
 
 if (isset($_POST['send'])) {
     if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)) {
+        echo "$num1 | $num2 | ".$_POST['captcha']."<br>";
         if (($num1 + $num2) == $_POST['captcha']) {
-            if($mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'")->fetch_object()->num_rows != false){
+            $result = $result->mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'");
+            if($result->fetch_object()->num_rows != false){
                 $newpass = random_password();
                 $mysqli->query("UPDATE user SET password = '$newpass' WHERE email = '".sha1(post('email')."'"));
                 mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
