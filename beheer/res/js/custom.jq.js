@@ -97,6 +97,7 @@ $(document).ready(function(){
     });
 
     $("#toggleDropDown").click(function () {
+
         $("#dropdown").slideToggle("slow");
         $("#loginform").slideToggle("slow");
 

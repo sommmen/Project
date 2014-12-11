@@ -46,13 +46,13 @@ if (isset($_POST['send'])) {
                 $mysqli->query("UPDATE user SET password = '$newpass' WHERE email = '".sha1(post('email')."'"));
                 mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
             } else {
-                setMessage("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='contact'>Micheal verbeek</a>"); //contact form linken!
+                $error = ("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='contact'>Micheal verbeek</a>"); //contact form linken!
             }
         } else {
-            setMessage("Gelieve de captcha correct in te vullen.");
+            $error = ("Gelieve de captcha correct in te vullen.");
         }
     } else {
-        setMessage("Gelieve een email in te voeren.");
+        $error = ("Gelieve een email in te voeren.");
     }
 }
 ?>
@@ -75,7 +75,7 @@ if (isset($error)) {
 <?php getMessage(); ?>
     <section class="modal-content">
 
-        <form action="" method="post">
+        <form action="" method="post" id="loginform">
 
             <label for="username">Gebruikersnaam: <span>*</span></label>
             <input type="text" name="username" id="username"/>
@@ -85,9 +85,9 @@ if (isset($error)) {
 
             <input type="submit" name="submit" value="Login"/>
         </form>
-        <a href="#">Wachtwoord vergeten</a>
+        <a href="#" id="toggleDropDown">Wachtwoord vergeten</a>
 
-        <form id="dropdown" action="" method="POST">
+        <form id="dropdown" action="" method="POST" style="display: none;">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="<?php set_value("email"); ?>">
             <label for="captcha"><?php echo $som; ?></label>
