@@ -33,15 +33,26 @@ function toLetters($input) { //verplaatsen naar core?
     }
 }
 
-$num1 = rand(1, 10);
-$num2 = rand(1, 10);
+if(!isset($_SESSION['gbnaam']) && isset($_SESSION['wwoord'])){
+    $_SESSION['gbnaam'] = random_password().rand(1,10);
+    $_SESSION['wwoord'] = random_password().rand(1,10);
+}
+
+//$_SESSION['gbnaam'] ?: $_SESSION['gbnaam'] = random_password().rand(1,10); //hmm... zou dit werken?
+//$_SESSION['wwoord'] ?: $_SESSION['wwoord'] = random_password().rand(1,10);
+
+
+$num1 = substr($_SESSION['gbnaam'], 8);
+$num2 = substr($_SESSION['wwoord'], 8);
 
 $som = toLetters($num1) . " plus " . toLetters($num2) . " is: ";
 
 if (isset($_POST['send'])) {
     if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)) {
-        echo "$num1 | $num2 | ".$_POST['captcha']."<br>";
-        if (($num1 + $num2) == $_POST['captcha']) {
+//        echo "$num1 | $num2 | ".$_POST['captcha']."<br>";
+        if (($num1 + $num2) === $_POST['captcha']) {
+            unset($_SESSION['gbnaam']);
+            unset($_SESSION['wwoord']);
             $result = $result->mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'");
             if($result->fetch_object()->num_rows != false){
                 $newpass = random_password();
