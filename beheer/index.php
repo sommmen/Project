@@ -94,6 +94,7 @@ if ($role == 2){
                     <li><a href="/beheer/projects">Projecten</a></li>
                     <li><a href="/beheer/customers">Klanten</a></li>
                     <li><a href="/beheer/settings">Instellingen</a></li>
+                    <li><a href="/beheer/customers/editProfile">Mijn gegevens</a></li>
                 <?php }elseif(user_data('role') == 2){ ?>
                     <li><a href="/beheer/customers/editProfile">Mijn gegevens</a></li>
                 <?php } ?>
