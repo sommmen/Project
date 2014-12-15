@@ -42,8 +42,8 @@ if(!isset($_SESSION['gbnaam']) && isset($_SESSION['wwoord'])){
 //$_SESSION['wwoord'] ?: $_SESSION['wwoord'] = random_password().rand(1,10);
 
 
-$num1 = substr($_SESSION['gbnaam'], 8);
-$num2 = substr($_SESSION['wwoord'], 8);
+$num1 = @substr($_SESSION['gbnaam'], 8);
+$num2 = @substr($_SESSION['wwoord'], 8);
 
 $som = toLetters($num1) . " plus " . toLetters($num2) . " is: ";
 
