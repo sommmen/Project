@@ -13,9 +13,9 @@ if(isset($_POST['submit'])){
     
     $result = $mysqli->query("SELECT * FROM project WHERE id = '" . $project->id . "'");
             if ($result->num_rows > 0) {
-                $project = $result->fetch_object();
+                $projects = $result->fetch_object();
 
-                $newPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($project->id . $project->title) . '/';
+                $newPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($projects->id . $projects->title) . '/';
                 rename($targerPath, $newPath);
             }
         if($result){
