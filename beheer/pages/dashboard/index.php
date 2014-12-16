@@ -23,6 +23,5 @@ function showProjects($uid){
 ?>
 <table>
 
-    <?php showProjects($id)?>
+    <?php if(user_data('role') == 2) {showProjects($id); }?>
 </table>
-
