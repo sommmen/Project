@@ -8,9 +8,22 @@ if($result->num_rows==1){
 
 
 if(isset($_POST['submit'])){
-    $targerPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($project->uid . $project->name) . '/';
-    $result=$mysqli->query("UPDATE project SET title = '".$_POST['project_naam']."', uid = '".$_POST['project_klant']."', max = '".$_POST['project_max_photos']."' WHERE uid = '".$_POST['project_klant']."'");
+    $targerPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($project->id . $project->title) . '/';
+    $result=$mysqli->query("UPDATE project SET title = '".$_POST['project_naam']."', uid = '".$_POST['project_klant']."', max = '".$_POST['project_max_photos']."' WHERE id = '".$project->id."'");
     
+    $result = $mysqli->query("SELECT * FROM project WHERE id = '" . $project->id . "'");
+            if ($result->num_rows > 0) {
+                $project = $result->fetch_object();
+
+                $newPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($project->id . $project->title) . '/';
+                rename($targerPath, $newPath);
+            }
+        if($result){
+            setMessage("Project succesvol bijgewerkt.");
+            redirect('/beheer/project');   
+        }else{
+            echo $mysqli->error;
+        }
     
 }
 
