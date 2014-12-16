@@ -4,7 +4,7 @@ $query= "SELECT * FROM project WHERE id = '".urlSegment(3)."'";
 $result=$mysqli->query($query);
 
 if($result->num_rows==1){
-    $project=$result->fetch_object;
+    $project=$result->fetch_object();
 
 
 if(isset($_POST['submit'])){
