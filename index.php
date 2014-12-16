@@ -182,6 +182,39 @@ if(!urlSegment(1)){
 
 </section>
 
+<script src="/res/js/cookieControl-6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+    cookieControl({
+        t: {
+            title: '<p>Deze website gebruikt cookies om statistieken bij te houden.</p>',
+            intro: '<p>De cookies worden gebruikt om statistieken van de website bij te houden</p>',
+            full:'<p>Deze cookies worden gebruikt om de statistieken van de website bij te houden.</p><p>By using our site you accept the terms of our <a href="http://kbs.klanten.kevin889.nl/privacy-policy">Privacy Policy</a>.</p>'
+        },
+        position:CookieControl.POS_LEFT,
+        style:CookieControl.STYLE_TRIANGLE,
+        theme:CookieControl.THEME_LIGHT, // light or dark
+        startOpen:true,
+        autoHide:7000,
+        subdomains:true,
+        protectedCookies: [], // list the cookies you do not want deleted, for example ['analytics', 'twitter']
+        apiKey: '53e8269dcd21fec52c85cc2f65fd59067030614c',
+        product: CookieControl.PROD_FREE,
+        consentModel: CookieControl.MODEL_INFO,
+        onAccept:function(){ccAddAnalytics()},
+        onReady:function(){},
+        onCookiesAllowed:function(){ccAddAnalytics()},
+        onCookiesNotAllowed:function(){}
+    });
+
+    function ccAddAnalytics() {
+        jQuery.getScript("http://www.google-analytics.com/ga.js", function() {
+            var GATracker = _gat._createTracker('UA-57306320-1');
+            GATracker._trackPageview();
+        });
+    }
+    //]]>
+</script>
+
 </body>
 
 </html>

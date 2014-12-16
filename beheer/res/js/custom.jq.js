@@ -96,6 +96,24 @@ $(document).ready(function(){
 
     });
 
+    $("#toggleDropDown").click(function () {
+
+        $("#dropdown").slideToggle("slow");
+        $("#loginform").slideToggle("slow");
+
+        var test = $("#toggleDropDown").text();
+
+        if (test === "Wachtwoord vergeten") {
+            $("#toggleDropDown").text("Terug");
+            $("section > header").text("Nieuw Wachtwoord");
+        } else {
+            $("#toggleDropDown").text("Wachtwoord vergeten");
+            $("section > header").text("Login");
+        }
+
+    });
+
+
 });
 
 function getSlug(Text)
