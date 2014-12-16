@@ -19,7 +19,7 @@ if($result->num_rows==1){
             }
         if($result){
             setMessage("Album succesvol bijgewerkt.");
-            redirect('/beheer/portfolio');   
+            redirect('/beheer/projects');   
         }else{
             echo $mysqli->error;
         }
