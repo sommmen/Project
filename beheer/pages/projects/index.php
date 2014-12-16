@@ -28,7 +28,7 @@ if($result->num_rows > 0){
         <td><?php echo $project->created;?></td>
         <td>
             <a href="/beheer/projects/delete/<?php echo $project->project_id;?>"><img src="/beheer/res/img/black393.png" alt="edit"/></a> |
-            <a href="/beheer/projects/addPhotos/<?php echo $project->project_id;?>"><img src="/beheer/res/img/plus24.png" alt="add"/></a>
+            <a href="/beheer/projects/addPhotos/<?php echo $project->project_id;?>"><img src="/beheer/res/img/plus24.png" alt="add"/></a> |
             <a href="/beheer/projects/edit/<?php echo $project->project_id;?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a>
         </td>
     </tr>
