@@ -29,7 +29,7 @@ if(isset($_POST['verzenden'])){
 }
 
 ?>
-<a href="/beheer/project" class="button">Terug naar overzicht</a>
+<a href="/beheer/projects" class="button">Terug naar overzicht</a>
 <h1>Project aanpassen</h1>
 <form method="post" action="">
     <label>Project naam:</label>
