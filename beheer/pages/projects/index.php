@@ -33,9 +33,7 @@ if($result->num_rows > 0){
         </td>
     </tr>
     <?php
-        //dit is kut, en moeilijk te begrijpen voor daan.
-        //print("<tr><td>$page->title</td><td>$page->uid</td><td>$page->created</td><td><a href=\"/beheer/projects/edit/$page->title\">Edit</a>\<a href=\"/beheer/projects/delete/$page->title\">Delete</a></td></tr>");
-    }
+}
 ?>
 </table>
 <?php
