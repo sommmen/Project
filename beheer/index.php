@@ -56,21 +56,11 @@ require_once('../system/core.php');
     </script>
 
 </head>
-<?php
-$role = user_data('role');
-if ($role == 2){
-    $hi = ' - klanten paneel';
-}else if($role == 3){
-    $hi = ' - Beheer';
-}else{
-    $hi = ' - Inloggen';
-}
-// $hi = $role == 3 ?' beheer': ' klant';
-?>
+
 <body>
 <header>
     <section class="container">
-        <a href="/"><?php echo getProp('site_name').$hi;?></a>
+        <a href="/"><?php echo getProp('site_name');?> beheer</a>
     </section>
 </header>
 
@@ -94,9 +84,9 @@ if ($role == 2){
                     <li><a href="/beheer/projects">Projecten</a></li>
                     <li><a href="/beheer/customers">Klanten</a></li>
                     <li><a href="/beheer/settings">Instellingen</a></li>
-                    <li><a href="/beheer/customers/editProfile">Mijn gegevens</a></li>
                 <?php }elseif(user_data('role') == 2){ ?>
-                    <li><a href="/beheer/customers/editProfile">Mijn gegevens</a></li>
+                    <li><a href="/beheer/project">Project</a></li>
+                    <li><a href="/beheer/customers/editProfile">Gegevens</a></li>
                 <?php } ?>
                 <li><a href="/beheer/user/logout">Uitloggen</a></li>
             </ul>
