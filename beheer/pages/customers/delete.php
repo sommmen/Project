@@ -77,7 +77,7 @@
         $result = $mysqli->query('SELECT id, title, created FROM project WHERE uid = '. $id);
         if(!$result) return 404;
         if($result->num_rows < 1){
-            echo '<label style="color: red;">Deze klant is niet gebonden aan een project.</label>';
+            echo '<label>Deze klant is niet gebonden aan een project.</label>';
         }else{
             echo '<h2>Welke foto\'s wilt u bewaren?</h2>';
             echo '<tr><th>Project Naam</th><th>Aanmaakdatum</th><th>Verplaats foto\'s</th></tr>';

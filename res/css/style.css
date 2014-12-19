@@ -215,18 +215,27 @@ input[type=submit]:hover{
     color: #green;
 }
 
+.last-row{
+    width: 100%;
+    min-height: 10px;
+    overflow: hidden;
+}
+
 figure {
-    width: 49%;
+    width: 30%;
+    margin-right: 3%;
     display: inline-block;
     box-sizing: border-box;
     background: #eee;
     text-align: center;
-    padding-top: 10px;
-    margin-bottom: 5px;
+    float: left;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 figure img{
     width: 95%;
+    margin: 0 auto;
 }
 
 figure figcaption{

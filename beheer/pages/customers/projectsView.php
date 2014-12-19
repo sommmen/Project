@@ -84,8 +84,8 @@ function addInfo($photoId){
                     <img src="/thumb.php?photo=<?php echo $row->id; ?>&type=project" alt=""/>
                 </a>
                 <figcaption>
-                    <?php echo $row->name; ?>
-                    <input type="checkbox" name="<?php echo $row->id; ?>" class="selector" <?php if($row->selected == true){ echo 'checked';} ?>>
+                    <label for="photo<?php echo $row->id;?>" style="display: inline;"><?php echo $row->name; ?></label>
+                    <input id="photo<?php echo $row->id;?>" type="checkbox" name="<?php echo $row->id; ?>" class="selector" <?php if($row->selected == true){ echo 'checked';} ?>>
                 </figcaption>
             </figure>
         <?php

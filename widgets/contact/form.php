@@ -7,6 +7,8 @@ function contact_form(){
             empty($_POST["subject"]) ||
             empty($_POST["msg"])){
             $error = 'U dient alle verplichte velden in te vullen.';
+        }elseif(!isset($_POST['g-recaptcha-response'])){
+            $error = 'robot';
         }else{
             $to=getProp('admin_mail');
             $subject = post('subject');
@@ -20,7 +22,7 @@ function contact_form(){
             <p>
             <table border="1">
             <tr>
-                <td>naam:</td><td>'.post('name').'</td>
+                <td>Naam:</td><td>'.post('name').'</td>
             </tr>
             <tr>
                 <td>E-mail:</td><td>'.post('email').'</td>
@@ -42,6 +44,9 @@ function contact_form(){
             <p>
             '.post('msg').'
             </p>
+
+            IP: '.$_SERVER['REMOTE_ADDR'].'
+
             ';
 
             mail($to, $subject, $message, $headers);
@@ -54,7 +59,7 @@ function contact_form(){
     if(!$success) {
         $form = $error.'
     <form action="" method="post">
-        <label for="name">naam: <span>*</span></label>
+        <label for="name">Naam: <span>*</span></label>
         <input type="text" name="name" id="name" value="' . set_value('name') . '"/>
 
         <label for="email">E-mail: <span>*</span></label>
@@ -77,13 +82,16 @@ function contact_form(){
 
         <label for="msg">Bericht: <span>*</span></label>
         <textarea name="msg" id="msg">' . set_value('msg') . '</textarea>
-        <br>
+        <br><br/>
+        <div class="g-recaptcha" data-sitekey="6Lcaef8SAAAAAHl9G5Zm4w8A7nvUKJa-z6lv10VC"></div>
+        <br/>
         <br>
         <input type="submit" name="submit" value="verzenden"/>
     </form>
     ';
     }else{
         $form = $success;
+        unset($_POST);
     }
     return $form;
 }

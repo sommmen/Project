@@ -43,10 +43,36 @@
         }
         redirect('/beheer/customers/editProfile');
     }
+	
+	if(isset($_POST['wachtwoord_submit'])){
+		if(sha1($_POST['huidig_wachtwoord'])== user_data('password')){
+			if($_POST['nieuw_wachtwoord']!= $_POST['Bevestig_wachtwoord']){
+				$error= "De nieuwe wachtwoorden zijn niet gelijk";
+		}else{
+			if($mysqli->error){
+				echo $mysqli->error;
+			}
+			$mysqli->query('UPDATE user SET password = "'.sha1(post('nieuw_wachtwoord')).'" WHERE id = '.$id);
+			setMessage("Uw wachtwoord is succesvol gewijzigd");
+			redirect('/beheer/customers/editProfile');
+			
+		}
+	}else{
+		$error= "Uw huidige wachtwoord is niet correct ingevoerd";
+	}
+}
+
+	
 ?>
+
 
 <a href="/beheer/dashboard" class="button">Terug naar overzicht</a>
 <h1>Wijzigen van <?php echo $name. ' '. $surname;?></h1>
+<?php
+	if(isset($error)) {
+    echo '<div class="alert-error">' . @$error . '</div>';
+	}
+?>
 
 <form method="POST">
     <label>Naam:</label> <input type="text" name="name" value="<?php echo $value_naam;?>"/><br />
@@ -56,5 +82,19 @@
     <label>Woonplaats:</label><input type="text" name="city" value="<?php echo $value_woonplaats;?>"/><br />
     <label>Telefoonnummer:</label><input type="text" name="telephone" value="<?php echo $value_telnr;?>"/><br />
     <label>Email:</label><input type="text" name="email" value="<?php echo $value_email;?>"/> <br /><br/>
-    <input type="submit" name="form_submit" value="Wijzig"/>     
+    <input type="submit" name="form_submit" value="Wijzig"/> <br/>
+	
+</form>
+
+
+
+
+
+
+
+<form method="POST">
+	<label>Huidig wachtwoord:</label><input type="password" name="huidig_wachtwoord"/>
+	<label>Nieuw wachtwoord:</label><input type="password" name="nieuw_wachtwoord"/>
+	<label>Bevestig nieuw wachtwoord:</label><input type="password" name="Bevestig_wachtwoord"/><br/><br/>
+	<input type="submit" name="wachtwoord_submit" value="Wijzig wachtwoord"/>
 </form>

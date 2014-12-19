@@ -1,6 +1,4 @@
 <?php
-//var_dump($_SESSION);
-
 if (isset($_POST['submit'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
         $error = 'U dient alle velden in te vullen.';
@@ -26,25 +24,45 @@ if (isset($_POST['submit'])) {
     }
 }
 
+function toLetters($input) { //verplaatsen naar core?
+    $letters = ["nul", "één", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "tien"];
+    foreach ($letters as $key => $value) {
+        if ($key === $input) {
+            return $value;
+        }
+    }
+}
+
+if(!isset($_SESSION['gbnaam']) && isset($_SESSION['wwoord'])){
+    $_SESSION['gbnaam'] = random_password().rand(1,10);
+    $_SESSION['wwoord'] = random_password().rand(1,10);
+}
+
+//$_SESSION['gbnaam'] ?: $_SESSION['gbnaam'] = random_password().rand(1,10); //hmm... zou dit werken?
+//$_SESSION['wwoord'] ?: $_SESSION['wwoord'] = random_password().rand(1,10);
+
+
+$num1 = @substr($_SESSION['gbnaam'], 8);
+$num2 = @substr($_SESSION['wwoord'], 8);
+
+$som = toLetters($num1) . " plus " . toLetters($num2) . " is: ";
+
 if (isset($_POST['send'])) {
     if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)) {
-//        var_dump($_POST);
-        if (isset($_POST['captcha'])) {
-            $result = $mysqli->query("SELECT * FROM user WHERE email = '" . post("email") . "'");
-            if ($result->num_rows != false) {
-                echo $newpass = random_password();
-                $query = "UPDATE user SET password = '" . sha1($newpass) . "' WHERE email = '" . post('email') . "'";
-                if ($mysqli->query($query)) {
-                    mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n\n ze is: $newpass\n\n doei! \n\n\n micheal verbeek.");
-                    $error = "er is een nieuw wachtwoord naar deze gebruiker verstuurd.";
-                } else {
-                    $error = "een interne fout, probeer het opnieuw en blijft deze error neem dan contact op met de admin.";
-                }
+//        echo "$num1 | $num2 | ".$_POST['captcha']."<br>";
+        if (($num1 + $num2) === $_POST['captcha']) {
+            unset($_SESSION['gbnaam']);
+            unset($_SESSION['wwoord']);
+            $result = $result->mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'");
+            if($result->fetch_object()->num_rows != false){
+                $newpass = random_password();
+                $mysqli->query("UPDATE user SET password = '$newpass' WHERE email = '".sha1(post('email')."'"));
+                mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
             } else {
-                $error = ("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='/contact'>Micheal verbeek</a>"); //contact form linken!
+                $error = ("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='contact'>Micheal verbeek</a>"); //contact form linken!
             }
         } else {
-            $error = "robots zijn verboden!";
+            $error = ("Gelieve de captcha correct in te vullen.");
         }
     } else {
         $error = ("Gelieve een email in te voeren.");
@@ -85,8 +103,8 @@ if (isset($error)) {
         <form id="dropdown" action="" method="POST" style="display: none;">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="<?php set_value("email"); ?>">
-            <label for="captcha">ik ben geen robot</label>
-            <input type="checkbox" name="captcha" id="captcha" value="nee">
+            <label for="captcha"><?php echo $som; ?></label>
+            <input type="number" name="captcha" id="captcha">
             <input type="submit" name="send" value="versturen">
         </form>
     </section>

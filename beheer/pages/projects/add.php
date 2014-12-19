@@ -79,6 +79,7 @@ if(isset($error)) {
 
 ?>
     <a href="/beheer/projects" class="button red">Terug naar overzicht</a>
+    <h1>Project toevoegen</h1>
     <form action="" method="post">
 
         <input type="hidden" name="user_id" id="user_id" value="<?php echo set_value('user_id', '0');?>">

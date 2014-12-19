@@ -39,6 +39,7 @@ if(!urlSegment(1)){
     <script src="/res/js/modernizr.js"></script>
     <script src="/res/js/jquery.js"></script>
     <script src="/res/js/custom.jq.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
