@@ -1,13 +1,14 @@
 <?php
 minRole(3);
+$id = urlSegment(3);
 
 ?>
 <a href="/beheer/customers/edit/ID" class="button blue">Klant aanpassen</a>
 <h1>Profiel</h1>
 <section class="half">
     <?php
-    minRole(3);
-    $id = urlSegment(4);
+
+
     
     $name = "";
     $surname = "";
@@ -64,5 +65,19 @@ minRole(3);
     </table>
 </section>
 <section class="half">
-    projecten van klant
+    <?php
+    $result = $mysqli->query("SELECT * FROM project WHERE uid = ".$id." ORDER BY created");
+    if($mysqli->error) return 404;
+
+    echo "<table>";
+    echo "<tr><th>Projectnaam</th></tr>";
+    if($result->num_rows == 0){
+        echo "<tr><td><div class='alert-error'>Deze persoon heeft geen projecten.</div></td></tr>";
+    }
+    while($row = $result->fetch_array()){
+        echo "<tr>";
+        echo "<td><a href='/beheer/projects/view/".$row['id']."'>".$row['title']."</a></td>";
+        echo "</tr>";
+    }
+    ?>
 </section>

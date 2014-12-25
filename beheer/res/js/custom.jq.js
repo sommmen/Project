@@ -116,6 +116,11 @@ $(document).ready(function(){
 
 });
 
+$("figure > a[href^='/portfolio-fotos/']").hover(function () {
+    var href = $(this).attr('href');
+    alert(href);
+});
+
 function getSlug(Text)
 {
     return Text

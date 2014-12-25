@@ -23,5 +23,8 @@ function showProjects($uid){
 ?>
 <table>
 
-    <?php showProjects($id)?>
+    <?php if(user_data('role') == 2) {showProjects($id); }?>
+    <?php if(user_data('role') == 3) { echo 'Welkom in het beheer paneel van Michael verbeek. <br/>Hier is het mogelijk om projecten, klanten, portfolio items en de pagina\'s te beheren.'; }?>
+
+
 </table>

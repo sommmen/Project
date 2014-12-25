@@ -48,7 +48,7 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 5;
-	border: 1;
+        border: 1;
 }
 .centre{
 	text-align: center;

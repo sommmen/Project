@@ -1,11 +1,18 @@
+/* test */
+
 @media screen {
 body {
 	margin: 0px;
 	padding: 0px;
 	overflow:auto;
-    background: #fff;
+    background: #FFF;
+    color: black;
 }
-td {vertical-align:top}
+td {vertical-align:top;
+    border-spacing:2;
+    border: windowframe ridge thin;
+}
+
 h1{
     background: none;
 }
@@ -33,14 +40,14 @@ a {
 
 #PixxerLanguageSwitch {margin-right: 10px; float: right}
 #PixxerBottom {position: absolute; bottom: 0}
-#PixxerBoxFolderInfo1 {padding-left:30px; padding-bottom:0px; background:#f0f0f0}
+#PixxerBoxFolderInfo1 {padding-left:30px; padding-top:0px; background:#f0f0f0}  /* paddign bottom naar top */
 #PixxerBoxFolderInfo2 {padding:8px 4px 20px 30px; background:#f0f0f0}
-#PixxerBoxFolderKort {padding:4px 4px 0px 30px; background:#f0f0f0}
+#PixxerBoxFolderKort {padding: 4px 4px 0px 30px; background:#f0f0f0}
 #PixxerFoldersKop {color: #ffffff; background: #ff554e}
 
 #PixxerBoxParentPath {padding:4px 0px 2px 22px; color:#ff554e}
 #PixxerBoxParentPath a {color:black}
-#PixxerBoxPhoto {width: 530px}
+#PixxerBoxPhoto {width: 100%} /* 530px naar 100%  */
 #PixxerBoxOptions {width: 180px}
 #PixxerBoxSelectionKop {width:170px; background:#bbb; border:1px solid #bbb; color:#222; text-align:center}
 #PixxerBoxSelection {width:170px; height:98px; overflow:hidden; border:1px solid #bbb; background:#999}
@@ -84,6 +91,7 @@ a {
 	padding: 1px 4px 1px 4px;
 	border: 1px solid #aaa;
 	font-size: 8pt;
+        font-family: ariel;
 	color: #333;
 	text-decoration: none;
 	display:block;
