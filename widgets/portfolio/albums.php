@@ -16,8 +16,10 @@ Als je iets met mysql wilt doen in een widget, moet je altijd "global $mysqli;" 
 
 function portfolio_albums(){
     global $mysqli;
-
-    $result = $mysqli->query("SELECT * FROM portfolio ORDER BY id DESC");
+    $X = urlSegment(3) * 10;
+    $Y = $X + 10;
+    
+    $result = $mysqli->query("SELECT * FROM portfolio ORDER BY id DESC LIMIT ".$X.", ".$Y);
     
     while($item = $result->fetch_object()){
         $portfolio .= '
@@ -29,6 +31,7 @@ function portfolio_albums(){
         </figure>
         ';
     }
+    $portfolio .= '<a href="/portfolioItem/1/'.urlSegment(3)+1 .'">Next</a>';
     //* hi *//
     return $portfolio;
 
