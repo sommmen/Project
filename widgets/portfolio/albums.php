@@ -16,22 +16,30 @@ Als je iets met mysql wilt doen in een widget, moet je altijd "global $mysqli;" 
 
 function portfolio_albums(){
     global $mysqli;
-    $X = urlSegment(3) * 10;
-    $Y = $X + 10;
-    
+    $X = urlSegment(2) * 2;
+    $Y = $X + 2;
+    $Z = $Y + 2;
     $result = $mysqli->query("SELECT * FROM portfolio ORDER BY id DESC LIMIT ".$X.", ".$Y);
-    
-    while($item = $result->fetch_object()){
-        $portfolio .= '
-        <figure>
-            <a href="/portfolio-fotos/'.$item->id.'">
-                <img id="thumb" src="/thumb.php?photo='.$item->prev_photo.'&type=portfolio" alt="'.$item->name.'"/>
-                <figcaption>'.$item->name.'</figcaption>
-            </a>
-        </figure>
-        ';
+    $results = $mysqli->query("SELECT * FROM portfolio ORDER BY id DESC LIMIT ".$Y.", ".$Z);
+    if($result && $result->num_rows > 0){
+        while($item = $result->fetch_object()){
+            $portfolio .= '
+            <figure>
+                <a href="/portfolio-fotos/'.$item->id.'">
+                    <img id="thumb" src="/thumb.php?photo='.$item->prev_photo.'&type=portfolio" alt="'.$item->name.'"/>
+                    <figcaption>'.$item->name.'</figcaption>
+                </a>
+            </figure>
+            ';
+        }
+        if($results && $results->num_rows > 0){
+            $portfolio .= '<a href="/portfolio/'.(urlSegment(2) + 1 ).'">Next</a>';
+        }
     }
-    $portfolio .= '<a href="/portfolioItem/1/'.urlSegment(3)+1 .'">Next</a>';
+    
+    if(urlSegment(2)> 0){
+        $portfolio .= '<a href="/portfolio/'.(urlSegment(2) - 1 ).'">back</a>';
+    }
     //* hi *//
     return $portfolio;
 
