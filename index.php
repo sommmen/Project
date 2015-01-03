@@ -13,7 +13,14 @@ if($config['environment'] == 'develop'){
 if(!urlSegment(1)){
     $pageTitle = getProp('site_name').' ~ '.getProp('site_slug');
 }else{
-    $pageTitle = urlSegment(1).' ~ '.getProp('site_name');
+    $pageSQL = "SELECT * FROM page WHERE (slug = '".urlSegment(1)."' OR id = '".$current_page."') AND published = 1";
+    $result = $mysqli->query($pageSQL);
+    if($result->num_rows != 0) {
+        $row = $result->fetch_object();
+        $pageTitle = $row->title . ' ~ ' . getProp('site_name');
+    }else{
+        $pageTitle = 'Pagina niet gevonden ~ ' . getProp('site_name');
+    }
 }
 
 
@@ -35,9 +42,11 @@ if(!urlSegment(1)){
 
     <link rel="stylesheet" href="/res/css/reset.css" />
     <link rel="stylesheet" href="/res/css/style.css" />
+    <link rel="stylesheet" href="/res/css/lightbox.css" />
 
     <script src="/res/js/modernizr.js"></script>
     <script src="/res/js/jquery.js"></script>
+    <script src="/res/js/lightbox.min.js"></script>
     <script src="/res/js/custom.jq.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
@@ -71,7 +80,13 @@ if(!urlSegment(1)){
                     if(urlSegment(1) == $row->slug || ($row->id == getProp('default_page') && empty($_GET) )){
                         $active = 'class="current"';
                     }else{
-                        $active = '';
+                        $ex1 = explode('-', urlSegment(1));
+                        $ex2 = explode('-', $row->slug);
+                        if($ex1[0] == $ex2[0]){
+                            $active = 'class="current"';
+                        }else{
+                            $active = '';
+                        }
                     }
 
                     echo '<li '.$active.'><a href="/'.$row->slug.'">'.$row->title.'</a></li>';
@@ -124,7 +139,7 @@ if(!urlSegment(1)){
 
             <?php
             }else{
-                echo "<h1>Pagina niet gevonden</h1>";
+                echo "<center><h1>Pagina niet gevonden</h1></center>";
             }
             ?>
         </section>

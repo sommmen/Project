@@ -73,28 +73,25 @@
     echo '<div class="alert-error">' . @$error . '</div>';
 	}
 ?>
+<section class="half">
+    <form method="POST">
+        <label>Naam:</label> <input type="text" name="name" value="<?php echo $value_naam;?>"/><br />
+        <label>Achternaam:</label> <input type="text" name="surname" value="<?php echo $value_achternaam;?>"/><br />
+        <label>Adres:</label> <input type="text" name="address" value="<?php echo $value_adres;?>"/><br />
+        <label>Postcode:</label><input type="text" name="zipcode" value="<?php echo $value_postcode;?>"/><br />
+        <label>Woonplaats:</label><input type="text" name="city" value="<?php echo $value_woonplaats;?>"/><br />
+        <label>Telefoonnummer:</label><input type="text" name="telephone" value="<?php echo $value_telnr;?>"/><br />
+        <label>Email:</label><input type="text" name="email" value="<?php echo $value_email;?>"/> <br /><br/>
+        <input type="submit" name="form_submit" value="Wijzig"/> <br/>
 
-<form method="POST">
-    <label>Naam:</label> <input type="text" name="name" value="<?php echo $value_naam;?>"/><br />
-    <label>Achternaam:</label> <input type="text" name="surname" value="<?php echo $value_achternaam;?>"/><br />
-    <label>Adres:</label> <input type="text" name="address" value="<?php echo $value_adres;?>"/><br />
-    <label>Postcode:</label><input type="text" name="zipcode" value="<?php echo $value_postcode;?>"/><br />
-    <label>Woonplaats:</label><input type="text" name="city" value="<?php echo $value_woonplaats;?>"/><br />
-    <label>Telefoonnummer:</label><input type="text" name="telephone" value="<?php echo $value_telnr;?>"/><br />
-    <label>Email:</label><input type="text" name="email" value="<?php echo $value_email;?>"/> <br /><br/>
-    <input type="submit" name="form_submit" value="Wijzig"/> <br/>
-	
-</form>
+    </form>
+</section>
 
-
-
-
-
-
-
-<form method="POST">
-	<label>Huidig wachtwoord:</label><input type="password" name="huidig_wachtwoord"/>
-	<label>Nieuw wachtwoord:</label><input type="password" name="nieuw_wachtwoord"/>
-	<label>Bevestig nieuw wachtwoord:</label><input type="password" name="Bevestig_wachtwoord"/><br/><br/>
-	<input type="submit" name="wachtwoord_submit" value="Wijzig wachtwoord"/>
-</form>
+<section class="half">
+    <form method="POST">
+        <label>Huidig wachtwoord:</label><input type="password" name="huidig_wachtwoord"/>
+        <label>Nieuw wachtwoord:</label><input type="password" name="nieuw_wachtwoord"/>
+        <label>Bevestig nieuw wachtwoord:</label><input type="password" name="Bevestig_wachtwoord"/><br/><br/>
+        <input type="submit" name="wachtwoord_submit" value="Wijzig wachtwoord"/>
+    </form>
+</section>

@@ -76,8 +76,8 @@ require_once('config.php');
     function logged_on(){
         global $mysqli;
         if(isset($_SESSION['user'])) {
-            $token = $_SESSION['user']['token'];
-            $username = $_SESSION['user']['name'];
+            $token = addslashes($_SESSION['user']['token']);
+            $username = addslashes($_SESSION['user']['name']);
 
             $sql = "SELECT * FROM user WHERE username = '" . $username . "' AND token = '" . $token . "'";
             $result = $mysqli->query($sql);
@@ -93,8 +93,8 @@ require_once('config.php');
 
     function user_data($key){
         global $mysqli;
-        @$token = $_SESSION['user']['token'];
-        @$username = $_SESSION['user']['name'];
+        @$token = addslashes($_SESSION['user']['token']);
+        @$username = addslashes($_SESSION['user']['name']);
 
         if(!isset($token) && !isset($username)){
             return false;
@@ -103,7 +103,8 @@ require_once('config.php');
             $sql = "SELECT * FROM user WHERE username = '" . $username . "' AND token = '" . $token . "'";
             $result = $mysqli->query($sql);
 
-            return $result->fetch_object()->$key;
+            $result = $result->fetch_object();
+            return @$result->$key;
         }
     }
 

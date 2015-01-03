@@ -13,7 +13,7 @@ function portfolio_items(){
 
             $portfolio .= '
             <figure>
-                <img src="/thumb.php?photo='.$item->id.'&type=portfolio" alt="'.$item->name.'"/>
+                <a href="/thumb.php?photo='.$item->id.'&type=portfolio" data-lightbox="image-1"><img src="/thumb.php?photo='.$item->id.'&type=portfolio" alt="'.$item->name.'"/></a>
             </figure>
             ';
         }

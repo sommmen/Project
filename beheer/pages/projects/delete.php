@@ -39,6 +39,7 @@ if(isset($_POST['submit'])) {
             }
             setMessage('Project + foto\'s succesvol verwijderd.');
             redirect('/beheer/projects');
+
         } elseif ($_POST['option'] == 2) {
             $result = $mysqli->query("SELECT * FROM portfolio WHERE id = '" . post('portfolio') . "'");
             if ($result->num_rows > 0) {
@@ -46,15 +47,28 @@ if(isset($_POST['submit'])) {
 
                 $newPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($portfolio->id . $portfolio->name) . '/';
 
-                if (rename($targerPath, $newPath)) {
-                    $mysqli->query("UPDATE photo SET portfolio_album = '" . $portfolio->id . "', pid = '0' WHERE pid = '" . $project->id . "'");
-                    $mysqli->query("DELETE FROM project WHERE id = '" . $project->id . "'");
-                    setMessage('Het project is verwijderd en de foto\'s zijn verplaats naar portfolio album:' . $portfolio->name);
-                    redirect('/beheer/projects');
-
-                } else {
-                    echo '<div class="alert-error">De map naam kan niet gewijzigd worden.</div>';
+                $query = $mysqli->query("SELECT * FROM photo WHERE pid = '".$project->id."'");
+                while($photo = $query->fetch_object()){
+                    if(rename($targerPath.$photo->file_name, $newPath.$photo->file_name)){
+                        $mysqli->query("UPDATE photo SET portfolio_album = '" . $portfolio->id . "', pid = null WHERE pid = '" . $project->id . "'");
+                        $mysqli->query("DELETE FROM project WHERE id = '" . $project->id . "'");
+                        setMessage('Het project is verwijderd en de foto\'s zijn verplaats naar portfolio album:' . $portfolio->name);
+                        redirect('/beheer/projects');
+                    }else{
+                        $error =' dikke error :S';
+                    }
                 }
+                removeDirectory($targerPath);
+
+//                if (rename($targerPath, $newPath)) {
+//                    $mysqli->query("UPDATE photo SET portfolio_album = '" . $portfolio->id . "', pid = '0' WHERE pid = '" . $project->id . "'");
+//                    $mysqli->query("DELETE FROM project WHERE id = '" . $project->id . "'");
+//                    setMessage('Het project is verwijderd en de foto\'s zijn verplaats naar portfolio album:' . $portfolio->name);
+//                    redirect('/beheer/projects');
+//
+//                } else {
+//                    echo '<div class="alert-error">De map naam kan niet gewijzigd worden.</div>';
+//                }
             } else {
                 echo '<div class="alert-error">Het opgegeven portfolio album bestaat niet.</div>';
             }

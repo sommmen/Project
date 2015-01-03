@@ -1,4 +1,5 @@
 <?php
+//session_destroy();
 if (isset($_POST['submit'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
         $error = 'U dient alle velden in te vullen.';
@@ -33,40 +34,46 @@ function toLetters($input) { //verplaatsen naar core?
     }
 }
 
-if(!isset($_SESSION['gbnaam']) && isset($_SESSION['wwoord'])){
-    $_SESSION['gbnaam'] = random_password().rand(1,10);
-    $_SESSION['wwoord'] = random_password().rand(1,10);
+//  mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
+if(!isset($_POST['send'])) {
+    $_SESSION['num1'] = rand(0, 10);
+    $_SESSION['num2'] = rand(0, 10);
 }
 
-//$_SESSION['gbnaam'] ?: $_SESSION['gbnaam'] = random_password().rand(1,10); //hmm... zou dit werken?
-//$_SESSION['wwoord'] ?: $_SESSION['wwoord'] = random_password().rand(1,10);
+if(isset($_POST['send'])){
+    if(empty($_POST['email']) || empty($_POST['captcha'])){
+        $error = 'U dient alle velden in te vullen.';
+    }elseif($_POST['captcha'] != ($_SESSION['num1'] + $_SESSION['num2'])){
+        $error = 'U dient een goede captcha code in te vullen.';
+    }else{
+        $query = $mysqli->query("SELECT * FROM user WHERE email = '".post('email')."'");
+        if($query->num_rows == 1){
+            $newPassword = random_password();
+            $mysqli->query("UPDATE user SET password = '".sha1($newPassword)."' WHERE email = '".post('email')."'");
+            mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newPassword \n doei! \n micheal verbeek.");
 
+            $to=post("email");
+            $subject = "Nieuw wachtwoord aangevraagd";
+            $headers =  "From: Michael Verbeek <".getProp('admin_mail').">\r\n".
+                "MIME-Version: 1.0" . "\r\n" .
+                "Content-type: text/html; charset=UTF-8" . "\r\n";
 
-$num1 = @substr($_SESSION['gbnaam'], 8);
-$num2 = @substr($_SESSION['wwoord'], 8);
+            $message = 'Beste klant, <br/> Er is onlangs een nieuw wachtwoord aangevraagd via de website van Michael Verbeek.<br/><br/>
+                        Het nieuwe wachtwoord is:<br/>
+                        '.$newPassword.'<br/>
+                        <br/>
+                        Met vriendelijke groet,<br/>
+                        Michael Verbeek<br/>';
 
-$som = toLetters($num1) . " plus " . toLetters($num2) . " is: ";
+            mail($to, $subject, $message, $headers);
 
-if (isset($_POST['send'])) {
-    if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE)) {
-//        echo "$num1 | $num2 | ".$_POST['captcha']."<br>";
-        if (($num1 + $num2) === $_POST['captcha']) {
-            unset($_SESSION['gbnaam']);
-            unset($_SESSION['wwoord']);
-            $result = $result->mysqli->query("SELECT * FROM user WHERE email = '".post("email")."'");
-            if($result->fetch_object()->num_rows != false){
-                $newpass = random_password();
-                $mysqli->query("UPDATE user SET password = '$newpass' WHERE email = '".sha1(post('email')."'"));
-                mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
-            } else {
-                $error = ("Dit email is bij ons niet bekend, kijk of u uw email correct ingevuld hebt. mocht u dit bericht nog een keer zien neem dan contact op met <a href='contact'>Micheal verbeek</a>"); //contact form linken!
-            }
-        } else {
-            $error = ("Gelieve de captcha correct in te vullen.");
         }
-    } else {
-        $error = ("Gelieve een email in te voeren.");
+
+        $error = 'Er is een email verzonden naar het ingevoerde email adres.';//fake success
+
     }
+    $_SESSION['num1'] = rand(0, 10);
+    $_SESSION['num2'] = rand(0, 10);
 }
 ?>
 
@@ -103,7 +110,7 @@ if (isset($error)) {
         <form id="dropdown" action="" method="POST" style="display: none;">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="<?php set_value("email"); ?>">
-            <label for="captcha"><?php echo $som; ?></label>
+            <label for="captcha"><?php echo toLetters(@$_SESSION['num1'])." plus ".toLetters(@$_SESSION['num2'])." is:";?></label>
             <input type="number" name="captcha" id="captcha">
             <input type="submit" name="send" value="versturen">
         </form>
