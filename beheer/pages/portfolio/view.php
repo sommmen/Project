@@ -14,7 +14,7 @@ $result = $mysqli->query($query);
 <a href="/beheer/portfolio" class="button">Terug naar overzicht</a>
 <a href="/beheer/portfolio/addPhoto/<?php echo $portfolio->id;?>" class="button blue">Foto's toevoegen</a>
 
-<h1><?php echo $portfolio->name;?></h1>
+<h1><?php echo $portfolio->name;?> <a href="/beheer/portfolio/edit/<?php echo $portfolio->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="Bewerken"/></a></h1>
 
 <section class="row">
 <?php
@@ -26,7 +26,7 @@ if($result->num_rows > 0) {
                 <img src="/thumb.php?photo=<?php echo $photo->id;?>&type=portfolio" alt=""/>
             </a>
             <figcaption>
-                <?php echo $photo->name; ?>
+                <abbr title="<?php echo $photo->name;?>"><?php echo substr($photo->name, 0 , 21); ?></abbr>
                 <a href="/beheer/portfolio/deletePhoto/<?php echo $photo->id;?>" onClick="return confirm('Weet je zeker dat je deze afbeelding wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="delete"/></a>
             </figcaption>
         </figure>

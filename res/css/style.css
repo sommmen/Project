@@ -237,6 +237,8 @@ figure {
 figure img{
     width: 95%;
     margin: 0 auto;
+    height: 200px;
+
 }
 
 figure figcaption{
@@ -252,6 +254,16 @@ font-size: 20px;
 
 strong{
     font-weight: bold;
+}
+
+a.pagination{
+    background: #ff554e;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 10px;
+    margin-right: 10px;
 }
 
 @media only screen 

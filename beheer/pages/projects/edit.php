@@ -35,7 +35,7 @@ if(isset($_POST['verzenden'])){
     <label>Project naam:</label>
     <input type="text" name="project_naam" value="<?php echo $project->title; ?>">
     <label>Max foto's</label>
-    <input type="int" name="project_max_photos" value="<?php echo $project->max; ?>"><br><br>
+    <input type="number" name="project_max_photos" value="<?php echo $project->max; ?>"><br><br>
     <input type="submit" name="verzenden" value="project aanpassen">
 </form>
 

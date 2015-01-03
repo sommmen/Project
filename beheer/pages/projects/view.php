@@ -15,7 +15,7 @@ $result = $mysqli->query($query);
 <a href="/beheer/customers/profile/<?php echo $project->uid;?>" class="button blue">Klant informatie</a>
 <a href="/beheer/projects/addPhotos/<?php echo $project->id;?>" class="button blue">Foto's toevoegen</a>
 
-<h1><?php echo $project->title;?></h1>
+<h1><?php echo $project->title;?> <a href="/beheer/projects/edit/<?php echo $project->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="Bewerken"/></a></h1>
 
 <section class="row">
 <?php
@@ -27,7 +27,7 @@ if($result->num_rows > 0) {
                 <img src="/thumb.php?photo=<?php echo $photo->id;?>&type=project" alt=""/>
             </a>
             <figcaption>
-                <?php echo $photo->name; ?>
+                <abbr title="<?php echo $photo->name;?>"><?php echo substr($photo->name, 0, 20); ?></abbr>
                 <a href="/beheer/projects/deletePhoto/<?php echo $photo->id;?>" onClick="return confirm('Weet je zeker dat je deze afbeelding wilt verwijderen?')"><img src="/beheer/res/img/black393.png" alt="delete"/></a>
             </figcaption>
         </figure>

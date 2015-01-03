@@ -2,55 +2,64 @@
 function contact_form(){
 
     if(isset($_POST["submit"])){
+
         if(empty($_POST["name"]) ||
             empty($_POST["email"]) ||
             empty($_POST["subject"]) ||
             empty($_POST["msg"])){
             $error = 'U dient alle verplichte velden in te vullen.';
-        }elseif(!isset($_POST['g-recaptcha-response'])){
-            $error = 'robot';
         }else{
-            $to=getProp('admin_mail');
-            $subject = post('subject');
-            $headers =  "From: ".post('name')." <".post('email').">\r\n".
-                        "MIME-Version: 1.0" . "\r\n" .
-                        "Content-type: text/html; charset=UTF-8" . "\r\n";
-            $message = '
+
+            $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=6Lcaef8SAAAAADAAqMpi80fkt6OuC7ztobovresJ&response='.post('g-recaptcha-response').'&remoteip='.$_SERVER['REMOTE_ADDR']);
+            $response = json_decode($response);
+
+            if($response->{'success'} != 'true'){
+                $error = 'Robot controle mislukt.';
+            } else {
+
+                $to = getProp('admin_mail');
+                $subject = post('subject');
+                $headers = "From: " . post('name') . " <" . post('email') . ">\r\n" .
+                    "MIME-Version: 1.0" . "\r\n" .
+                    "Content-type: text/html; charset=UTF-8" . "\r\n";
+                $message = '
             <p>
             er is een mail gestuurd via de website.
             </p>
             <p>
             <table border="1">
             <tr>
-                <td>Naam:</td><td>'.post('name').'</td>
+                <td>Naam:</td><td>' . post('name') . '</td>
             </tr>
             <tr>
-                <td>E-mail:</td><td>'.post('email').'</td>
+                <td>E-mail:</td><td>' . post('email') . '</td>
             </tr>
             <tr>
-                <td>Telefoon:</td><td>'.post('tel').'</td>
+                <td>Telefoon:</td><td>' . post('tel') . '</td>
             </tr>
             <tr>
-                <td>Adres:</td><td>'.post('address').'</td>
+                <td>Adres:</td><td>' . post('address') . '</td>
             </tr>
             <tr>
-                <td>Woonplaats:</td><td>'.post('woonplaats').'</td>
+                <td>Woonplaats:</td><td>' . post('woonplaats') . '</td>
             </tr>
             <tr>
-                <td>Postcode:</td><td>'.post('postcode').'</td>
+                <td>Postcode:</td><td>' . post('postcode') . '</td>
             </tr>
             </table>
             </p>
             <p>
-            '.post('msg').'
+            ' . post('msg') . '
             </p>
 
-            IP: '.$_SERVER['REMOTE_ADDR'].'
+            IP: ' . $_SERVER['REMOTE_ADDR'] . '
 
             ';
 
-            mail($to, $subject, $message, $headers);
-            $success = '<section class="success">Uw bericht is verstuurd, er wordt zo spoedig mogelijk contact met u opgenomen.</section>';
+                mail($to, $subject, $message, $headers);
+                $success = '<section class="success">Uw bericht is verstuurd, er wordt zo spoedig mogelijk contact met u opgenomen.</section>';
+
+            }
         }
 
         $error = '<section class="error">'.$error.'</section>';
