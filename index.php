@@ -68,7 +68,7 @@ if(!urlSegment(1)){
                 $result = $mysqli->query($menuSQL);
                 while($row = $result->fetch_object()){
 
-                    if(urlSegment(1) == $row->slug){
+                    if(urlSegment(1) == $row->slug || ($row->id == getProp('default_page') && empty($_GET) )){
                         $active = 'class="current"';
                     }else{
                         $active = '';

@@ -12,8 +12,8 @@
         }
     }
 
-    function showDropdown($projectID){
-        echo '<select name='.$projectID.'>';
+    function showDropdown(){
+        echo '<select name="portfolioSelection">';
         echo '<option value="remove"><strong>..</strong></option>';
         global $mysqli;
         $result = $mysqli->query('SELECT id, name FROM portfolio');
@@ -24,8 +24,9 @@
         echo '</select>';
     }
 	
-	function moveFile($photoid, $delete){ //Photo id
+	function moveFile($photoid){ //Photo id
 		global $mysqli;
+
         /**Retrieve project ID */
         $projectid = 0;
         $project_result = $mysqli->query('SELECT pid FROM photo WHERE id = '.$photoid.' LIMIT 1');
@@ -60,15 +61,10 @@
         if($row = $file_query->fetch_object()){
             $filename = $row->file_name;
         }
-        if($delete == false) {
-            if(!is_dir(dirname(__FILE__) . $ds . $portfolioDir)){
-                mkdir(dirname(__FILE__) . $ds . $portfolioDir);
-            }
-            rename(dirname(__FILE__) . $ds . $projectDir . $ds . $filename, dirname(__FILE__) . $ds . $portfolioDir . $ds . $filename);
-        }
-        if(is_dir(dirname(__FILE__) . $ds . $projectDir)){
-            rmdir(dirname(__FILE__) . $ds . $projectDir);
-        }
+		rename(dirname(__FILE__).$ds.$projectDir.$ds.$filename, dirname(__FILE__).$ds.$portfolioDir.$ds.$filename);
+        echo dirname(__FILE__).$ds.$projectDir.$ds.$filename. '<br>';
+        echo dirname(__FILE__).$ds.$portfolioDir.$ds.$filename. '<br>';
+        echo $filename;
 	}
 	
 
@@ -85,30 +81,26 @@
                 echo '<tr>';
                 echo '<td>'. $row['title'] .'</td>';
                 echo '<td>'. $row['created'] .'</td>';
-                echo '<td>'; showDropdown($row['id']); echo '</td>';
+                echo '<td>'; showDropdown(); echo '</td>';
                 echo '</tr>';
             }
         }
     }
     function submitProject($projectId){
         global $mysqli;
-        $newLoc = $_POST[$projectId];
+        $mysqli->query('DELETE FROM project WHERE id ='.$projectId);
+        $newLoc = $_POST['portfolioSelection'];
         if($newLoc == 'remove'){
             $mysqli->query('DELETE FROM photo WHERE pid = '.$projectId);
             setMessage('Klant sucessvol verwijderd! De foto\'s verwijderd!');
-            $result = $mysqli->query('SELECT id FROM photo WHERE pid = '.$projectId);
-            while($row = $result->fetch_object()){
-                moveFile($row->id, true);
-            }
             return;
         }
         $mysqli->query('UPDATE photo SET portfolio_album = '.$newLoc.' WHERE pid = '.$projectId);
         setMessage('Klant sucessvol verwijderd! De foto\'s zijn verplaatst!');
         $result = $mysqli->query('SELECT id FROM photo WHERE pid = '.$projectId);
         while($row = $result->fetch_object()){
-            moveFile($row->id, false);
+            moveFile($row->id);
         }
-        $mysqli->query('DELETE FROM project WHERE id ='.$projectId);
     }
     function deleteUser($id){
         global $mysqli;
@@ -118,12 +110,10 @@
     }
     if(isset($_POST['deleteSubmit'])){
         $result = $mysqli->query('SELECT id FROM project WHERE uid = '.$id);
-        deleteUser($id);
-        if($result->num_rows > 0){
-            while($row = $result->fetch_object()) {
-                submitProject($row->id);
-            }
+        while($row = $result->fetch_object()){
+            submitProject($row->id);
         }
+        deleteUser($id);
         redirect('/beheer/customers');
     }
 ?>
