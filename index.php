@@ -177,16 +177,16 @@ if(!urlSegment(1)){
                 <section class="col-4">
                     U kan contact met mij opnemen via:<br/>
                     <br/>
-                    <a href="#">info@michaelverbeek.eu</a><br/>
+                    <a href="/contact">info@michaelverbeek.eu</a><br/>
                     06-123 34 56
                 </section>
 
                 <section class="col-4">
 
-                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
                     <br>
 
-                    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/formaestroke" data-widget-id="527467523709468672">Tweets by @formaestroke</a>
+                    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/craftnewz" data-widget-id="527467523709468672">Tweets by @formaestroke</a>
                     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 
