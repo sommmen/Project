@@ -35,7 +35,7 @@ function portfolio_items(){
     if($page != 0 && $result->num_rows != 0)
         $portfolio .= '<a href="/'.urlSegment(1).'/'.urlSegment(2).'/'.($page - 1).'" class="pagination">Vorige</a>';
 
-    if($result->num_rows == $itemsOnPage)
+    if($result->num_rows <= $itemsOnPage)
         $portfolio .= '<a href="/'.urlSegment(1).'/'.urlSegment(2).'/'.($page + 1).'" class="pagination">Volgende</a>';
 
     $portfolio .= '</section>';
