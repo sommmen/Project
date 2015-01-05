@@ -1,4 +1,5 @@
 <?php
+minRole(3);
 
 $query= "SELECT * FROM project  WHERE id = '".urlSegment(3)."'";
 $result=$mysqli->query($query);
@@ -10,8 +11,32 @@ if($result->num_rows==1){
 if(isset($_POST['verzenden'])){
     $targerPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($project->id . $project->title) . '/';
 
+    if(post('customer') != $project->uid){
+        $query = $mysqli->query("SELECT * FROM user WHERE id = '".post('customer')."'");
+        $user = $query->fetch_object();
 
-        $result = $mysqli->query("UPDATE project SET title = '" . $_POST['project_naam'] . "', max = '" . $_POST['project_max_photos'] . "' WHERE id = '" . $project->id . "'");
+        $to = $user->email;
+        $name = $user->name.' '.$user->surname;
+        $email_content = 'Beste '.$name.',<br>'
+            . '<br>'
+            . 'Michael Verbeek heeft een nieuw project voor U aangemaakt.<br/>'
+            . 'U kunt op de volgende link inloggen om het project te kunnen bekijken: <a href="'.getProp('base_url').'/beheer">'.getProp('base_url').'/beheer</a><br>'
+            . '<br>'
+            . 'Met vrienelijke groet,<br>'
+            . '<br>'
+            . 'Michael Verbeek';
+
+
+        $subject = 'nieuw project aangemaakt';
+        $headers =  "From: Michael Verbeek <".getProp('admin_mail').">\r\n".
+            "MIME-Version: 1.0" . "\r\n" .
+            "Content-type: text/html; charset=UTF-8" . "\r\n";
+
+        mail($to, $subject, $email_content, $headers);
+
+    }
+
+        $result = $mysqli->query("UPDATE project SET title = '" . post('project_naam') . "', max = '" . post('project_max_photos') . "', uid = '".post('customer')."' WHERE id = '" . $project->id . "'");
         $result = $mysqli->query("SELECT * FROM project WHERE id = '" . $project->id . "'");
         if ($result->num_rows > 0) {
             $projects = $result->fetch_object();
@@ -36,6 +61,23 @@ if(isset($_POST['verzenden'])){
     <input type="text" name="project_naam" value="<?php echo $project->title; ?>">
     <label>Max foto's</label>
     <input type="number" name="project_max_photos" value="<?php echo $project->max; ?>"><br><br>
+    <label>Klant:</label>
+    <select name="customer">
+    <?php
+    $query = $mysqli->query("SELECT * FROM user");
+    while($klant = $query->fetch_object()){
+        if($klant->id == $project->uid){
+            $current = "SELECTED";
+        }else{
+            $current = "";
+        }
+       ?>
+        <option value="<?php echo $klant->id;?>" <?php echo $current;?>><?php echo $klant->name.' '.$klant->surname;?></option>
+        <?php
+    }
+    ?>
+    </select>
+    <br/><br/>
     <input type="submit" name="verzenden" value="project aanpassen">
 </form>
 

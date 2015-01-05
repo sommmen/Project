@@ -14,13 +14,17 @@ if(isset($_GET['photo']) && isset($_GET['type'])){
         if(get('type') == 'project') {
             minRole(2);
 
-            $query = "SELECT * FROM project WHERE id = '" . $photo->pid . "'";
+            $query = "SELECT * FROM project p WHERE id = '" . $photo->pid . "'";
             if (!$result = $mysqli->query($query)) {
                 echo $mysqli->error;
             }
             $project = $result->fetch_object();
 
-            $folderName = sha1($project->id . $project->title);
+            if($project->uid == user_data('id') || user_data('role') == 3){
+                $folderName = sha1($project->id . $project->title);
+            }
+
+
         }elseif(get('type') == 'portfolio'){
             $query = "SELECT * FROM portfolio WHERE id = '" . $photo->portfolio_album . "'";
             if (!$result = $mysqli->query($query)) {
@@ -64,10 +68,10 @@ if(isset($_GET['photo']) && isset($_GET['type'])){
 
             imagedestroy($im);
         } else {
-            echo "afbeelding bestaat niet.";
+            redirect('/');
         }
     }else{
-        echo "De afbeelding bestaat niet.";
+        redirect('/');
     }
 
 }
