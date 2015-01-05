@@ -3,7 +3,7 @@ function portfolio_items(){
     $id = urlSegment(2);
 
     $page = urlSegment(3);
-    $itemsOnPage = 9;
+    $itemsOnPage = getProp('Items_on_page');
     $itemsfetched = $itemsOnPage + 1;
 
     $max = $page * $itemsOnPage;
