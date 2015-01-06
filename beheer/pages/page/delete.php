@@ -1,4 +1,9 @@
 <?php
+/*
+ *              in al haar professionaliteit gemaakt door:
+ *                          Dion Leurink 
+ */
+
 minRole(3);
 
 $id = urlSegment(3);

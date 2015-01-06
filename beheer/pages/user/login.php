@@ -1,4 +1,9 @@
 <?php
+/*
+ *              in al haar professionaliteit gemaakt door:
+ *              Kevin Pijning met een vleugje Dion Leurink
+ */
+
 //session_destroy();
 if (isset($_POST['submit'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
@@ -25,7 +30,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-function toLetters($input) { //verplaatsen naar core?
+function toLetters($input) { //kleine functie die nummers omvormt naar letters (dat maakt het hackers net even een tikkeltje moeilijker)
     $letters = ["nul", "één", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "tien"];
     foreach ($letters as $key => $value) {
         if ($key === $input) {
@@ -34,7 +39,7 @@ function toLetters($input) { //verplaatsen naar core?
     }
 }
 
-//  mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newpass \n doei! \n micheal verbeek.");
+
 if(!isset($_POST['send'])) {
     $_SESSION['num1'] = rand(0, 10);
     $_SESSION['num2'] = rand(0, 10);

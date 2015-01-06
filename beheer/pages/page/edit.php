@@ -1,4 +1,9 @@
 <?php
+/*
+ *              in al haar professionaliteit gemaakt door:
+ *                          Dion Leurink 
+ */
+
 minRole(3);
 ?>
 <script type="text/javascript" src="/Project/beheer/res/javascript/wysiwyg-editor.js"></script>
@@ -10,14 +15,12 @@ minRole(3);
         }
         setSpanZero();
     }
+    //dit stukje JQ zorgt ervoor dat de gebruiker in normale taal te zien krijgt of hij hem toont of niet i.p.v. een onbegrijpelijke 0.
 </script>
 
 <?php
-//TODO
-//kijken in welk formaat 'tijd' in de tabel staat.
-//wysiwyg editor.
 
-if (!is_numeric($id = urlSegment(3))) {
+if (!is_numeric($id = urlSegment(3))) { //als er geen id is meegegeven terugsturen.
     redirect('/beheer/page');
 }
 
@@ -39,15 +42,16 @@ if ($page->published == 1) {
 }
 
 if (isset($_POST["submit"])) { //dit geeft errors.
+    //wederom 'convert' dit alle inputs naar database-vriendelijke inputs.
     $title = post('titel');
     $description = post('description');
     $slug = post('slug');
     $body = addslashes($_POST['body']);
     $published = post('published');
 
-
-    date_default_timezone_set($config['timezone']);
+    date_default_timezone_set($config['timezone']); //verplicht voor de date functie.
     $time = date("Y-m-d");
+    
     if (empty($title)) {
         $error = "vul een titel in";
     } elseif (empty($body)) {
@@ -60,8 +64,7 @@ if (isset($_POST["submit"])) { //dit geeft errors.
             $in_nav = post('in_nav-number');
         }
 
-        echo $in_nav;
-
+        //stuurt alles naar de database.
         $query = "UPDATE page SET title = '$title', description = '$description', slug = '$slug', body = '$body', published = '$published', in_nav = '$in_nav', last_modified = '$time' WHERE id = '$id'";
         if (!$mysqli->query($query)) {
             $error = $mysqli->error;

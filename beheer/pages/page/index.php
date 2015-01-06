@@ -1,4 +1,10 @@
-<?php minRole(3);
+<?php
+/*
+ *              in al haar professionaliteit gemaakt door:
+ *                          Dion Leurink 
+ */
+
+minRole(3);
 
 ?>
 <a href="/beheer/page/add" class="button blue">Pagina toevoegen</a>
@@ -31,7 +37,7 @@
             <td><a href="/beheer/page/edit/<?php echo $page->id; ?>"><?php echo $page->title; ?></a></td>
             <td><?php echo $page->slug; ?></td>
             <td><?php echo $page->last_modified; ?></td>
-            <td><?php echo $page->published==1 ? "ja" : "nee" ?></td>
+            <td><?php echo $page->published==1 ? "ja" : "nee" ?></td> 
             <td><?php echo $page->in_nav  ?: "niet getoond" ; ?></td>
             <td>
                 <a href="/beheer/page/edit/<?php echo $page->id; ?>"><img src="/beheer/res/img/pencil90.png" alt="edit"/></a> |
