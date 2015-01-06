@@ -1,13 +1,18 @@
 <?php
+/*
+ * Door Kevin Pijning
+ */
 minRole(3);
 
+//Verkrijg het opgevraagde project.
 $query = "SELECT * FROM project WHERE id = '".urlSegment(3)."'";
 $result = $mysqli->query($query);
-if($result->num_rows == 0){
+if($result->num_rows == 0){ //Als het project niet bestaat, wordt de gebruiker doorgestuurd naar het projecten overzicht
     redirect('/beheer/projects');
 }
 $project = $result->fetch_object();
 
+//Verkrijg de foto's uit een projectv.
 $query = "SELECT * FROM photo WHERE pid = '".$project->id."'";
 $result = $mysqli->query($query);
 ?>
@@ -20,6 +25,7 @@ $result = $mysqli->query($query);
 <section class="row">
 <?php
 if($result->num_rows > 0) {
+    //Geef alle foto's die bij het project horen weer.
     while($photo = $result->fetch_object()) {
         ?>
         <figure <?php if($photo->selected == true){ echo 'class="selected"'; } ?>>

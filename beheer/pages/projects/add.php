@@ -1,11 +1,19 @@
 <?php
+/*
+ * Door Kevin Pijning
+ */
+
 minRole(3);
 
 if(isset($_POST['submit'])){
 
+    // Reguliere form validatie
     if(empty($_POST['title'])){
         $error = "U dient alle verplichte velden in te vullen.";
     }elseif($_POST['user_id'] == 0){
+        /*
+         * Als er geen voorgestelde klant wordt gebruikt is het user_id veld leeg, en dus moet alle informatie worden ingevuld.
+         */
         if(empty($_POST['name']) ||
             empty($_POST['surname']) ||
             empty($_POST['email']) ||
@@ -19,9 +27,13 @@ if(isset($_POST['submit'])){
     }
 
     if(!isset($error)){
-        if($_POST['user_id'] == 0){
-            $username = post('name').'-'.post('surname');
-            $random_password = random_password();
+        if($_POST['user_id'] == 0){ //Geen voorgestelde klant geselecteerd
+            /*
+             * Omdat er geen voorgestelde klant is geselecteerd moet er een nieuwe klant worden aangemaakt in de database,
+             * en de inlog gegevens die gegenereerd worden moeten per email verstuurd worden naar de nieuwe klant.
+             */
+            $username = post('name').'-'.post('surname'); // genereren van gebruikernaam aan de hand van de voor- en achternaam
+            $random_password = random_password(); //random wachtwoord genereren
             $password = sha1($random_password);
             $query = "INSERT INTO user (username,
                                         password,
@@ -44,16 +56,21 @@ if(isset($_POST['submit'])){
                         '".post('telephone')."',
                         '2')";
 
-            if($mysqli->query($query)) {
+            if($mysqli->query($query)) {    // Doe poging om de gebruiker toe te voegen.
                 $user_id = $mysqli->insert_id;                
             }else{
                 $error = 'De gebruiker kan niet worden toegevoegd.';
             }
 
         } else {
+            /*
+             * Als er wel een voorgestelde klant is geselecteerd, wordt het post veld user_id ingevuld met het ID van die gekozen gebruiker.
+             * Er hoeft hier dus geen nieuwe klant worden aangemaakt.
+             */
             $user_id = post('user_id');
         }
 
+        // Project wordt toegevoegd
         $query = "INSERT INTO project (title,
                                        uid,
                                        max)
@@ -64,6 +81,11 @@ if(isset($_POST['submit'])){
         if(!$mysqli->query($query)){
             echo $mysqli->error;
         }else {
+            /*
+             * Als het project is toegevoegd, wordt er een mail gestuurd naar de klant.
+             * Als het een nieuwe klant is wordt er een mail gestuurd met de inlog gegevens en de plaats waar ingelogd kan worden.
+             * Als het een bestaande klant is wordt er alleen een mail gestuurd dat er een project is aangemaakt.
+             */
             $project_id = $mysqli->insert_id;
             
             if($_POST['user_id'] == 0){
@@ -71,6 +93,7 @@ if(isset($_POST['submit'])){
                 
                 $to=post('email');
                 $name = post('name').' '.post('surname');
+                // Email naar nieuwe klanten
                 $email_content = 'Beste '.$name.',<br>'
                         . '<br>'
                         . 'U bent nieuw toegevoegd aan het klanten systeem van Michael Verbeek.<br/>'
@@ -94,6 +117,7 @@ if(isset($_POST['submit'])){
                 
                 $to = $user->email;
                 $name = $user->name.' '.$user->surname;
+                //email naar bestande klant
                 $email_content = 'Beste '.$name.',<br>'
                         . '<br>'
                         . 'Michael Verbeek heeft een nieuw project voor U aangemaakt.<br/>'
@@ -109,10 +133,11 @@ if(isset($_POST['submit'])){
                         "MIME-Version: 1.0" . "\r\n" .
                         "Content-type: text/html; charset=UTF-8" . "\r\n";
 
+            //Mail wordt verstuurd.
             mail($to, $subject, $email_content, $headers);
             $success = '<section class="success">Uw bericht is verstuurd, er wordt zo spoedig mogelijk contact met u opgenomen.</section>';
             
-            
+            //succes bericht wordt aangemaakt en de gebruiker wordt doorgestuurd naar de pagina waar hij fotos kan uploaden.
             setMessage('Het project is succesvol toegevoegd.');
             redirect('/beheer/projects/addPhotos/'.$project_id);
         }

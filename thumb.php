@@ -1,6 +1,10 @@
 <?php
 session_start();
 ob_start();
+/*
+ * Door Kevin Pijning
+ */
+
 require_once('system/core.php');
 
 if(isset($_GET['photo']) && isset($_GET['type'])){

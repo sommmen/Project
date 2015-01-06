@@ -1,15 +1,24 @@
 <?php
+/*
+ * Door Kevin Pijning
+ */
 require_once('system/core.php');
 
 /* Set environment */
-if($config['environment'] == 'develop'){
+if($config['environment'] == 'develop'){ //Geef errors weer
     error_reporting(E_ALL ^ E_NOTICE);
     ini_set('display_errors', '1');
-} elseif($config['environment'] == 'public'){
+} elseif($config['environment'] == 'public'){ //Verberg errors
     error_reporting(0);
     ini_set('display_errors', '0');
 }
 
+/*
+ * Hier wordt de pagina titel bepaald.
+ * Als er geen url is opgegeven dan wordt standaard de site naam en de site slug weergegeven in de titel
+ * Als er wel een url is ingevuld, dan wordt de pagina in de database opgezocht, en de pagina titel wordt weergegeven.
+ * Als de pagina niet gevonden is wordt er een 404 error geplaatst.
+ */
 if(!urlSegment(1)){
     $pageTitle = getProp('site_name').' ~ '.getProp('site_slug');
 }else{
@@ -73,13 +82,26 @@ if(!urlSegment(1)){
         <nav>
             <ul>
                 <?php
+                /*
+                 * Hier wordt het menu samengesteld.
+                 * Alleen pagina's die gepubliceerd zijn en pagina's waarvan aangegeven is dat ze in het menu zichtbaar moeten zijn worden weergegeven.
+                 * Er wordt gesorteerd op in_nav, omdat je kan opgeven op welke plek het item moet komen.
+                 */
                 $menuSQL = "SELECT * FROM page WHERE in_nav != 0 AND published = 1 ORDER BY in_nav";
                 $result = $mysqli->query($menuSQL);
                 while($row = $result->fetch_object()){
 
+                    /*
+                     * Hier wordt de class "current" toegewezen aan een menu item als de gebruiker zich op die pagina bevindt.
+                     */
                     if(urlSegment(1) == $row->slug || ($row->id == getProp('default_page') && empty($_GET) )){
                         $active = 'class="current"';
                     }else{
+                        /*
+                         * Hier gebeurt het zelfde, maar dan voor sub-pagina's.
+                         * Omdat sub-pagina's niet overeenkomen met de slug die in het menu staat wordt de huidige slug gesplitst,
+                         * en als het eerste deel van de slug overeenkomt met de slug in het menu dan wordt de class "current" toegewezen aan dat menu item.
+                         */
                         $ex1 = explode('-', urlSegment(1));
                         $ex2 = explode('-', $row->slug);
                         if($ex1[0] == $ex2[0]){
@@ -88,7 +110,9 @@ if(!urlSegment(1)){
                             $active = '';
                         }
                     }
-
+                    /*
+                     * Uitendelijke weergave van het menu.
+                     */
                     echo '<li '.$active.'><a href="/'.$row->slug.'">'.$row->title.'</a></li>';
                 }
                 ?>
@@ -108,17 +132,26 @@ if(!urlSegment(1)){
         <section class="content">
             <?php
 
-            if(!urlSegment(1)){
+            if(!urlSegment(1)){     //Als er geen url is ingevuld wordt de current_page gezet op het default_page id uit de database.
                 $current_page = getProp('default_page');
             }else{
                 $current_page = urlSegment(1);
             }
 
+            /*
+             * Hier wordt de opgevraagde pagina geladen.
+             * De pagina moet gepubliceerd zijn om weergegeven te kunnen worden.
+             */
             $pageSQL = "SELECT * FROM page WHERE (slug = '".urlSegment(1)."' OR id = '".$current_page."') AND published = 1";
             $result = $mysqli->query($pageSQL);
+            // Als de pagina bestaat wordt hij weergegeven, anderes krijg je een 404 error.
             if($result->num_rows != 0) {
                 $row = $result->fetch_object();
 
+                /*
+                 * Het laatste woord in de titel wordt altijd rood gekleurd, dit wordt gedaan door de titel op te spitsen aan de hand van spaties.
+                 * Het laatste item krijgt span.red
+                 */
                 $pageTitle = explode(' ', $row->title);
                 if(count($pageTitle) > 1) {
                     $pageTitle[count($pageTitle) - 1] = '<span class="red">' . $pageTitle[count($pageTitle) - 1] . '</span>';
@@ -134,8 +167,12 @@ if(!urlSegment(1)){
                     }
                     ?>
                 </hgroup>
-
-                <?php echo includeTags($row->body);?>
+                <?php
+                /*
+                 * Hier wordt de html content uit de database gefilterd op tags voor de widgets.
+                 */
+                echo includeTags($row->body);
+                ?>
 
             <?php
             }else{
@@ -177,7 +214,7 @@ if(!urlSegment(1)){
                 <section class="col-4">
                     U kan contact met mij opnemen via:<br/>
                     <br/>
-                    <a href="/contact">info@michaelverbeek.eu</a><br/>
+                    <a href="/contact"><?php echo getProp('admin_mail');?></a><br/>
                     06-123 34 56
                 </section>
 

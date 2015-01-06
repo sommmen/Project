@@ -1,6 +1,10 @@
 <?php
-minRole(3);
+/*
+ * Door Kevin Pijning en Daan Stout
+*/
+minRole(3); // Minimale rol om deze pagina te bezoeken is rol 3 (beheerder)
 
+// Verkrijg het opgevraagde project.
 $query= "SELECT * FROM project  WHERE id = '".urlSegment(3)."'";
 $result=$mysqli->query($query);
 
@@ -9,9 +13,13 @@ if($result->num_rows==1){
 
 
 if(isset($_POST['verzenden'])){
+    /*
+     * Als de naam van het project wordt aangepast, moet ook de map naam worden bijgewerkt.
+     */
     $targerPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($project->id . $project->title) . '/';
 
     if(post('customer') != $project->uid){
+        //Als het project een nieuwe eigenaar krijgt, dan wordt er een email gestuurd naar de nieuwe eigenaar.
         $query = $mysqli->query("SELECT * FROM user WHERE id = '".post('customer')."'");
         $user = $query->fetch_object();
 
@@ -36,11 +44,12 @@ if(isset($_POST['verzenden'])){
 
     }
 
+        // Werk het project bij in de database.
         $result = $mysqli->query("UPDATE project SET title = '" . post('project_naam') . "', max = '" . post('project_max_photos') . "', uid = '".post('customer')."' WHERE id = '" . $project->id . "'");
         $result = $mysqli->query("SELECT * FROM project WHERE id = '" . $project->id . "'");
         if ($result->num_rows > 0) {
             $projects = $result->fetch_object();
-
+            //Werk de naam van de map bij.
             $newPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($projects->id . $projects->title) . '/';
             rename($targerPath, $newPath);
         }

@@ -1,10 +1,16 @@
 <?php
+/*
+ * Door Kevin Pijning
+ */
 minRole(3);
 ?>
 
 <a href="/beheer/projects/add" class="button blue">Project toevoegen</a>
 <h1>Projecten</h1>
 <?php
+/*
+ * Hier wordt een lijst van een projecten weergegeven.
+ */
 $query = "SELECT *, project.id as project_id FROM project JOIN user ON user.id = project.uid ORDER BY created DESC";
 $result = $mysqli->query($query);
 if($result->num_rows > 0){
@@ -19,8 +25,7 @@ if($result->num_rows > 0){
 <?php
 
     while ($project = $result->fetch_object()) {
-        //TODO de klantnaam laten weergeven dmv een join in de query?
-        //TODO als er geen pagina's zijn, dan moet er een melding worden gegeven dat er geen pagina's zijn.
+
         ?>
     <tr>
         <td><a href="/beheer/projects/view/<?php print_r($project->project_id);?>"><?php echo $project->title;?></a></td>
