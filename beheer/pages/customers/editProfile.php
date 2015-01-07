@@ -1,11 +1,8 @@
 <?php
-/** Gemaakt door Eelco Eikelboom */
-
-    /** In dit geval mag de klant het zien */
+// Daan Stout
     minRole(2);
-    $id = user_data('id'); /** Vraagt ID van de gebruiker op */
-
-/** De fields :) */
+    $id = user_data('id');
+    //dit zegt dan de gebruiker minimaal een rol van 2 moet hebben en haalt het ID van de gebruiker op
     $name = "";
     $surname = "";
     $address = "";
@@ -14,9 +11,9 @@
     $city = "";
     $telephone = "";
     $result = $mysqli->query('SELECT * FROM user WHERE id = '.$id);
-
-  
-/** Fields waarde geven. Yay! */
+    
+    //dit maakt alle benodigde variablen aan en maakt de query om de gegevens van de gebruiker op te halen
+    
     while($row = $result->fetch_array()){
         $name = $row['name'];
         $surname = $row['surname'];
@@ -26,8 +23,7 @@
         $email = $row['email'];
         $telephone = $row['telephone'];
     }
-
-/** Variable van placeholders. Als de 'POST' een error geeft, dan pakt ie de default values hierboven.*/
+    // dit vult alle gegevens in zodat de klant weet wat zijn huidige gegevens zijn
     $value_email = set_value('email', $email);
     $value_naam = set_value('name', $name);
     $value_achternaam = set_value('surname', $surname);
@@ -35,9 +31,9 @@
     $value_postcode = set_value('zipcode', $zipcode);
     $value_woonplaats = set_value('city', $city);
     $value_telnr = set_value('telephone', $telephone);
-
-/** Hij loopt er weer lekker doorheen! Als er iets veranderd is dan wordt het geupdate in de database. */
+    //dit zet de nieuwe gegevens van de klant onder variabelen
     if(isset($_POST['form_submit'])){
+        // dit kijkt of de klant veranderingen verstuurt
         foreach($_POST as $arrayName => $value){
             if($arrayName == "form_submit") continue;
             if(empty($value)){
@@ -46,15 +42,21 @@
                 $mysqli->query('UPDATE user SET '.$arrayName.' = "'.$value.'" WHERE id = '.$id);
                 if($mysqli->error) die ($mysqli->error);
             }
+            //dit update in 1x alle gegevens van de klant
         }
         redirect('/beheer/customers/editProfile');
+        // de pagina wodt nu ge refreshed door naar zichzelf te redirecten
     }
-	/** Wachtwoord weizigen gemaakt door Willem Fikkert */
-
+	
 	if(isset($_POST['wachtwoord_submit'])){
+            // dit kijkt of het wachtwoord wilt woren verandert
 		if(sha1($_POST['huidig_wachtwoord'])== user_data('password')){
 			if($_POST['nieuw_wachtwoord']!= $_POST['Bevestig_wachtwoord']){
 				$error= "De nieuwe wachtwoorden zijn niet gelijk";
+                                /*hier wordt gekeken of de wachtwoorden kloppen met het huidige
+                                 * en of de nieuwe wachtwoorden hetzelfde zijn
+                                 */
+                                
 		}else{
 			if($mysqli->error){
 				echo $mysqli->error;
@@ -62,7 +64,7 @@
 			$mysqli->query('UPDATE user SET password = "'.sha1(post('nieuw_wachtwoord')).'" WHERE id = '.$id);
 			setMessage("Uw wachtwoord is succesvol gewijzigd");
 			redirect('/beheer/customers/editProfile');
-			
+                    // hier wordt het wachtwoord verandert
 		}
 	}else{
 		$error= "Uw huidige wachtwoord is niet correct ingevoerd";
@@ -93,7 +95,7 @@
 
     </form>
 </section>
-
+<?php //dit is het formulier om de gegevens te veranderen ?>
 <section class="half">
     <form method="POST">
         <label>Huidig wachtwoord:</label><input type="password" name="huidig_wachtwoord"/>
@@ -102,3 +104,4 @@
         <input type="submit" name="wachtwoord_submit" value="Wijzig wachtwoord"/>
     </form>
 </section>
+<?php //dit is het formulier om het wachtwoord te veradneren ?>

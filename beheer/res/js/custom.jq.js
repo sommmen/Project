@@ -1,9 +1,8 @@
-/*
-Door Kevin Pijning
- */
 $(document).ready(function(){
-
-    //Dit zorgt voor de suggesties van klanten bij het aanmaken van een nieuw project.
+/*
+ *              in al haar professionaliteit gemaakt door:
+ *                          Kevin Pijning
+ */
     $(".customerData input").keyup(function(){
         $(".half.results").html('<img src="/beheer/res/img/ajax-loader.gif" alt="loading..."/>');
         var val = $(this).val();
@@ -29,7 +28,6 @@ $(document).ready(function(){
     });
 
     $("form").on('click', '.user',function(){
-        //alert($(this).attr("id"));
 
         var user_id = $(this).attr('id');
         user_id = user_id.split('-');
@@ -72,13 +70,6 @@ $(document).ready(function(){
 
     }
 
-    $("#in_nav-checkbox").click(function(){
-        if($(this).is(":checked")){
-            $("#in_nav-number").show();
-        }else{
-            $("#in_nav-number").hide();
-        }
-    });
 
     var Photocount = parseInt($("#currentSelectedPhotos").text());
     var Photomax = parseInt($("#maxSelectedPhotos").text());
@@ -97,9 +88,23 @@ $(document).ready(function(){
             modal = true;
             alert("U heeft meer foto's geselecteerd dan afgesproken, Dit is natuurlijk geen probleem! Wij nemen contact met u op over verdere afhandeling.");
         }
+    });
+    
+/*
+ *              in al haar professionaliteit gemaakt door:
+ *                          Dion Leurink
+ */
 
+//laat een nummercount (zodat de admin de menubar volgorde kan instellen) zien als deze aangevinkt is
+    $("#in_nav-checkbox").click(function(){
+        if($(this).is(":checked")){
+            $("#in_nav-number").show();
+        }else{
+            $("#in_nav-number").hide();
+        }
     });
 
+//geeft respectievelijk 'inloggen' en 'wachtwoord vergeten' weer op dezelfde pagina (login.php)
     $("#toggleDropDown").click(function () {
 
         $("#dropdown").slideToggle("slow");
@@ -117,23 +122,21 @@ $(document).ready(function(){
 
     });
 
+    //maakt van een stukje text een 'zoekmachine vriendelijke link' oftewel: slug.
+    function getSlug(Text)
+    {
+        return Text
+                .toLowerCase()
+                .replace(/ /g, '-')
+                .replace(/[^\w-]+/g, '');
+    }
+
+//zorgt ervoor dat als je de titel wijzigt er automatisch ook een slug word gemaakt in de desbetrefende input.
+    function updateValue() {
+        var title = document.getElementById("title").value;
+        document.getElementById("slug").value = getSlug(title);
+    }
 
 });
 
-$("figure > a[href^='/portfolio-fotos/']").hover(function () {
-    var href = $(this).attr('href');
-    alert(href);
-});
 
-function getSlug(Text)
-{
-    return Text
-        .toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
-}
-
-function updateValue() {
-    var title = document.getElementById("title").value;
-    document.getElementById("slug").value = getSlug(title);
-}

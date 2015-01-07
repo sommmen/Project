@@ -4,7 +4,7 @@
  *              Kevin Pijning met een vleugje Dion Leurink
  */
 
-//session_destroy();
+//dit block zorgt voor het inloggen.
 if (isset($_POST['submit'])) {
     if (empty($_POST['username']) || empty($_POST['password'])) {
         $error = 'U dient alle velden in te vullen.';
@@ -12,25 +12,35 @@ if (isset($_POST['submit'])) {
 
         $sql = "SELECT * FROM user WHERE username = '" . post('username') . "' AND password = '" . sha1(post('password')) . "'";
         $result = $mysqli->query($sql);
+        
+        //staat de gebruikersnaam & wachtwoord in de database?
         if ($result->num_rows == 0) {
             $error = 'Onjuiste gebruikersnaam of wachtwoord.';
+            
         } else {
+            
+            //maak een token aan op basis van de gebruiker en een timestamp
             $user = $result->fetch_object();
             $token = sha1($user->id . $user->username . date('U'));
-
+            
+            //upload deze naar de database
             $mysqli->query("UPDATE user SET token = '" . $token . "' WHERE username = '" . post('username') . "' AND password = '" . sha1(post('password')) . "' ");
-
+            
+            //en stop deze vervolgens in de sessie
             $_SESSION['user'] = array(
                 'name' => $user->username,
                 'token' => $token
             );
+            
+            //redirect de gebruiker  naar de klantenpagina met een welkomstbericht
             setMessage('Welkom ' . $user->username);
             redirect('/beheer/');
         }
     }
 }
 
-function toLetters($input) { //kleine functie die nummers omvormt naar letters (dat maakt het hackers net even een tikkeltje moeilijker)
+//kleine functie die nummers omvormt naar letters (dat maakt het hackers net even een tikkeltje moeilijker)
+function toLetters($input) {
     $letters = ["nul", "één", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "tien"];
     foreach ($letters as $key => $value) {
         if ($key === $input) {
@@ -39,24 +49,31 @@ function toLetters($input) { //kleine functie die nummers omvormt naar letters (
     }
 }
 
-
+//als de captcha nog niet verzonden is als de gebruiker de pagina laad, maak dan in een sessie 2 nieuwe getallen voor de captcha.
 if(!isset($_POST['send'])) {
     $_SESSION['num1'] = rand(0, 10);
     $_SESSION['num2'] = rand(0, 10);
 }
 
+//dit codeblok verwerkt het 'vergeten van wachtwoord' gedeelte op de pagina.
 if(isset($_POST['send'])){
     if(empty($_POST['email']) || empty($_POST['captcha'])){
         $error = 'U dient alle velden in te vullen.';
-    }elseif($_POST['captcha'] != ($_SESSION['num1'] + $_SESSION['num2'])){
+    } elseif($_POST['captcha'] != ($_SESSION['num1'] + $_SESSION['num2'])) {
         $error = 'U dient een goede captcha code in te vullen.';
-    }else{
+        //als alles correct is ingevuld dan:
+    } else {
+        
         $query = $mysqli->query("SELECT * FROM user WHERE email = '".post('email')."'");
+        
         if($query->num_rows == 1){
+            //genereert een random wachtwoord
             $newPassword = random_password();
+            
+            //upload deze naar de database
             $mysqli->query("UPDATE user SET password = '".sha1($newPassword)."' WHERE email = '".post('email')."'");
-            mail(post("email"), "Nieuw wachtwoord", "hoi pipeloi,\n\n u hebt een nieuw wachtwoord!\n ze is:$newPassword \n doei! \n micheal verbeek.");
-
+           
+            //opmaak voor de mail
             $to=post("email");
             $subject = "Nieuw wachtwoord aangevraagd";
             $headers =  "From: Michael Verbeek <".getProp('admin_mail').">\r\n".
@@ -70,13 +87,16 @@ if(isset($_POST['send'])){
                         Met vriendelijke groet,<br/>
                         Michael Verbeek<br/>';
 
+            //verstuur de mail met het nieuwe wachtwoord
             mail($to, $subject, $message, $headers);
-
         }
-
-        $error = 'Er is een email verzonden naar het ingevoerde email adres.';//fake success
+        
+        //fake succes dat er een email is verzonden als het ingevoerde email adres verkeerd is zodat crackers niet achter de emails in onze database kunnen komen d.m.v. bruteforce.
+        $error = 'Er is een email verzonden naar het ingevoerde email adres.';
 
     }
+    
+    //vernieuw de captcha getallen (bij een error zou de '!isset(...' niet resetten, en door dit stukje code wel!)
     $_SESSION['num1'] = rand(0, 10);
     $_SESSION['num2'] = rand(0, 10);
 }

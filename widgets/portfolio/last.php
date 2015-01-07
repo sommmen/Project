@@ -1,5 +1,5 @@
 <?php
-
+// Daan Stout
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +13,7 @@ function portfolio_last(){
     global $mysqli;
     
     $result = $mysqli->query("SELECT * FROM photo WHERE portfolio_album IS NOT NULL ORDER BY id DESC LIMIT 3");
-    
+    // dit haalt de 3 nieuwste foto's op die in een portfolio staan
     if($result && $result->num_rows > 0){
         $portfolio .= '<section class="last-row">';
         while($item = $result->fetch_object()){
@@ -27,5 +27,6 @@ function portfolio_last(){
     }else{
         $portfolio = 'Er zitten geen foto\'s in deze portfolio.';
     }
+    //dit laat de 3 foto's zien op de pagina
     return $portfolio;
 }
