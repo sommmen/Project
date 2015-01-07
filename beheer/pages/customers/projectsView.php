@@ -1,5 +1,8 @@
 
 <?php
+/**
+ *  Gemaakt door Eelco Eikelboom
+ */
 minRole(2);
 /**
  * @var $id Project ID, niet user ID
@@ -20,7 +23,11 @@ if ($query->num_rows == 0) {
     moment terug te komen.</div>";
     return;
 }
-
+/**
+ * Wordt aangeroepen wanneer de button wordt ingeklikt.
+ * '$info' = Een lijst van informatie van elke geselecteerde foto. Dit is
+ * nodig voor de email.
+ */
 if (isset($_POST['btnSubmit'])) {
     resetData($id);
     $info = "";
@@ -34,13 +41,26 @@ if (isset($_POST['btnSubmit'])) {
     redirect('/beheer/customers/projectsView/'.$id);
 
 }
-
+/**
+ * @param $projectID Idee van het project.
+ * @return int Hij returnt een error als de query niet werkt.
+ * resetData zorgt er voor dat alle gerelateerde foto's van dit project eerst worden
+ * gezet naar 'NIET geselecteerd', daarna zoek ik naar de wél geselecteerde foto's, en die zet ie dan weer
+ * terug. Dit betekend dat de klant dynamisch zijn foto's kan selecteren, omdat de foto's die hij eerder geselecteerd had
+ * Nu ook geselecteerd zijn. (Het is heel logisch als je je voor je ziet)
+ */
 function resetData($projectID){
     global $mysqli;
     $mysqli->query('UPDATE photo SET selected = null WHERE pid = '.$projectID);
-    if($mysqli->error) return 403334;
+    if($mysqli->error) return 404;
 }
 
+/**
+ * @param $info Staat voor de lijst met uitgekozen foto's. Heb een verslaving aan functies ;)
+ * @param $id Id staat voor het ID van het project van de foto's.
+ * Deze functie stuurt een nette mail naar de admin met de aanvraag van de klant. Gegevens van de klant
+ * (email etc) wordt uit de database gehaald.
+ */
 function sendMail($info, $id){
     $subject = 'Michael Verbeek - Er is een nieuw verzoek van '.user_data('name').' '.user_data('surname');
     $to = getProp('admin_mail');
@@ -55,7 +75,11 @@ function sendMail($info, $id){
         $header);
 }
 
-
+/**
+ * @param $photoId Id van de foto.
+ * @return int|string Geeft een String met informatie terug. (Naam en bestandsnaam in 1 string)
+ * Dit gebruik ik om een lijst op te bouwen van elk geselecteerde foto.
+ */
 function addInfo($photoId){
     global $mysqli;
     $result = $mysqli->query('SELECT * FROM photo WHERE id = '.$photoId);
@@ -71,6 +95,10 @@ function addInfo($photoId){
 
 <h1>Project <span id="currentSelectedPhotos"><?php echo $selectedNum; ?></span> / <span id="maxSelectedPhotos"><?php echo $project->max;?></span></h1>
 
+<?php /** Laat een lijst zien van alle geuploade foto's betreffend het project (project id)
+    *  Elke foto (elke <figure>) heeft een checkbox met als 'name' de id van de foto. Hiermee kan
+    * ik makkelijk dingen met de foto's doen omdat ik de ids gewoon uit de POST kan halen. (Zie boven)
+    */?>
 <form method="POST">
     <section class="row">
         <?php

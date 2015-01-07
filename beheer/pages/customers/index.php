@@ -1,4 +1,6 @@
 <?php
+
+/** Gemaakt door Eelco Eikelboom */
 minRole(3);
 ?>
 <h1>Klanten overzicht</h1>
@@ -12,7 +14,7 @@ minRole(3);
 
 /**
  *  Weergeeft een tabel met users en desbetreffende gegevens
- * 
+ *  Nogal logisch.
  */
 $query = "SELECT * FROM user ORDER BY name";
 $result = $mysqli->query($query);

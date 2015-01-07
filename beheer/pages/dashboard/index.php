@@ -1,8 +1,16 @@
+<?php
+/*
+ * Door Kevin Pijning & Eelco Eikelboom
+ */
+?>
 <h1>Welkom <?php echo user_data('name').' '.user_data('surname');?></h1>
 
 <?php
 $id = user_data('id');
 
+/*
+ * Als je als een normale klant bent ingelogd laat hij een overzicht zien met de lopende projecten die voor die klant bestemd zijn.
+ */
 function showProjects($uid){
     global $mysqli;
     $query = $mysqli->query('SELECT * FROM project WHERE uid = '.$uid.' ORDER BY created');
