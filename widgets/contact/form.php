@@ -1,4 +1,5 @@
 <?php
+// Daan Stout
 function contact_form(){
 
     if(isset($_POST["submit"])){

@@ -1,4 +1,5 @@
 <?php
+// Daan Stout
 function portfolio_items(){
     $id = urlSegment(2);
     // dit zorgt ervoor dat de site weet welke portfolio hij de foto's uit moet halen

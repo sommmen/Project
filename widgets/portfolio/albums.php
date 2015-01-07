@@ -1,5 +1,5 @@
 <?php
-
+//Daan Stout
 /*
 een widget moet altijd een functie bevatten die net zo heet als de Widget tag
 bijv. tag: {{ portfolio_albums }}, functie naam: portfolio_albums.
