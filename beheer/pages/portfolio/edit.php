@@ -1,4 +1,5 @@
 <?php
+//gemaakt door Willem.
 $query= "SELECT * FROM portfolio WHERE id = '".urlSegment(3)."'";
 $result=$mysqli->query($query);
 
