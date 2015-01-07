@@ -18,7 +18,7 @@ function portfolio_albums(){
     global $mysqli;
 
     $result = $mysqli->query("SELECT * FROM portfolio ORDER BY id DESC");
-    
+    //dit haalt alle portfolios op die in de database staan
     while($item = $result->fetch_object()){
         $portfolio .= '
         <figure>
@@ -28,8 +28,13 @@ function portfolio_albums(){
             </a>
         </figure>
         ';
+        /* deze while laat de portfolios zien met als coverfoto de eerste foto in de map, 
+         * zolang ze er zijn en zorgt ervoor dat je op de foto kan klikken
+         * als je op de foto klikt krijg je de portfolio te zien. 
+         */
+        
     }
-    //* hi *//
+    
     return $portfolio;
 
 }

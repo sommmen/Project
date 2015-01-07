@@ -2,12 +2,13 @@
 function contact_form(){
 
     if(isset($_POST["submit"])){
-
+        //kijkt of er een formulier wilt worden gestuurt
         if(empty($_POST["name"]) ||
             empty($_POST["email"]) ||
             empty($_POST["subject"]) ||
             empty($_POST["msg"])){
             $error = 'U dient alle verplichte velden in te vullen.';
+            //kijkt of er lege velden zijn die wel belangrijk zijn en zegt dat de persoon die velden moet invullen
         }else{
 
             $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=6Lcaef8SAAAAADAAqMpi80fkt6OuC7ztobovresJ&response='.post('g-recaptcha-response').'&remoteip='.$_SERVER['REMOTE_ADDR']);
@@ -58,7 +59,7 @@ function contact_form(){
 
                 mail($to, $subject, $message, $headers);
                 $success = '<section class="success">Uw bericht is verstuurd, er wordt zo spoedig mogelijk contact met u opgenomen.</section>';
-
+                //als alles goed is ingevuld wordt hier de mail gemaakt en verstuurt naar de admin
             }
         }
 
@@ -98,9 +99,11 @@ function contact_form(){
         <input type="submit" name="submit" value="verzenden"/>
     </form>
     ';
+        //dit is het formulier waar de klant zijn gegevens invult
     }else{
         $form = $success;
         unset($_POST);
+        //dit zorgt ervoor dat de variabel _POST leeg is zodat de klant de gegevens niet blijft zien tijdens de huidige sessie
     }
     return $form;
 }
