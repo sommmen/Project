@@ -65,7 +65,7 @@ if ($role == 2){
 }else{
     $hi = ' - Inloggen';
 }
-// $hi = $role == 3 ?' beheer': ' klant';
+// hier wordt gekeken wat de rol van de gebruiker is en wordt de tekst bovenaan aangepast
 ?>
 <body>
 <header>
@@ -76,6 +76,7 @@ if ($role == 2){
 
 <section class="container">
     <?php echo getMessage(); ?>
+    <?php //geeft het bericht uit de sessie weer ?>
 </section>
 
 <section class="container">
@@ -103,6 +104,7 @@ if ($role == 2){
 
         </nav>
     </aside>
+    <?php // dit laat de keuzes zien waar de klant of admin uit kan kiezen om naartoe te gaan?>
 
     <section class="content">
         <?php
@@ -114,7 +116,7 @@ if ($role == 2){
         }else{
             $current_page = 'pages/'.urlSegment(1).'/'.urlSegment(2);
         }
-
+        // dit bepaald waar de klant komt als hij ergens op klikt
         if(file_exists($current_page.'.php') && is_file($current_page.'.php')) {
 
             require_once($current_page . '.php');
@@ -122,6 +124,7 @@ if ($role == 2){
         }else{
             echo 404;
         }
+        //dit kijkt of de huilde pagina bestaat of niet
         ?>
 
     </section>
@@ -129,6 +132,7 @@ if ($role == 2){
     }else{
 
         require_once('pages/user/login.php');
+        //dit komt er te staan als de klant niet is ingelogd.
 
     } ?>
 </section>
