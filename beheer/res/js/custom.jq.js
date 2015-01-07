@@ -3,16 +3,23 @@ $(document).ready(function(){
  *              in al haar professionaliteit gemaakt door:
  *                          Kevin Pijning
  */
+
+    /*
+    Hier worden suggesties opgezocht voor bestaande klanten.
+    Wanneer een beheerder 1 van de klant informatie velden invult wordt er automatisch gezocht naar matches in de database.
+    De resultaten worden aan de zijkant van de pagina weergegeven.
+     */
     $(".customerData input").keyup(function(){
         $(".half.results").html('<img src="/beheer/res/img/ajax-loader.gif" alt="loading..."/>');
         var val = $(this).val();
         var id = $(this).attr("id");
 
+        //haal suggesties op via ajax
         $.post( "/beheer/res/js/ajax.php", { func:"dynSearch", attr:id, val:val }, function( data ) {
             $(".half.results").html('');
 
             console.log(1);
-
+            // genereer lijst met suggesties
             for(var key in data){
                 var html = "<ul class=\"user\" id=\"user-"+data[key]['id']+"\"><li>"+data[key]['name'] + " " + data[key]['surname'] + "" +
                     "<ul><li>"+ data[key]['email'] +"</li>" +
@@ -27,6 +34,10 @@ $(document).ready(function(){
 
     });
 
+    /*
+    Als er op een suggestie wordt geklikt worden de klant infotmatie velden weggehaald, en komt er een box te staan met de info van de gekozen klant.
+    Als de gebruiker weer op de box met informatie klikt zal de box teruggaan naar de rechter kant van de pagina, en komen de klant infotmatie velden weer tevoorschijn.
+     */
     $("form").on('click', '.user',function(){
 
         var user_id = $(this).attr('id');
@@ -70,7 +81,9 @@ $(document).ready(function(){
 
     }
 
-
+    /*
+    Hier wordt geteld hoeveel foto's de klant geselecteerd heeft, en als ze over het limiet heen gaan krijgen ze eenmalig een melding.
+     */
     var Photocount = parseInt($("#currentSelectedPhotos").text());
     var Photomax = parseInt($("#maxSelectedPhotos").text());
     var modal = false;
