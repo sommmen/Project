@@ -215,7 +215,7 @@ if(!urlSegment(1)){
                     U kan contact met mij opnemen via:<br/>
                     <br/>
                     <a href="/contact"><?php echo getProp('admin_mail');?></a><br/>
-                    06-123 34 56
+                    <?php echo getProp('admin_tel');?>
                 </section>
 
                 <section class="col-4">
