@@ -1,4 +1,5 @@
 <?php
+// Willem Fikkert
 $query= "SELECT * FROM setting WHERE `key` = '".urlSegment(3)."'";
 $result=$mysqli->query($query);
 //dit haalt de instelling op die de admin wil veranderen
