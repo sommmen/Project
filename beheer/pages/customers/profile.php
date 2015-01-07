@@ -1,15 +1,14 @@
 <?php
 minRole(3);
 $id = urlSegment(3);
+/**  Gemaakt door Eelco Eikelboom */
 
 ?>
-<a href="/beheer/customers/edit/ID" class="button blue">Klant aanpassen</a>
+<a href="/beheer/customers/edit/<?php echo $id?>" class="button blue">Klant aanpassen</a>
 <h1>Profiel</h1>
 <section class="half">
     <?php
-
-
-    
+    /** De fields (Lege variabelen) */
     $name = "";
     $surname = "";
     $address = "";
@@ -17,11 +16,14 @@ $id = urlSegment(3);
     $zipcode = "";
     $city = "";
     $telephone = "";
+
+    /** @var $result Query van opgraven gegevens gebruiker aan de hand van zijn ID*/
     $result = $mysqli->query('SELECT * FROM user WHERE id = '.$id);
 
     if($result->num_rows == 0)
         redirect('/beheer/customers');
-        
+
+    /** Fields waarden geven uit de database. */
     while($row = $result->fetch_array()){
         $name = $row['name'];
         $surname = $row['surname'];
@@ -31,6 +33,8 @@ $id = urlSegment(3);
         $email = $row['email'];
         $telephone = $row['telephone'];
     }
+
+    /** Hier beneden is het zo logisch als het kan. Gewoon een tabel met gegevens van de gebruiker.. */
     ?>
     
     <table>
@@ -69,6 +73,7 @@ $id = urlSegment(3);
     $result = $mysqli->query("SELECT * FROM project WHERE uid = ".$id." ORDER BY created");
     if($mysqli->error) return 404;
 
+    /** Laat projectlijst zien van de klant, mits degene projecten heeft. */
     echo "<table>";
     echo "<tr><th>Projectnaam</th></tr>";
     if($result->num_rows == 0){
