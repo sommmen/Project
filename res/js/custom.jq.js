@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    
+    /*
+     *          Gemaakt Door:
+     *          Kevin Pijning
+     */
 
     $("#mobileMenu").click(function () {
         $("nav").slideToggle();
@@ -17,6 +22,12 @@ $(document).ready(function () {
         }
     });
 
+    /*
+     *          Gemaakt Door:
+     *          Dion Leurink
+     */
+
+//geeft respectievelijk 'inloggen' en 'wachtwoord vergeten' weer op dezelfde pagina (login.php)
     $("#toggleDropDown").click(function () {
         $("#dropdown").slideToggle("slow");
         $("#loginform").slideToffle("slow");

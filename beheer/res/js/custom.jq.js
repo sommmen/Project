@@ -122,20 +122,21 @@ $(document).ready(function(){
 
     });
 
+    //maakt van een stukje text een 'zoekmachine vriendelijke link' oftewel: slug.
+    function getSlug(Text)
+    {
+        return Text
+                .toLowerCase()
+                .replace(/ /g, '-')
+                .replace(/[^\w-]+/g, '');
+    }
+
+//zorgt ervoor dat als je de titel wijzigt er automatisch ook een slug word gemaakt in de desbetrefende input.
+    function updateValue() {
+        var title = document.getElementById("title").value;
+        document.getElementById("slug").value = getSlug(title);
+    }
 
 });
 
-//maakt van een stukje text een 'zoekmachine vriendelijke link' oftewel: slug.
-function getSlug(Text)
-{
-    return Text
-        .toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
-}
 
-//zorgt ervoor dat als je de titel wijzigt er automatisch ook een slug word gemaakt in de desbetrefende input.
-function updateValue() {
-    var title = document.getElementById("title").value;
-    document.getElementById("slug").value = getSlug(title);
-}
