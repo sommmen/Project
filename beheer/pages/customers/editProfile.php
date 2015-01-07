@@ -1,7 +1,11 @@
 <?php
+/** Gemaakt door Eelco Eikelboom */
+
+    /** In dit geval mag de klant het zien */
     minRole(2);
-    $id = user_data('id');
-    
+    $id = user_data('id'); /** Vraagt ID van de gebruiker op */
+
+/** De fields :) */
     $name = "";
     $surname = "";
     $address = "";
@@ -12,7 +16,7 @@
     $result = $mysqli->query('SELECT * FROM user WHERE id = '.$id);
 
   
-
+/** Fields waarde geven. Yay! */
     while($row = $result->fetch_array()){
         $name = $row['name'];
         $surname = $row['surname'];
@@ -23,6 +27,7 @@
         $telephone = $row['telephone'];
     }
 
+/** Variable van placeholders. Als de 'POST' een error geeft, dan pakt ie de default values hierboven.*/
     $value_email = set_value('email', $email);
     $value_naam = set_value('name', $name);
     $value_achternaam = set_value('surname', $surname);
@@ -30,7 +35,8 @@
     $value_postcode = set_value('zipcode', $zipcode);
     $value_woonplaats = set_value('city', $city);
     $value_telnr = set_value('telephone', $telephone);
-    
+
+/** Hij loopt er weer lekker doorheen! Als er iets veranderd is dan wordt het geupdate in de database. */
     if(isset($_POST['form_submit'])){
         foreach($_POST as $arrayName => $value){
             if($arrayName == "form_submit") continue;
@@ -43,7 +49,8 @@
         }
         redirect('/beheer/customers/editProfile');
     }
-	
+	/** Wachtwoord weizigen gemaakt door Willem Fikkert */
+
 	if(isset($_POST['wachtwoord_submit'])){
 		if(sha1($_POST['huidig_wachtwoord'])== user_data('password')){
 			if($_POST['nieuw_wachtwoord']!= $_POST['Bevestig_wachtwoord']){

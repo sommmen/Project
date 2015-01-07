@@ -1,7 +1,11 @@
 <?php
+/** Gemaakt door Eelco Eikelboom */
+
+/** Stop mensen die geen permissie hebben */
     minRole(3);
     $id = urlSegment(3);
-    
+
+/** Aanmaken 'fields' (lang leve java) */
     $name = "";
     $surname = "";
     $address = "";
@@ -11,9 +15,11 @@
     $telephone = "";
     $result = $mysqli->query('SELECT * FROM user WHERE id = '.$id);
 
+/** Terug sturen wanneer er de user niet gevonden kan worden */
     if($result->num_rows == 0)
         redirect('/beheer/customers');
 
+/** Geef elk 'field' zijn waarde. */
     while($row = $result->fetch_array()){
         $name = $row['name'];
         $surname = $row['surname'];
@@ -23,7 +29,7 @@
         $email = $row['email'];
         $telephone = $row['telephone'];
     }
-
+/** Variable van placeholders. Als de 'POST' een error geeft, dan pakt ie de default values hierboven.*/
     $value_email = set_value('email', $email);
     $value_naam = set_value('name', $name);
     $value_achternaam = set_value('surname', $surname);
@@ -31,7 +37,11 @@
     $value_postcode = set_value('zipcode', $zipcode);
     $value_woonplaats = set_value('city', $city);
     $value_telnr = set_value('telephone', $telephone);
-    
+
+/** Super vette foreach :D loopt door POST array heen, aangezien ik de name hetzelfde heb
+ * gemaakt als de namen in de database kan ik efficient de database updaten.
+ * Als de waarde leeg is, dan pakt ie de default weer.
+ */
     if(isset($_POST['form_submit'])){
         foreach($_POST as $arrayName => $value){
             if($arrayName == "form_submit") continue;
@@ -48,7 +58,12 @@
         setMessage('U heeft de gegevens met succes geweizigd!');
         redirect('/beheer/customers');
     }
-
+    /**
+     * Stuur email adress naar betreffende klant waarvan het email adres is geweizigd (mits een email adres is geweizigd.
+     * Reden voor dat is omdat de hash van het wachtwoord van de klant is gekoppeld aan het email adres. En anders klopt de hele
+     * logica daarvan niet meer. Dus vandaar dat de klant een nieuwe wachtwoord toegemaild krijgt wat ie weer kan veranderen.
+     * Natuurlijk een random wachtwoord!
+     */
     function newEmail($id, $to, $naam){
         global $mysqli;
         $password = random_password();
@@ -66,7 +81,7 @@
             Michael Verbeek - Fotografie/Geluidstechniek<br><br>
             <i>Is deze mail niet voor u bedoelt? Gelieve ons te contacteren op <a href="'.getProp('base_url').'">onze website</a>, excuses.</i>'
             , $header);
-        $mysqli->query('UPDATE user SET password = "'.sha1($password).'" WHERE id = '.$id);
+        $mysqli->query('UPDATE user SET password = "'.sha1($password).'" WHERE id = '.$id); /** Update in database! */
         if($mysqli->error) return 404;
 
     }

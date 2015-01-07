@@ -1,8 +1,13 @@
 <?php
-    
+    /** Gemaakt door Eelco */
     minRole(3);
     $id = urlSegment(3);
-    
+
+/**
+ * @param $id Id van de klant
+ * @return int|string Geeft de naam + achternaam terug uit de database mits de query kan worden uitgevoerd
+ * anders heeft ie een 404 error terug.
+ */
     function getKlant($id){
         global $mysqli;
         $result = $mysqli->query('SELECT name, surname FROM user WHERE id = '. $id);
@@ -12,6 +17,11 @@
         }
     }
 
+/**
+ * Geeft de resultaten van de query in een dropdown menu weer.
+ * Het id van elke option wordt opgeslagen in de value. Zo kan je weer per option
+ * het id opvragen, en van daaruit weer meer informatie krijgen.
+ */
     function showDropdown(){
         echo '<select name="portfolioSelection">';
         echo '<option value="remove"><strong>..</strong></option>';
@@ -23,7 +33,13 @@
         }
         echo '</select>';
     }
-	
+
+/**
+ * @param $photoid ID van de foto
+ * Verplaats de foto van een project naar een uitgekozen portfolio.
+ * In deze functie worden de mapjes gesorteerd die buiten public_html zijn, als de
+ * mapjes niet bestaan worden ze gemaakt e.d.
+ */
 	function moveFile($photoid){ //Photo id
 		global $mysqli;
 
@@ -66,8 +82,11 @@
         echo dirname(__FILE__).$ds.$portfolioDir.$ds.$filename. '<br>';
         echo $filename;
 	}
-	
 
+/**
+ * @param $id Id van de klant
+ * Weergeeft de lijst met projecten van elke klant met opties erbij.
+ */
     function showProjectList($id){
         global $mysqli;
         $result = $mysqli->query('SELECT id, title, created FROM project WHERE uid = '. $id);
@@ -86,6 +105,12 @@
             }
         }
     }
+
+/**
+ * @param $projectId Id van het project
+ * Functie die wordt uigevoerd wanneer er op submit wordt gedrukt.
+ * Elk project wordt afgehandeld (verwijderd, verplaatst etc.)
+ */
     function submitProject($projectId){
         global $mysqli;
         $mysqli->query('DELETE FROM project WHERE id ='.$projectId);
@@ -102,12 +127,22 @@
             moveFile($row->id);
         }
     }
+
+/**
+ * @param $id Id van de klant die je wilt verwijderen
+ * Klant wordt verwijderd mits er geen error ontstaat. Anders
+ * print ie de error.
+ */
     function deleteUser($id){
         global $mysqli;
         if(!$mysqli->query('DELETE FROM user WHERE id = '.$id)){
             echo $mysqli->error;
         }
     }
+
+/**
+ * Spreekt redelijk voor zich. Wordt uigevoerd wanneer submit button wordt ingedrukt.
+ */
     if(isset($_POST['deleteSubmit'])){
         $result = $mysqli->query('SELECT id FROM project WHERE uid = '.$id);
         while($row = $result->fetch_object()){

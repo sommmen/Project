@@ -13,6 +13,10 @@ if($result->num_rows==1){
 
 
 if(isset($_POST['verzenden'])){
+
+    if(empty($_POST['project_naam'])){
+        $error = 'U dient alle velden in te vullen.';
+    }
     /*
      * Als de naam van het project wordt aangepast, moet ook de map naam worden bijgewerkt.
      */
@@ -53,11 +57,12 @@ if(isset($_POST['verzenden'])){
             $newPath = dirname(__FILE__) . '/../../../../uploads/' . sha1($projects->id . $projects->title) . '/';
             rename($targerPath, $newPath);
         }
-        if ($result) {
+        if ($result && !$error) {
             setMessage("Project succesvol bijgewerkt.");
             redirect('/beheer/projects/');
         } else {
-            echo $mysqli->error;
+            $error ='<div class="alert-error">'.$error.'</div>';
+            echo $mysqli->error? $mysqli->error : $error;
         }
 
 }

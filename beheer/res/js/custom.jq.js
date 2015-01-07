@@ -1,5 +1,9 @@
+/*
+Door Kevin Pijning
+ */
 $(document).ready(function(){
 
+    //Dit zorgt voor de suggesties van klanten bij het aanmaken van een nieuw project.
     $(".customerData input").keyup(function(){
         $(".half.results").html('<img src="/beheer/res/img/ajax-loader.gif" alt="loading..."/>');
         var val = $(this).val();
