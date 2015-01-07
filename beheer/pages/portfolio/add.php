@@ -1,20 +1,21 @@
 <?php
+//gemaakt door Willem.
 if(isset($_POST['submit'])) {
     if (empty($_POST["naam"])) {
-        $error = "vul een naam in";
+        $error = "Vul een naam in";     //als er geen naam ingevuld is wordt er een error getoond op net scherm.
     } else {
         $naam = post('naam');
         $query = "SELECT * FROM portfolio WHERE name='" . $naam . "'";
         $result = $mysqli->query($query);
         if ($result->num_rows == 0) {
-            $query = "INSERT INTO portfolio (name) VALUES ('" . $naam . "')";
+            $query = "INSERT INTO portfolio (name) VALUES ('" . $naam . "')";   //de nieuwe naam wordt toegevoegd in de database en het portfolio is dan toegevoegd
             if (!$mysqli->query($query)) {
                 echo $mysqli->error;
             } else {
-                redirect('/beheer/portfolio/addPhoto/'.$mysqli->insert_id);
+                redirect('/beheer/portfolio/addPhoto/'.$mysqli->insert_id); //je wordt doorgestuurd naar addPhoto.php zodat je foto's kunt uploaden
             }
         }else{
-            $error= "Deze naam bestaat al";
+            $error= "Deze naam bestaat al"; //als je een portfolio al een bestaande naam geeft wordt er op het scherm een error getoond.
             
         }
     }
@@ -36,7 +37,7 @@ if(isset($error)) {
 </form>
 
 <?php
-if (isset($_POST["submit"])){
+//if (isset($_POST["submit"])){
 
-    }
+    //}
 ?>

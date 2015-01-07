@@ -1,13 +1,15 @@
 <?php
 minRole(3);
+// Gemaakt door Dion.
 
+//Verkrijg het opgevraagde portfolio.
 $query = "SELECT * FROM portfolio WHERE id = '".urlSegment(3)."'";
 $result = $mysqli->query($query);
 if($result->num_rows == 0){
     redirect('/beheer/portfolio');
 }
 $portfolio = $result->fetch_object();
-
+//Verkrijg de foto's uit een portfolio.
 $query = "SELECT * FROM photo WHERE portfolio_album = '".$portfolio->id."'";
 $result = $mysqli->query($query);
 ?>
@@ -19,6 +21,7 @@ $result = $mysqli->query($query);
 <section class="row">
 <?php
 if($result->num_rows > 0) {
+    //Geef alle foto's die bij het portfolio horen weer.
     while($photo = $result->fetch_object()) {
         ?>
         <figure <?php if($photo->selected == true){ echo 'class="selected"'; } ?>>
